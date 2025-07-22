@@ -934,7 +934,7 @@ ENDIF
 
 	JSR SetStack100Gameplay
 
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 
 	LDA IsHorizontalLevel
@@ -1896,7 +1896,7 @@ SetupMarioSleepingScene:
 
 
 DisableNMI:
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
 	STA PPUCTRL
 	STA PPUCtrlMirror
 	RTS
@@ -1982,7 +1982,7 @@ PauseScreen_Card_ScreenReset:
 
 
 EnableNMI:
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 	STA PPUCTRL
 	RTS
@@ -2368,7 +2368,7 @@ NMI_Gameplay:
 	LDX #$1E
 	LDY #$00
 	LDA PPUSTATUS
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCTRL
 
 NMI_DrawBackgroundTilesOuterLoop:
@@ -2395,7 +2395,7 @@ NMI_AfterBackgroundTilesUpdate:
 	BEQ NMI_AfterBackgroundAttributesUpdate
 
 	; Update nametable attributes in horizontal level
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCTRL
 	LDY #$00
 	LDX #$04
@@ -2429,7 +2429,7 @@ NMI_AfterBackgroundAttributesUpdate:
 
 	JSR ResetPPUAddress
 
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	ORA PPUScrollXHiMirror
 	LDY IsHorizontalLevel
 	BNE NMI_UpdatePPUScroll
@@ -2545,7 +2545,7 @@ HideAllSpritesLoop:
 
 ClearNametableChunk:
 	LDY PPUSTATUS ; Reset PPU address latch
-	LDY #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
+	LDY #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
 	STY PPUCTRL ; Turn off NMI
 	STY PPUCtrlMirror
 	LDY #$00
@@ -2598,7 +2598,7 @@ PPUBufferUpdatesComplete:
 ; a terminating $00. Welp!
 ;
 UpdatePPUFromBufferNMI:
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCTRL
 	LDY #$00
 
@@ -2677,7 +2677,7 @@ UpdatePPUFromBufferWithOptions:
 	; ...but only if $80 was set in the length byte. Otherwise, turn vertical incrementing back off.
 	BCS UpdatePPUFBWO_EnableVerticalIncrement
 
-	AND #PPUCtrl_Base2C00 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled | $40
+	AND #PPUCtrl_Base2C00 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled | $40
 
 UpdatePPUFBWO_EnableVerticalIncrement:
 	STA PPUCTRL
@@ -6024,9 +6024,9 @@ ELSE ; INES_MAPPER == MAPPER_MMC3
 ChangeCHRBanks:
 	LDY #$05
 ChangeCHRBanks_Loop:
-	TYA
-	ORA #CHR_A12_INVERSION
-	STA MMC3_BankSelect
+;	TYA
+;	ORA #CHR_A12_INVERSION
+	STY MMC3_BankSelect
 	LDA BackgroundCHR1, Y
 	STA MMC3_BankData
 	DEY
@@ -6101,14 +6101,14 @@ ELSEIF INES_MAPPER == MAPPER_MMC5
 ELSE ; INES_MAPPER == MAPPER_MMC3
 	; Change first bank
 	PHA
-	LDA #CHR_A12_INVERSION | $06
+	LDA #$06
 	STA MMC3_BankSelect
 	PLA
 	STA MMC3_BankData
 	ORA #$01 ; Use the bank right after this one next
 	; Change second bank
 	PHA
-	LDA #CHR_A12_INVERSION | $07
+	LDA #$07
 	STA MMC3_BankSelect
 	PLA
 	STA MMC3_BankData

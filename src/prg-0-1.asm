@@ -5312,7 +5312,7 @@ InitTitleBackgroundPalettesLoop:
 	STA RAM_PPUDataBufferPointer + 1
 	LDA #Stack100_Menu
 	STA StackArea
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 	STA PPUCTRL
 	JSR WaitForNMI_TitleScreen
@@ -5650,7 +5650,7 @@ loc_BANK0_9C4B:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_9C4E:
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIDisabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIDisabled
 	STA PPUCtrlMirror
 
 loc_BANK0_9C52:
@@ -5942,7 +5942,7 @@ FreeSubconsScene:
 
 	LDA #Stack100_Menu
 	STA StackArea
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 	STA PPUCTRL
 	JSR WaitForNMI_Ending
@@ -6781,14 +6781,14 @@ loc_BANK1_ABA7:
 
 
 EnableNMI_Bank1:
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 	STA PPUCTRL
 	RTS
 
 
 DisableNMI_Bank1:
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIDisabled
 	STA PPUCTRL
 	STA PPUCtrlMirror
 	RTS
