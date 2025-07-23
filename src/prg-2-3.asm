@@ -5415,26 +5415,27 @@ EnemyBehavior_CheckDamagedInterrupt_Exit:
 	RTS
 
 
+; NOTE SPRITES GFX HERE
 EnemyTilemap1:
 	; Shyguy
-	.db $D0, $D2 ; $00
-	.db $D4, $D6 ; $02
+	.db $D1, $D3 ; $00
+	.db $D5, $D7 ; $02
 	; Wart vegetable (onion)
-	.db $F8, $F8 ; $04
+	.db $F9, $F9 ; $04
 	; Wart vegetable (tomato)
-	.db $FA, $FA ; $06
+	.db $FB, $FB ; $06
 	; Tweeter
-	.db $CC, $CE ; $08
-	.db $CC, $CE ; $0A
+	.db $CD, $CF ; $08
+	.db $CD, $CF ; $0A
 	; Porcupo
-	.db $C8, $CA ; $0C
-	.db $C8, $CA ; $0E
+	.db $C9, $CB ; $0C
+	.db $C9, $CB ; $0E
 	; Snifit
-	.db $70, $72 ; $10
-	.db $74, $76 ; $12
+	.db $71, $73 ; $10
+	.db $75, $77 ; $12
 	; BobOmb
-	.db $C0, $C2 ; $14
-	.db $C4, $C6 ; $16
+	.db $C1, $C3 ; $14
+	.db $C5, $C7 ; $16
 	; Albatoss
 	.db $E1, $E3 ; $18
 	.db $E5, $E7 ; $1A
@@ -12414,44 +12415,6 @@ AreaSecondaryRoutine_PlayerPalette:
 	STA byte_RAM_300
 
 AreaSecondaryRoutine_HealthBar:
-	LDA #$30
-	STA byte_RAM_0
-	JSR FindSpriteSlot
-
-	LDA PlayerHealth
-	BEQ AreaSecondaryRoutine_HealthBar_Draw
-
-	AND #$F0
-	LSR A
-	LSR A
-	ADC #$04 ; max health
-
-AreaSecondaryRoutine_HealthBar_Draw:
-	TAX
-
-	LDA #$FE
-	STA byte_RAM_3
-AreaSecondaryRoutine_HealthBar_Loop:
-	LDA HealthBarTiles, X
-	STA SpriteDMAArea + 1, Y
-	LDA #$10
-	STA SpriteDMAArea + 3, Y
-	LDA #$01
-	STA SpriteDMAArea + 2, Y
-	LDA byte_RAM_0
-	STA SpriteDMAArea, Y
-	CLC
-	ADC #$10
-	STA byte_RAM_0
-	INX
-	INY
-	INY
-	INY
-	INY
-	INC byte_RAM_3
-	LDA byte_RAM_3
-	CMP PlayerMaxHealth
-	BNE AreaSecondaryRoutine_HealthBar_Loop
 
 AreaSecondaryRoutine_POW:
 	LDA POWQuakeTimer
