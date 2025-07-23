@@ -3481,17 +3481,17 @@ GetMoveCameraX_Exit:
 
 ; Tiles to use for eye sprite. If $00, this will use the character-specific table
 CharacterFrameEyeTiles:
-	.db $00 ; Walk1
-	.db $00 ; Carry1
-	.db $00 ; Walk2
-	.db $00 ; Carry2
-	.db $FB ; Duck
-	.db $FB ; DuckCarry
-	.db $00 ; Jump
-	.db $FB ; Death
-	.db $FB ; Lift
-	.db $00 ; Throw
-	.db $FB ; Climb
+	.db $3D ; Walk1
+	.db $3D ; Carry1
+	.db $3D ; Walk2
+	.db $3D ; Carry2
+	.db $3F ; Duck
+	.db $3F ; DuckCarry
+	.db $3D ; Jump
+	.db $3F ; Death
+	.db $3F ; Lift
+	.db $3D ; Throw
+	.db $3F ; Climb
 
 ; Specific to each character
 CharacterEyeTiles:
@@ -3501,74 +3501,74 @@ CharacterEyeTiles:
 	.db $D7 ; Princess
 
 CharacterTiles_Walk1:
-	.db $00
-	.db $02
-	.db $04 ; $00 - start of relative character tile offets, for some reason
-	.db $06 ; $01
+	.db $01
+	.db $03
+	.db $05 ; $00 - start of relative character tile offets, for some reason
+	.db $07 ; $01
 
 CharacterTiles_Carry1:
-	.db $0C ; $02
-	.db $0E ; $03
-	.db $10 ; $04
-	.db $12 ; $05
+	.db $0D ; $02
+	.db $0F ; $03
+	.db $11 ; $04
+	.db $13 ; $05
 
 CharacterTiles_Walk2:
-	.db $00 ; $06
-	.db $02 ; $07
-	.db $08 ; $08
-	.db $0A ; $09
+	.db $01 ; $06
+	.db $03 ; $07
+	.db $09 ; $08
+	.db $0B ; $09
 
 CharacterTiles_Carry2:
-	.db $0C ; $0a
-	.db $0E ; $0b
-	.db $14 ; $0c
-	.db $16 ; $0d
+	.db $0D ; $0a
+	.db $0F ; $0b
+	.db $15 ; $0c
+	.db $17 ; $0d
 
 CharacterTiles_Duck:
-	.db $FB ; $0e
-	.db $FB ; $0f
-	.db $2C ; $10
-	.db $2C ; $11
+	.db $3F ; $0e
+	.db $3F ; $0f
+	.db $2D ; $10
+	.db $2D ; $11
 
 CharacterTiles_DuckCarry:
-	.db $FB ; $12
-	.db $FB ; $13
-	.db $2E ; $14
-	.db $2E ; $15
+	.db $3F ; $12
+	.db $3F ; $13
+	.db $2F ; $14
+	.db $2F ; $15
 
 CharacterTiles_Jump:
-	.db $0C ; $16
-	.db $0E ; $17
-	.db $10 ; $18
-	.db $12 ; $19
+	.db $0D ; $16
+	.db $0F ; $17
+	.db $11 ; $18
+	.db $13 ; $19
 
 CharacterTiles_Death:
-	.db $30 ; $1a
-	.db $30 ; $1b
-	.db $32 ; $1c
-	.db $32 ; $1d
+	.db $31 ; $1a
+	.db $31 ; $1b
+	.db $33 ; $1c
+	.db $33 ; $1d
 
 CharacterTiles_Lift:
-	.db $20 ; $1e
-	.db $22 ; $1f
-	.db $24 ; $20
-	.db $26 ; $21
+	.db $21 ; $1e
+	.db $23 ; $1f
+	.db $25 ; $20
+	.db $27 ; $21
 
 CharacterTiles_Throw:
-	.db $00 ; $22
-	.db $02 ; $23
-	.db $28 ; $24
-	.db $2A ; $25
+	.db $01 ; $22
+	.db $03 ; $23
+	.db $29 ; $24
+	.db $2B ; $25
 
 CharacterTiles_Climb:
-	.db $18 ; $26
-	.db $1A ; $27
-	.db $1C ; $28
-	.db $1E ; $29
+	.db $19 ; $26
+	.db $1B ; $27
+	.db $1D ; $28
+	.db $1F ; $29
 
 CharacterTiles_PrincessJumpBody:
-	.db $B4 ; $2a
-	.db $B6 ; $2b
+	.db $B5 ; $2a
+	.db $B7 ; $2b
 
 DamageInvulnBlinkFrames:
 	.db $01, $01, $01, $02, $02, $04, $04, $04
