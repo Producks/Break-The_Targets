@@ -2222,10 +2222,10 @@ ENDIF
 ; NMI logic for during a transition
 ;
 NMI_Transition:
-	LDA #$00
-	STA OAMADDR
-	LDA #$02
-	STA OAM_DMA
+;	LDA #$00
+;	STA OAMADDR
+;	LDA #$02
+;	STA OAM_DMA
 	JSR ChangeCHRBanks
 
 	LDA PPUMaskMirror
@@ -2242,11 +2242,11 @@ NMI_Transition:
 ; NMI logic for during the pause menu
 ;
 NMI_PauseOrMenu:
-	LDA #$00
-	STA PPUMASK
-	STA OAMADDR
-	LDA #$02
-	STA OAM_DMA
+;	LDA #$00
+;	STA PPUMASK
+;	STA OAMADDR
+;	LDA #$02
+;	STA OAM_DMA
 	JSR ChangeCHRBanks
 
 	JSR UpdatePPUFromBufferWithOptions
@@ -2318,16 +2318,40 @@ NMI:
 	TYA
 	PHA
 
+  LDA #$00
+	STA PPUMASK
+	STA OAMADDR
+	LDA #$02
+	STA OAM_DMA ; DMA for input reading code right after
+
+  LDX #1                          ; get put          <- strobe code must take an odd number of cycles total
+  STX Player1JoypadPress + 0      ; get put get      <- buttons must be in the zeropage
+  STX JOY1                        ; put get put get
+  DEX                             ; put get
+  STX JOY1                        ; put get put get
+InputReadingloop:
+  LDA JOY2                        ; put get put GET  <- loop code must take an even number of cycles total
+  AND #3                          ; put get
+  CMP #1                          ; put get
+  ROL Player1JoypadPress + 1, x   ; put get put get put get (X = 0; waste 1 cycle for alignment)
+  LDA JOY1                        ; put get put GET
+  AND #3                          ; put get
+  CMP #1                          ; put get
+  ROL Player1JoypadPress + 0      ; put get put get put
+  BCC InputReadingloop            ; get put [get]    <- this branch must not be allowed to cross a page
+
+  JSR UpdateHeld
+
 	BIT StackArea
 	BPL NMI_PauseOrMenu ; branch if bit 7 was 0
 
 	BVC NMI_Transition ; branch if bit 6 was 0
 
-	LDA #$00
-	STA PPUMASK
-	STA OAMADDR
-	LDA #$02
-	STA OAM_DMA
+;	LDA #$00
+;	STA PPUMASK
+;	STA OAMADDR
+;	LDA #$02
+;	STA OAM_DMA
 
 	JSR ChangeCHRBanks
 
@@ -2447,7 +2471,7 @@ NMI_CheckScreenUpdateIndex:
 NMI_ResetScreenUpdateIndex:
 	LDA #ScreenUpdateBuffer_RAM_301
 	STA ScreenUpdateIndex
-	JSR UpdateJoypads
+;	JSR UpdateJoypads
 
 	DEC NMIWaitFlag
 
@@ -4938,28 +4962,29 @@ WarpDestinations:
 ;
 ; Updates joypad press/held values
 ;
-UpdateJoypads:
-	JSR ReadJoypads
-
-UpdateJoypads_DoubleCheck:
-	; Work around DPCM sample bug,
-	; where some spurious inputs are read
-IFDEF CONTROLLER_2_DEBUG
-	LDY Player2JoypadPress
-	STY UpdateJoypadsTemp
-ENDIF
-	LDY Player1JoypadPress
-	JSR ReadJoypads
-
-	CPY Player1JoypadPress
-	BNE UpdateJoypads_DoubleCheck
-
-IFDEF CONTROLLER_2_DEBUG
-	LDY UpdateJoypadsTemp
-	CPY Player2JoypadPress
-	BNE UpdateJoypads_DoubleCheck
-ENDIF
-
+;UpdateJoypads:
+;	JSR ReadJoypads
+;
+;UpdateJoypads_DoubleCheck:
+;	; Work around DPCM sample bug,
+;	; where some spurious inputs are read
+;IFDEF CONTROLLER_2_DEBUG
+;	LDY Player2JoypadPress
+;	STY UpdateJoypadsTemp
+;ENDIF
+;	LDY Player1JoypadPress
+;	JSR ReadJoypads
+;
+;	CPY Player1JoypadPress
+;	BNE UpdateJoypads_DoubleCheck
+;
+;IFDEF CONTROLLER_2_DEBUG
+;	LDY UpdateJoypadsTemp
+;	CPY Player2JoypadPress
+;	BNE UpdateJoypads_DoubleCheck
+;ENDIF
+;
+UpdateHeld:
 	LDX #$01
 
 UpdateJoypads_Loop:
@@ -5711,6 +5736,28 @@ IFDEF DEBUG
 	.include "src/extras/debug-f.asm"
 ENDIF
 
+IRQ:
+  ; Save all register and the PS
+  PHP
+  PHA
+  TXA
+  PHA
+  TYA
+  PHA
+
+  LDA #$01
+  STA MMC3_IRQDisable ; Acknowledge the IRQ by disabling it
+
+Exit_IRQ:
+  ; Restore all register and the PS
+  PLA
+  TAY
+  PLA
+  TAX
+  PLA
+  PLP
+  RTI
+
 ; Unused space in the original ($FB36 - $FDFF)
 unusedSpace $FE00, $FF
 
@@ -6126,7 +6173,7 @@ ENDIF
 ; Note that this is NOT CODE.
 ; If the NES actually hits a BRK, the game will probably just explode.
 ; If you wanted, you could write some sort of crash handler though.
-IRQ:
+;IRQ:
 IFDEF PRESERVE_UNUSED_SPACE
 	.db $DF
 	.db $E6
