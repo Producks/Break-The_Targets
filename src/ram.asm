@@ -407,6 +407,7 @@ ENDIF
 SoundEffectTimer2:
 	.dsb 1 ; $00c4
 ; FOR RENT
+TargetCount:
 	.dsb 1 ; $00c5
 ; FOR RENT
 	.dsb 1 ; $00c6

@@ -801,7 +801,7 @@ EnemyInitializationTable:
 	.dw EnemyInit_Basic ; ShyguyRed
 	.dw EnemyInit_Basic ; Tweeter
 	.dw EnemyInit_Basic ; ShyguyPink
-	.dw EnemyInit_Basic ; Porcupo
+	.dw EnemyInit_Target ; Porcupo/Target
 	.dw EnemyInit_Basic ; SnifitRed
 	.dw EnemyInit_Stationary ; SnifitGray
 	.dw EnemyInit_Basic ; SnifitPink
@@ -890,6 +890,8 @@ SetEnemyAttributes:
 	STA EnemyArray_492, X
 	RTS
 
+
+EnemyInit_Target:
 
 ;
 ; Enemy initialization with a timer reset
@@ -2133,7 +2135,7 @@ EnemyBehaviorPointerTable:
 	.dw EnemyBehavior_BasicWalker ; $01
 	.dw EnemyBehavior_BasicWalker ; $02
 	.dw EnemyBehavior_BasicWalker ; $03
-	.dw EnemyBehavior_BasicWalker ; $04
+	.dw EnemyBehavior_Target; Porcupo/Target
 	.dw EnemyBehavior_BasicWalker ; $05
 	.dw EnemyBehavior_BasicWalker ; $06
 	.dw EnemyBehavior_BasicWalker ; $07
@@ -3388,6 +3390,22 @@ EnemyBehavior_Mushroom_PickUp:
 
 EnemyBehavior_CrystalBall_Exit:
 	RTS
+
+EnemyBehavior_Target:
+	LDA EnemyCollision, X
+	AND #CollisionFlags_Damage
+	BEQ TargetAlive
+
+	JSR PlayBossHurtSound
+
+  DEC TargetCount
+	LDA #SpriteFlags46E_00
+	STA EnemyArray_46E, X
+	JMP TurnIntoPuffOfSmoke
+
+TargetAlive:
+	JSR RenderSprite
+  RTS
 
 EnemyBehavior_PickUpNotCrystalBall:
 	CMP #Enemy_Mushroom1up
@@ -5790,7 +5808,7 @@ RenderSprite_NotPidgit:
 	CPY #Enemy_Porcupo
 	BNE RenderSprite_NotPorcupo
 
-	JMP RenderSprite_Porcupo
+;	JMP RenderSprite_Porcupo TODO OPTIZE HERE LATER
 
 RenderSprite_NotPorcupo:
 	CPY #Enemy_VegetableLarge
@@ -10961,6 +10979,9 @@ CheckCollisionWithPlayer:
 ; ---------------------------------------------------------------------------
 
 CheckCollisionWithPlayer_NotHeart:
+  CMP #Enemy_Porcupo
+  BEQ CheckCollisionWithPlayer_Exit
+
 	CMP #Enemy_Phanto
 	BNE CheckCollisionWithPlayer_NotPhanto
 

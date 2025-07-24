@@ -3992,7 +3992,7 @@ ObjectAttributeTable:
 	.db ObjAttrib_Palette1 ; $01 Enemy_ShyguyRed
 	.db ObjAttrib_Palette1 ; $02 Enemy_Tweeter
 	.db ObjAttrib_Palette3 ; $03 Enemy_ShyguyPink
-	.db ObjAttrib_Palette2 ; $04 Enemy_Porcupo
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $04 Enemy_Porcupo/Enemy_Target
 	.db ObjAttrib_Palette1 ; $05 Enemy_SnifitRed
 	.db ObjAttrib_Palette2 ; $06 Enemy_SnifitGray
 	.db ObjAttrib_Palette3 ; $07 Enemy_SnifitPink
@@ -4077,7 +4077,7 @@ EnemyArray_46E_Data:
 	.db SpriteFlags46E_00 ; $01 Enemy_ShyguyRed
 	.db SpriteFlags46E_00 ; $02 Enemy_Tweeter
 	.db SpriteFlags46E_00 ; $03 Enemy_ShyguyPink
-	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable ; $04 Enemy_Porcupo
+	.db SpriteFlags46E_00 | SpriteFlags46E_Unliftable ; $04 Enemy_Porcupo/Enemy_Target
 	.db SpriteFlags46E_00 ; $05 Enemy_SnifitRed
 	.db SpriteFlags46E_00 ; $06 Enemy_SnifitGray
 	.db SpriteFlags46E_00 ; $07 Enemy_SnifitPink
