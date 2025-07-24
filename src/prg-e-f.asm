@@ -937,8 +937,8 @@ ENDIF
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 
-	LDA IsHorizontalLevel
-	BEQ VerticalLevel_Loop
+  LDA #$01 ; TEMP TODO FIX
+  STA TargetCount
 
 HorizontalLevel_Loop:
 	JSR WaitForNMI
@@ -960,22 +960,7 @@ HorizontalLevel_Loop:
 HorizontalLevel_CheckScroll:
 	JSR WaitForNMI
 
-	; Disable pause detection while scrolling
-	LDA NeedsScroll
-	AND #%00000100
-	BNE HorizontalLevel_CheckSubArea
-
-	LDA Player1JoypadPress
-	AND #ControllerInput_Start
-	BEQ HorizontalLevel_CheckSubArea
-
-	JMP ShowPauseScreen
-
 HorizontalLevel_CheckSubArea:
-	LDA InSubspaceOrJar
-	BEQ HorizontalLevel_ProcessFrame
-
-	JMP InitializeSubArea
 
 HorizontalLevel_ProcessFrame:
 	JSR HideAllSprites
@@ -988,8 +973,8 @@ HorizontalLevel_ProcessFrame:
 	JMP ResetAreaAndProcessGameMode
 
 HorizontalLevel_CheckTransition:
-	LDA DoAreaTransition
-	BEQ HorizontalLevel_CheckScroll
+	LDA TargetCount
+	BNE HorizontalLevel_CheckScroll
 
 	JSR FollowCurrentAreaPointer
 
@@ -999,60 +984,59 @@ HorizontalLevel_CheckTransition:
 	STA DoAreaTransition
 	JMP StartLevel
 
+;VerticalLevel_Loop:
+;	JSR WaitForNMI
+;
+;	LDA #PRGBank_0_1
+;	JSR ChangeMappedPRGBank
+;
+;	JSR InitializeAreaVertical
+;
+;	JSR EnsureCorrectMusic
+;
+;	LDA BreakStartLevelLoop
+;	BEQ VerticalLevel_Loop
 
-VerticalLevel_Loop:
-	JSR WaitForNMI
+;	LDA #$00
+;	STA BreakStartLevelLoop
+;	JSR WaitForNMI_TurnOnPPU
 
-	LDA #PRGBank_0_1
-	JSR ChangeMappedPRGBank
-
-	JSR InitializeAreaVertical
-
-	JSR EnsureCorrectMusic
-
-	LDA BreakStartLevelLoop
-	BEQ VerticalLevel_Loop
-
-	LDA #$00
-	STA BreakStartLevelLoop
-	JSR WaitForNMI_TurnOnPPU
-
-VerticalLevel_CheckScroll:
-	JSR WaitForNMI
-
-	; Disable pause detection while scrolling
-	; This is likely a work-around to avoid getting the PPU into a weird state
-	; due to conflicts between the pause screen and attempting to draw the part
-	; of the area scrolling into view.
-	LDA NeedsScroll
-	AND #%00000100
-	BNE VerticalLevel_ProcessFrame
-
-	LDA Player1JoypadPress
-	AND #ControllerInput_Start
-	BNE ShowPauseScreen
-
-VerticalLevel_ProcessFrame:
-	JSR HideAllSprites
-
-	JSR RunFrame_Vertical
-
-	LDY GameMode
-	BEQ VerticalLevel_CheckTransition
-
-	JMP ResetAreaAndProcessGameMode
-
-VerticalLevel_CheckTransition:
-	LDA DoAreaTransition
-	BEQ VerticalLevel_CheckScroll
-
-	JSR FollowCurrentAreaPointer
-
-	JSR RememberAreaInitialState
-
-	LDA #$00
-	STA DoAreaTransition
-	JMP StartLevel
+;VerticalLevel_CheckScroll:
+;	JSR WaitForNMI
+;
+;	; Disable pause detection while scrolling
+;	; This is likely a work-around to avoid getting the PPU into a weird state
+;	; due to conflicts between the pause screen and attempting to draw the part
+;	; of the area scrolling into view.
+;	LDA NeedsScroll
+;	AND #%00000100
+;	BNE VerticalLevel_ProcessFrame
+;
+;	LDA Player1JoypadPress
+;	AND #ControllerInput_Start
+;	BNE ShowPauseScreen
+;
+;VerticalLevel_ProcessFrame:
+;	JSR HideAllSprites
+;
+;	JSR RunFrame_Vertical
+;
+;	LDY GameMode
+;	BEQ VerticalLevel_CheckTransition
+;
+;	JMP ResetAreaAndProcessGameMode
+;
+;VerticalLevel_CheckTransition:
+;;	LDA DoAreaTransition
+;;	BEQ VerticalLevel_CheckScroll
+;
+;;	JSR FollowCurrentAreaPointer
+;
+;;	JSR RememberAreaInitialState
+;
+;	LDA #$00
+;	STA DoAreaTransition
+;	JMP StartLevel
 
 
 ;
@@ -1151,7 +1135,7 @@ HidePauseScreen_Vertical_Loop:
 
 	JSR WaitForNMI_TurnOnPPU
 
-	JMP VerticalLevel_CheckScroll
+;	JMP VerticalLevel_CheckScroll
 
 HidePauseScreen_Horizontal:
 	LDA #VMirror
@@ -3123,19 +3107,9 @@ loc_BANKF_F11B:
 RunFrame_Horizontal:
 	JSR NextSpriteFlickerSlot
 
-	; If the player is in a rocket, cut to the chase
-	LDA PlayerInRocket
-	BNE RunFrame_Common
-
 	; Switch to banks 0/1 for the scrolling logic
 	LDA #PRGBank_0_1
 	JSR ChangeMappedPRGBank
-
-	; If the boss clear fanfare is playing or `PlayerLock` is set, skip the
-	; player state update subroutine
-	LDA MusicPlaying2
-	CMP #Music2_BossClearFanfare
-	BEQ RunFrame_Horizontal_AfterPlayerState
 
 	LDA PlayerLock
 	BNE RunFrame_Horizontal_AfterPlayerState
@@ -3149,14 +3123,14 @@ RunFrame_Horizontal_AfterPlayerState:
 
 	JSR SetPlayerScreenPosition
 
-	JSR RenderPlayer
+	JSR RenderPlayer ; some processing power
 
 ; back to the shared stuff
 RunFrame_Common:
 	LDA #PRGBank_2_3
 	JSR ChangeMappedPRGBank
 
-	JSR AreaMainRoutine
+	JSR AreaMainRoutine ; Big processing power
 
 	JSR AreaSecondaryRoutine
 

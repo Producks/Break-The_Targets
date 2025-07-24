@@ -293,7 +293,7 @@ ENDIF
 	BNE AreaMainRoutine_DecrementStopwatch
 
 	LDY #SoundEffect1_StopwatchTick
-	STY SoundEffectQueue1
+	STY SoundEffectQueue1 ; TODO remove when music driver installed
 
 AreaMainRoutine_DecrementStopwatch:
 	LSR A
