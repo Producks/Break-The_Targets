@@ -937,6 +937,7 @@ ENDIF
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 
+
   LDA #$01 ; TEMP TODO FIX
   STA TargetCount
 
@@ -956,6 +957,7 @@ HorizontalLevel_Loop:
 	LDA #$00
 	STA BreakStartLevelLoop
 	JSR WaitForNMI_TurnOnPPU
+  CLI
 
 HorizontalLevel_CheckScroll:
 	JSR WaitForNMI
@@ -2347,12 +2349,6 @@ InputReadingloop:
 
 	BVC NMI_Transition ; branch if bit 6 was 0
 
-;	LDA #$00
-;	STA PPUMASK
-;	STA OAMADDR
-;	LDA #$02
-;	STA OAM_DMA
-
 	JSR ChangeCHRBanks
 
 NMI_CheckWaitFlag:
@@ -2360,9 +2356,14 @@ NMI_CheckWaitFlag:
 	BNE NMI_Waiting
 
 NMI_Gameplay:
+  LDA #$C0 ; Scanline 129
+  STA MMC3_IRQLatch
+  STA MMC3_IRQReload
+  STA MMC3_IRQEnable
 	; `UpdatePPUFromBufferNMI` draws in a row-oriented fashion, which makes it
 	; unsuitable for horizontal levels where scrolling the screen means drawing
 	; columns of new tiles. As a result, we need special logic to draw the
+
 	; background in horizontal levels!
 	LDA IsHorizontalLevel
 	BEQ NMI_AfterBackgroundAttributesUpdate
@@ -2373,7 +2374,7 @@ NMI_Gameplay:
 	; Update nametable tiles in horizontal level
 	LDA #$00
 	STA HasScrollingPPUTilesUpdate
-	LDX #$1E
+	LDX #$18
 	LDY #$00
 	LDA PPUSTATUS
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteVertical | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
@@ -2392,7 +2393,14 @@ NMI_DrawBackgroundTilesInnerLoop:
 	DEX
 	BNE NMI_DrawBackgroundTilesInnerLoop
 
-	LDX #$1E
+  INY
+  INY
+  INY
+  INY
+  INY
+  INY
+
+	LDX #$18
 	INC_abs DrawBackgroundTilesPPUAddrLo
 
 	CPY #$3C
@@ -2471,7 +2479,6 @@ NMI_CheckScreenUpdateIndex:
 NMI_ResetScreenUpdateIndex:
 	LDA #ScreenUpdateBuffer_RAM_301
 	STA ScreenUpdateIndex
-;	JSR UpdateJoypads
 
 	DEC NMIWaitFlag
 
@@ -5747,6 +5754,19 @@ IRQ:
 
   LDA #$01
   STA MMC3_IRQDisable ; Acknowledge the IRQ by disabling it
+  LDA PPUCtrlMirror
+  AND #$FE
+
+  LDY #$10
+
+IRQ_Loop:
+  DEY
+  BNE IRQ_Loop
+
+
+  STY PPUSCROLL
+  STY PPUSCROLL
+  STA PPUCTRL
 
 Exit_IRQ:
   ; Restore all register and the PS

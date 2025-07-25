@@ -5466,9 +5466,9 @@ EnemyTilemap1:
 	.db $DC, $DA ; $24
 	.db $DC, $DE ; $26
 	; Small vegetable
-	.db $FE, $FE ; $28
+	.db $FD, $FD ; $28
 	; Large vegetable
-	.db $FC, $FC ; $2A
+	.db $FD, $FD ; $2A
 	; Unused? (Leftover third vegetable?)
 	.db $94, $94 ; $2C
 	; Shell
