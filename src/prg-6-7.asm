@@ -12,6 +12,14 @@
 ; -----
 ;
 
+; Targets number, Index by current area
+TargetsCountTable:
+  .db $02, $1A, $0F, $0F
+
+; Restriction table, Index by current area
+RestrictionCountTable:
+  .db $02, $03, $0F, $0F
+
 ;
 ; ## Level palettes
 ;
@@ -3926,6 +3934,11 @@ LoadCurrentArea:
 
 	; Queue any changes to the background music.
 	JSR LoadAreaMusic
+
+; Load current target
+  LDY $0532
+  LDA TargetsCountTable, Y
+  STA TargetsCount
 
 	;
 	; Load initial ground appearance, which determines the tiles used for the background.

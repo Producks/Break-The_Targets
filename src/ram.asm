@@ -407,9 +407,10 @@ ENDIF
 SoundEffectTimer2:
 	.dsb 1 ; $00c4
 ; FOR RENT
-TargetCount:
+TargetsCount:
 	.dsb 1 ; $00c5
 ; FOR RENT
+RestrictionCount:
 	.dsb 1 ; $00c6
 PlayerAnimationFrame:
 	.dsb 1 ; $00c7

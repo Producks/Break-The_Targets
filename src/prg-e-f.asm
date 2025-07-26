@@ -239,73 +239,6 @@ EnableNMI_PauseTitleCard:
 ; - `Y`: CurrentLevel (not actually used)
 ;
 DisplayLevelTitleCardText:
-	; Level number (unused)
-	; In Doki Doki Panic, this was displayed as a page number, keeping with
-	; the storybook motif.
-	INY
-	TYA
-	JSR GetTwoDigitNumberTiles
-
-	; World number
-	INX
-	TXA
-	ORA #$D0
-	STA TitleCard_World
-
-	; Extra Life number
-	LDY ExtraLives
-	DEY
-	TYA
-	JSR GetTwoDigitNumberTiles
-	STY TitleCard_Lives
-	STA TitleCard_Lives + 1
-
-	; Reset level dots
-	LDY #$06
-	LDA #$FB
-DisplayLevelTitleCardText_ResetLevelDotsLoop:
-	STA TitleCard_LevelDots, Y ; writes to $7171
-	DEY
-	BPL DisplayLevelTitleCardText_ResetLevelDotsLoop
-
-	; Level number
-	LDY CurrentWorld
-	LDA CurrentLevel
-	SEC
-	SBC WorldStartingLevel, Y
-	STA CurrentLevelRelative
-	CLC
-	ADC #$D1
-	STA TitleCard_Level
-
-	; Use the difference between the starting level of the next world and this
-	; world to determine how many dots to show for the levels in the world.
-	LDA WorldStartingLevel + 1, Y
-	SEC
-	SBC WorldStartingLevel, Y
-	STA byte_RAM_3
-
-	; Level dots
-	LDX #$00
-	LDY #$00
-DisplayLevelTitleCardText_DrawLevelDotsLoop:
-	LDA #$FD ; other level
-	CPX CurrentLevelRelative
-	BNE DisplayLevelTitleCardText_DrawLevelDot
-
-	LDA #$F6 ; current level
-
-DisplayLevelTitleCardText_DrawLevelDot:
-	STA TitleCard_LevelDots, Y
-	INY
-	INY
-	INX
-	CPX byte_RAM_3
-	BCC DisplayLevelTitleCardText_DrawLevelDotsLoop
-
-	; Draw the card
-	LDA #ScreenUpdateBuffer_RAM_TitleCardText
-	STA ScreenUpdateIndex
 	RTS
 
 
@@ -376,24 +309,11 @@ DisplayLevelTitleCardAndMore:
 
 	JSR HideAllSprites
 
-;	LDY #$23
-;DisplayLevelTitleCardAndMore_TitleCardPaletteLoop:
-;	LDA TitleCardPalettes, Y
-;	STA PPUBuffer_TitleCardPalette, Y
-;	DEY
-;	BPL DisplayLevelTitleCardAndMore_TitleCardPaletteLoop
-
-;	LDA #ScreenUpdateBuffer_RAM_TitleCardPalette ; Then tell it to dump that into the PPU
-;	STA ScreenUpdateIndex
   LDA #ScreenUpdateBuffer_Hud
   STA ScreenUpdateIndex
 	JSR WaitForNMI
 
-;	LDA #ScreenUpdateBuffer_TitleCardLeftover
-;	STA ScreenUpdateIndex
-	JSR WaitForNMI
-
-;	JSR DrawTitleCardWorldImage
+	JSR WaitForNMI ; TODO OPTIMIZE THIS LATER???
 
 	JSR WaitForNMI_TurnOnPPU
 
@@ -445,14 +365,8 @@ StartGame:
 
 	INC GameMilestoneCounter
 SetNumContinues:
-	LDA #$02 ; Number of continues on start
-	STA Continues
-
 ; We return here after picking "CONTINUE" from the game over menu.
 ContinueGame:
-	LDA #$03 ; Number of lives to start
-	STA ExtraLives
-
 
 GoToWorldStartingLevel:
 	LDX CurrentWorld
@@ -510,16 +424,14 @@ ENDIF
 
 	JSR HideAllSprites
 
+  JSR UpdateHudTarget
+
 	JSR WaitForNMI
 
 	JSR SetStack100Gameplay
 
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
-
-
-  LDA #$0F ; TEMP TODO FIX
-  STA TargetCount
 
 HorizontalLevel_Loop:
 	JSR WaitForNMI
@@ -533,6 +445,8 @@ HorizontalLevel_Loop:
 
 	LDA BreakStartLevelLoop
 	BEQ HorizontalLevel_Loop
+
+  JSR SetCharacterPositionTransition
 
 	LDA #$00
 	STA BreakStartLevelLoop
@@ -556,8 +470,10 @@ HorizontalLevel_ProcessFrame:
 	JMP ResetAreaAndProcessGameMode
 
 HorizontalLevel_CheckTransition:
-	LDA TargetCount
+	LDA TargetsCount
 	BNE HorizontalLevel_CheckScroll
+
+  JSR DoAreaReset
 
 	JSR FollowCurrentAreaPointer
 
@@ -586,7 +502,7 @@ UpdateHudTarget:
   LDA #ScreenUpdateBuffer_UpdateHud
   STA ScreenUpdateIndex
 ; Update target count
-  LDA TargetCount
+  LDA TargetsCount
   SEC
   SBC #$0A
   BCC TargetCountUnderTen
@@ -597,11 +513,32 @@ UpdateHudTarget:
   RTS
 ; 0-9
 TargetCountUnderTen:
-  LDA TargetCount
+  LDA TargetsCount
   STA PPU_UpdateHudBuffer + 4
   LDA #$00
   STA PPU_UpdateHudBuffer + 3
 
+  RTS
+
+
+AreaXSpawnPosition:
+  .db $70, $10
+
+AreaYSpawnPosition:
+  .db $90, $A0
+
+AreaPlayerDirection:
+  .db $00, $01
+
+; Areas don't always spawn you in the same place, this take care of putting you in the right position. :)
+SetCharacterPositionTransition:
+  LDY CurrentLevelArea
+  LDA AreaXSpawnPosition, Y
+  STA PlayerXLo
+  LDA AreaYSpawnPosition, Y
+  STA PlayerYLo
+  LDA AreaPlayerDirection, Y
+  STA PlayerDirection
   RTS
 
 InitializeSubArea:
@@ -617,24 +554,6 @@ InitializeSubArea:
 	BEQ InitializeSubspace
 
 InitializeJar:
-	LDA #PRGBank_8_9
-	JSR ChangeMappedPRGBank
-
-	JSR CopyJarDataToMemory
-
-	JSR CopyEnemyDataToMemory
-
-	LDA #PRGBank_6_7
-	JSR ChangeMappedPRGBank
-
-	JSR ClearSubAreaTileLayout
-
-	LDA #Music1_Inside
-	STA MusicQueue1
-	LDA #$01
-	STA CurrentMusicIndex
-	JMP loc_BANKF_E5E1
-
 
 InitializeSubspace:
 	JSR GenerateSubspaceArea
@@ -902,42 +821,6 @@ ResetAreaAndProcessGameMode_NotGameOver:
 	BEQ EndOfLevel
 
 DoWorldWarp:
-	; Show warp screen
-	LDY CurrentWorld
-	STY PreviousWorld
-	LDA WarpDestinations, Y
-	STA CurrentWorld
-	TAY
-	LDX CurrentCharacter
-	LDA WorldStartingLevel, Y
-	STA CurrentLevel
-	STA CurrentLevel_Init
-
-	; Set world number
-	INY
-	TYA
-	ORA #$D0
-	STA WarpToWorld_World
-
-	JSR WaitForNMI_TurnOffPPU
-
-	JSR SetScrollXYTo0
-	JSR ClearNametablesAndSprites
-	JSR SetBlackAndWhitePalette
-
-	JSR EnableNMI
-
-	JSR ChangeTitleCardCHR
-
-	LDA #ScreenUpdateBuffer_WarpToWorld
-	STA ScreenUpdateIndex
-	LDA #Music2_SlotWarpFanfare
-	STA MusicQueue2
-	JSR Delay160Frames
-
-	JSR InitializeSomeLevelStuff
-
-	JMP CharacterSelectMenu
 
 ; ---------------------------------------------------------------------------
 
@@ -4493,24 +4376,10 @@ ReadJoypadLoop:
 ; Load the area specified by the area pointer at the current page
 ;
 FollowCurrentAreaPointer:
-	LDA CurrentLevelPage
-	ASL A
-	TAY
-	LDA AreaPointersByPage, Y
-	STA CurrentLevel
-	INY
-	LDA AreaPointersByPage, Y
-	LSR A
-	LSR A
-	LSR A
-	LSR A
-	STA CurrentLevelArea
-	LDA AreaPointersByPage, Y
-	AND #$0F
+  LDA #$00
 	STA CurrentLevelEntryPage
+  INC CurrentLevelArea
 	RTS
-
-
 
 ;
 ; Checks that we're playing the correct music and switches if necessary, unless

@@ -3398,7 +3398,7 @@ EnemyBehavior_Target:
 
 	JSR PlayBossHurtSound
 
-  DEC TargetCount
+  DEC TargetsCount
   JSR UpdateHudTarget
 	LDA #SpriteFlags46E_00
 	STA EnemyArray_46E, X
