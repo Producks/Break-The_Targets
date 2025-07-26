@@ -170,6 +170,7 @@ ScreenUpdateBuffer_Hud = $03
 ScreenUpdateBuffer_TitleCard = $04
 ScreenUpdateBuffer_UpdateHud = $05
 ScreenUpdateBuffer_Text_Game_Over = $05
+ScreenUpdateBuffer_UpdateAreaHud = $06
 ScreenUpdateBuffer_RAM_ContinueRetryText = $06
 ScreenUpdateBuffer_Text_Retry = $07
 ScreenUpdateBuffer_RAM_TitleCardText = $08

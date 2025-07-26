@@ -410,7 +410,7 @@ SoundEffectTimer2:
 TargetsCount:
 	.dsb 1 ; $00c5
 ; FOR RENT
-RestrictionCount:
+RestrictionsCount:
 	.dsb 1 ; $00c6
 PlayerAnimationFrame:
 	.dsb 1 ; $00c7
@@ -526,7 +526,9 @@ Player1JoypadHeld:
 Player2JoypadHeld:
 	.dsb 1 ; $00f8
 	.dsb 1 ; $00f9
+TempAdrLo:
 	.dsb 1 ; $00fa
+TempAdrHi:
 	.dsb 1 ; $00fb
 PPUScrollYMirror:
 	.dsb 1 ; $00fc
@@ -2214,6 +2216,11 @@ IFDEF CONTROLLER_2_DEBUG
 ENDIF
 
 PPU_UpdateHudBuffer = $7E00
+PPU_UpdateAreaHudeBuffer = $7E0B
+LevelTextUpper = $7E17
+LevelTextBottom = $7E22
+
+
 
 ItemCarryYOffsetsRAM = $7f00
 

@@ -32,7 +32,7 @@ ScreenUpdateBufferPointers:
 	.dw PPUBuffer_Hud
 	.dw PPUBuffer_TitleCard
 	.dw PPU_UpdateHudBuffer
-	.dw PPUBuffer_ContinueRetryText
+	.dw PPU_UpdateAreaHudeBuffer
 	.dw PPUBuffer_Text_Retry
 	.dw PPUBuffer_TitleCardText
 	.dw PPUBuffer_BonusChanceUnusedText ; Doki Doki Panic leftover
@@ -68,8 +68,8 @@ PPUBuffer_Hud:
   .db $23, $80, $60, $FE
   .db $23, $A0, $60, $FE
 
-; Target
-  .db $23, $22, $06, $DF, $CC, $DD, $D2, $D0, $DF
+; Targets
+  .db $23, $22, $07, $33, $60, $71, $66, $64, $73, $72
 	.db $00
 
 PPUBuffer_TitleCard:
@@ -376,6 +376,7 @@ GoToWorldStartingLevel:
 
 LevelStartCharacterSelectMenu:
   JSR DumpHudInMemory
+  JSR DumpHudAreaBufferInRAM
 
 	JSR InitializeSomeLevelStuff
 
@@ -418,15 +419,12 @@ StartLevel_SetPPUCtrlMirror:
 
 	JSR LoadCurrentPalette
 
+
 IFDEF AREA_HEADER_TILESET
 	JSR LoadWorldCHRBanks
 ENDIF
 
 	JSR HideAllSprites
-
-  JSR UpdateHudTarget
-
-	JSR WaitForNMI
 
 	JSR SetStack100Gameplay
 
@@ -447,6 +445,16 @@ HorizontalLevel_Loop:
 	BEQ HorizontalLevel_Loop
 
   JSR SetCharacterPositionTransition
+
+  JSR UpdateHudTarget
+
+  JSR UpdateHudRestrictions
+
+	JSR WaitForNMI
+
+  JSR LoadCurrentAreaHud ; TODO OPTI HERE LATER write in 1 buffer op
+
+  JSR WaitForNMI
 
 	LDA #$00
 	STA BreakStartLevelLoop
@@ -483,20 +491,6 @@ HorizontalLevel_CheckTransition:
 	STA DoAreaTransition
 	JMP StartLevel
 
-PPUBuffer_DumpHud:
-  .db $23, $29, $02, $DF, $DF ; Target count
-  .db $23, $69, $02, $DF, $DF ; Restriction count
-  .db $00
-
-DumpHudInMemory:
-  LDY #$00
-DumpHudInMemoryLoop:
-  LDA PPUBuffer_DumpHud, Y
-  STA PPU_UpdateHudBuffer, Y
-  INY
-  CPY #$0B
-  BNE DumpHudInMemoryLoop
-  RTS
 
 UpdateHudTarget:
   LDA #ScreenUpdateBuffer_UpdateHud
@@ -520,6 +514,26 @@ TargetCountUnderTen:
 
   RTS
 
+UpdateHudRestrictions:
+  LDA #ScreenUpdateBuffer_UpdateHud
+  STA ScreenUpdateIndex
+; Update restrictions count
+  LDA RestrictionsCount
+  SEC
+  SBC #$0A
+  BCC RestrictionsCountUnderTen
+; 10+
+  STA PPU_UpdateHudBuffer + 9
+  LDA #$01
+  STA PPU_UpdateHudBuffer + 8
+  RTS
+; 0-9
+RestrictionsCountUnderTen:
+  LDA RestrictionsCount
+  STA PPU_UpdateHudBuffer + 9
+  LDA #$00
+  STA PPU_UpdateHudBuffer + 8
+  RTS
 
 AreaXSpawnPosition:
   .db $70, $10
