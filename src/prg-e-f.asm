@@ -29,9 +29,9 @@ ScreenUpdateBufferPointers:
 	.dw PPUBuffer_301 ; Default screen update buffer
 	.dw PPUBuffer_BonusChanceCoinsExtraLife
 	.dw PPUBuffer_TitleCardPalette
-	.dw PPUBuffer_CharacterSelect
+	.dw PPUBuffer_Hud
 	.dw PPUBuffer_TitleCard
-	.dw PPUBuffer_Text_Game_Over
+	.dw PPU_UpdateHudBuffer
 	.dw PPUBuffer_ContinueRetryText
 	.dw PPUBuffer_Text_Retry
 	.dw PPUBuffer_TitleCardText
@@ -51,131 +51,28 @@ ScreenUpdateBufferPointers:
 	.dw PPUBuffer_PauseExtraLife
 	.dw PPUBuffer_BonusChanceLayout
 
-PPUBuffer_CharacterSelect:
-	.db $21, $49, $06, $E9, $E5, $DE, $DA, $EC, $DE ; PLEASE
-	.db $21, $50, $06, $EC, $DE, $E5, $DE, $DC, $ED ; SELECT
-	.db $21, $8C, $06, $E9, $E5, $DA, $F2, $DE, $EB ; PLAYER
-	.db $20, $00, $20, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8 ; Probably the checkerboard diamonds or w/e
-	.db $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7 ; $F
-	.db $B8, $B7, $B8, $B7, $B8 ; $1E
-	.db $20, $20, $20, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA
-	.db $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9 ; $F
-	.db $BA, $B9, $BA, $B9, $BA ; $1E
-	.db $23, $80, $20, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8
-	.db $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7 ; $F
-	.db $B8, $B7, $B8, $B7, $B8 ; $1E
-	.db $23, $A0, $20, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA
-	.db $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9, $BA, $B9 ; $F
-	.db $BA, $B9, $BA, $B9, $BA ; $1E
-	.db $20, $00, $9E, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9
-	.db $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7 ; $F
-	.db $B9, $B7, $B9 ; $1E
-	.db $20, $01, $9E, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA
-	.db $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8 ; $F
-	.db $BA, $B8, $BA ; $1E
-	.db $20, $1E, $9E, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9
-	.db $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7, $B9, $B7 ; $F
-	.db $B9, $B7, $B9 ; $1E
-	.db $20, $1F, $9E, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA
-	.db $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8, $BA, $B8 ; $F
-	.db $BA, $B8, $BA ; $1E
-	.db $20, $42, $5C, $FD
-	.db $20, $62, $5C, $FD
-	.db $20, $47, $05, $00, $01, $02, $03,4
-	.db $20, $54, $05, $05, $06, $07, $08,9
-	.db $20, $63, $0A, $A,$0B, $C,$0D, $E,$0F, $10, $11, $12, $13
-	.db $20, $73, $0A, $14, $15, $16, $17, $18, $19, $1A, $1B, $1C, $1D
-	.db $20, $82, $1C, $1E, $1F, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29
-	.db $FD, $FD, $FD, $FD, $2A, $2B, $2C, $2D, $2E, $2F, $30, $31, $32, $33, $34 ; $F
-	.db $35 ; $1E
-	.db $20, $A2, $06, $36, $37, $38, $39, $3A, $3B
-	.db $20, $AB, $0A, $3C, $3D, $3E, $3F, $40, $43, $44, $45, $46, $47
-	.db $20, $B8, $06, $48, $49, $4A, $4B, $4C, $4D
-	.db $20, $C2, $05, $4E, $4F, $50, $51, $52
-	.db $20, $D9, $05, $53, $54, $55, $56, $57
-	.db $20, $E2, $04, $58, $59, $5A, $5B
-	.db $20, $E6, $CD, $5C
-	.db $20, $F9, $CD, $5C
-	.db $20, $FA, $04, $5D, $5E, $5F, $60
-	.db $21, $02, $83, $61, $64, $67
-	.db $21, $03, $8B, $62, $65, $68, $6A, $6C, $6F, $72, $75, $78, $7B, $7E
-	.db $21, $04, $94, $63, $66, $69, $6B, $6D, $70, $73, $76, $79, $7C, $7F, $81
-	.db $82, $83, $84, $85, $86, $87, $88, $89 ; $F
-	.db $21, $85, $89, $6E, $71, $74, $77, $7A, $7D, $80, $6E, $6E
-	.db $21, $9A, $89, $97, $9A, $9D, $BB, $A0, $A3, $A6, $A9, $AB
-	.db $21, $1B, $94, $8C, $8F, $92, $95, $98, $9B, $9E, $BC, $A1, $A4, $A7, $AA
-	.db $AC, $AD, $AE, $B0, $B1, $B2, $B3, $B4 ; $F
-	.db $21, $1C, $8B, $8D, $90, $93, $96, $99, $9C, $9F, $BD, $A2, $A5, $A8
-	.db $21, $1D, $83, $8E, $91, $94
-	.db $21, $62, $D1, $FD
-	.db $21, $7D, $D1, $FD
-	.db $22, $63, $C9, $FD, $22, $7C, $C9, $FD, $22, $86, $82, $8A, $8B, $22, $99
-	.db $82, $8A, $8B ; $F
+PPUBuffer_Hud:
+; Second part of the screen
+  .db $27, $00, $60, $FE
+  .db $27, $20, $60, $FE
+  .db $27, $40, $60, $FE
+  .db $27, $60, $60, $FE
+  .db $27, $80, $60, $FE
+  .db $27, $A0, $60, $FE
+
+; First part of the screen
+  .db $23, $00, $60, $FE
+  .db $23, $20, $60, $FE
+  .db $23, $40, $60, $FE
+  .db $23, $60, $60, $FE
+  .db $23, $80, $60, $FE
+  .db $23, $A0, $60, $FE
+
+; Target
+  .db $23, $22, $06, $DF, $CC, $DD, $D2, $D0, $DF
 	.db $00
 
 PPUBuffer_TitleCard:
-	.db $23, $C0, $09
-	.db $3E, $0E, $0E, $0E, $0E, $0E, $0E, $8E, $32
-	.db $23, $CF, $01, $8C
-	.db $23, $D0, $10
-	.db $32, $00, $A0, $A0, $A0, $20, $00, $8C, $32, $00, $00, $0A, $02, $00, $00, $8C
-	.db $23, $E0, $09
-	.db $32, $00, $00, $0E, $00, $00, $00, $8C, $32
-	.db $23, $EF, $01, $8C
-	.db $23, $F0, $06
-	.db $32, $00, $A0, $A0, $A0, $A0
-	.db $23, $F7, $09
-	.db $8C, $0E, $0E, $0E, $0E, $0E, $0E, $0E, $0E
-	.db $24, $00, $60, $FF
-	.db $24, $20, $60, $FF
-	.db $24, $40, $60, $FF
-	.db $24, $60, $60, $FF
-	.db $27, $40, $60, $FF
-	.db $27, $60, $60, $FF
-	.db $27, $80, $60, $FF
-	.db $27, $A0, $60, $FF
-	.db $24, $80, $D6, $FF
-	.db $24, $81, $D6, $FF
-	.db $24, $82, $D6, $FF
-	.db $24, $9D, $D6, $FF
-	.db $24, $9E, $D6, $FF
-	.db $24, $9F, $D6, $FF
-	.db $24, $83, $01, $D0
-	.db $24, $9C, $01, $D8
-	.db $24, $84, $58, $FB
-	.db $24, $A3, $D4, $D1
-	.db $24, $BC, $D4, $D7
-	.db $24, $A4, $58, $FB
-	.db $24, $C4, $58, $FB
-	.db $24, $E4, $58, $FB
-	.db $25, $04, $58, $FB
-	.db $25, $24, $58, $FB
-	.db $25, $44, $58, $FB
-	.db $25, $64, $58, $FB
-	.db $25, $84, $58, $FB
-	.db $25, $A4, $58, $FB
-	.db $25, $C4, $58, $FB
-	.db $25, $E4, $58, $FB
-	.db $26, $04, $58, $FB
-	.db $26, $24, $58, $FB
-	.db $26, $44, $58, $FB
-	.db $26, $64, $58, $FB
-	.db $26, $84, $58, $FB
-	.db $26, $A4, $58, $FB
-	.db $26, $C4, $58, $FB
-	.db $26, $E4, $58, $FB
-	.db $27, $23, $01, $D2
-	.db $27, $3C, $01, $D6
-	.db $27, $24, $58, $D3
-	.db $27, $C8, $08
-	.db $44, $FF, $BF, $AF, $AF, $AF, $FF, $11
-	.db $27, $D0, $10
-	.db $44, $BF, $AF, $AF, $AF, $AF, $EF, $11, $44, $FF, $FF, $FF, $FF, $FF, $FF, $11
-	.db $27, $E0, $10
-	.db $44, $FF, $FF, $FF, $FF, $FF, $FF, $11, $44, $FF, $FF, $FF, $FF, $FF, $AF, $11
-	.db $27, $F0, $08
-	.db $44, $05, $05, $05, $05, $05, $05, $01
-	.db $27, $04, $58, $FB
 	.db $00
 
 ; nametable attribute data
@@ -186,20 +83,6 @@ PPUBuffer_PauseExtraLife:
 ; This draws two columns of black tiles along the right side of the nametable to the left of the
 ; title card, which was the character/level select in Doki Doki Panic. In SMB2, it remains unused.
 PPUBuffer_TitleCardLeftover:
-	.db $20, $1E, $9E
-	.db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	.db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	.db $20, $1F, $9E
-	.db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	.db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
-	.db $23, $C7, $01, $00
-	.db $23, $CF, $01, $00
-	.db $23, $D7, $01, $00
-	.db $23, $DF, $01, $00
-	.db $23, $E7, $01, $00
-	.db $23, $EF, $01, $00
-	.db $23, $F7, $01, $00
-	.db $23, $FF, $01, $00
 	.db $00
 
 ; This table defines which level starts each world.
@@ -215,57 +98,6 @@ WorldStartingLevel:
 	.db $0F
 	.db $12
 	.db $14
-
-PlayerSelectMarioSprites1:
-	.db $8F, $00, $00, $48
-	.db $8F, $00, $40, $50
-	.db $9F, $02, $00, $48
-	.db $9F, $02, $40, $50
-
-PlayerSelectLuigiSprites1:
-	.db $8F, $04, $01, $68
-	.db $8F, $04, $41, $70
-	.db $9F, $06, $01, $68
-	.db $9F, $06, $41, $70
-
-PlayerSelectToadSprites1:
-	.db $8F, $08, $02, $88
-	.db $8F, $08, $42, $90
-	.db $9F, $0A, $02, $88
-	.db $9F, $0A, $42, $90
-
-PlayerSelectPrincessSprites1:
-	.db $8F, $0C, $03, $A8
-	.db $8F, $0C, $43, $B0
-	.db $9F, $0E, $03, $A8
-	.db $9F, $0E, $43, $B0
-
-PlayerSelectMarioSprites2:
-	.db $8F, $10, $00, $48
-	.db $8F, $12, $00, $50
-	.db $9F, $14, $00, $48
-	.db $9F, $16, $00, $50
-
-PlayerSelectLuigiSprites2:
-	.db $8F, $18, $01, $68
-	.db $8F, $1A, $01, $70
-	.db $9F, $1C, $01, $68
-	.db $9F, $1E, $01, $70
-
-PlayerSelectToadSprites2:
-	.db $8F, $20, $02, $88
-	.db $8F, $22, $02, $90
-	.db $9F, $24, $02, $88
-	.db $9F, $26, $02, $90
-
-PlayerSelectPrincessSprites2:
-	.db $8F, $28, $03, $A8
-	.db $8F, $2A, $03, $B0
-	.db $9F, $2C, $03, $A8
-	.db $9F, $2E, $03, $B0
-
-PlayerSelectSpriteIndexes:
-	.db $00, $30, $20, $10
 
 BonusChanceCherrySprite:
 	.db $5F, $05, $01, $58
@@ -290,36 +122,7 @@ PlayerSelectSpritePalettesDark:
 	.db $0F, $22, $12, $01
 	.db $0F, $22, $12, $01
 
-PlayerSelectPaletteOffsets:
-	.db (PlayerSelectSpritePalettes_Mario - PlayerSelectSpritePalettes)
-	.db (PlayerSelectSpritePalettes_Princess - PlayerSelectSpritePalettes)
-	.db (PlayerSelectSpritePalettes_Toad - PlayerSelectSpritePalettes)
-	.db (PlayerSelectSpritePalettes_Luigi - PlayerSelectSpritePalettes)
-
-PlayerSelectSpritePalettes:
-PlayerSelectSpritePalettes_Mario:
-	.db $3F, $10, $04
-	.db $0F, $27, $16, $01
-PlayerSelectSpritePalettes_Luigi:
-	.db $3F, $14, $04
-	.db $0F, $36, $2A, $01
-PlayerSelectSpritePalettes_Toad:
-	.db $3F, $18, $04
-	.db $0F, $27, $30, $01
-PlayerSelectSpritePalettes_Princess:
-	.db $3F, $1C, $04
-	.db $0F, $36, $25, $07
-
 TitleCardPalettes:
-	.db $3F, $00, $20 ; PPU data
-	.db $38, $30, $1A, $0F
-	.db $38, $38, $0F, $0F
-	.db $38, $17, $17, $38
-	.db $38, $28, $18, $08
-	.db $38, $30, $27, $01
-	.db $38, $37, $27, $06
-	.db $38, $25, $36, $06
-	.db $38, $12, $36, $01
 	.db $00
 
 BonusChanceSpritePalettes:
@@ -573,22 +376,24 @@ DisplayLevelTitleCardAndMore:
 
 	JSR HideAllSprites
 
-	LDY #$23
-DisplayLevelTitleCardAndMore_TitleCardPaletteLoop:
-	LDA TitleCardPalettes, Y
-	STA PPUBuffer_TitleCardPalette, Y
-	DEY
-	BPL DisplayLevelTitleCardAndMore_TitleCardPaletteLoop
+;	LDY #$23
+;DisplayLevelTitleCardAndMore_TitleCardPaletteLoop:
+;	LDA TitleCardPalettes, Y
+;	STA PPUBuffer_TitleCardPalette, Y
+;	DEY
+;	BPL DisplayLevelTitleCardAndMore_TitleCardPaletteLoop
 
-	LDA #ScreenUpdateBuffer_RAM_TitleCardPalette ; Then tell it to dump that into the PPU
-	STA ScreenUpdateIndex
+;	LDA #ScreenUpdateBuffer_RAM_TitleCardPalette ; Then tell it to dump that into the PPU
+;	STA ScreenUpdateIndex
+  LDA #ScreenUpdateBuffer_Hud
+  STA ScreenUpdateIndex
 	JSR WaitForNMI
 
-	LDA #ScreenUpdateBuffer_TitleCardLeftover
-	STA ScreenUpdateIndex
+;	LDA #ScreenUpdateBuffer_TitleCardLeftover
+;	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
-	JSR DrawTitleCardWorldImage
+;	JSR DrawTitleCardWorldImage
 
 	JSR WaitForNMI_TurnOnPPU
 
@@ -622,233 +427,6 @@ PreStartLevel:
 
 
 ;
-; Runs the Character Select menu
-;
-DoCharacterSelectMenu:
-	JSR WaitForNMI
-
-	LDA #$00
-	STA PPUMASK
-	JSR DisableNMI
-
-	JSR LoadCharacterSelectCHRBanks
-
-	LDA #PRGBank_A_B
-	JSR ChangeMappedPRGBank
-
-	JSR CopyCharacterStatsAndStuff
-
-	JSR ResetScreenForTitleCard
-
-	LDA CharacterSelectBankSwitch
-	CMP #$A5
-	BEQ loc_BANKF_E2B2
-
-	LDA #PRGBank_A_B
-	JSR ChangeMappedPRGBank
-
-	LDA #$A5
-	STA CharacterSelectBankSwitch
-
-loc_BANKF_E2B2:
-	JSR EnableNMI_PauseTitleCard
-
-	JSR DisableNMI
-
-	LDA #Music1_CharacterSelect
-	STA MusicQueue1
-	LDA CurrentCharacter
-	STA PreviousCharacter
-	LDA CurrentWorld
-	STA PreviousWorld
-
-	LDY #$3F
-loc_BANKF_E2CA:
-	LDA PlayerSelectMarioSprites1, Y
-	STA SpriteDMAArea + $10, Y
-	DEY
-	BPL loc_BANKF_E2CA
-
-	JSR EnableNMI
-
-	JSR WaitForNMI
-
-	LDX CurrentWorld
-	LDY CurrentLevel
-	JSR DisplayLevelTitleCardText
-
-	JSR WaitForNMI
-
-	JMP loc_BANKF_E311
-
-; ---------------------------------------------------------------------------
-
-loc_BANKF_E2E8:
-	LDA Player1JoypadPress
-	AND #ControllerInput_Right | ControllerInput_Left
-	BNE CharacterSelect_ChangeCharacter
-
-	JMP CharacterSelectMenuLoop
-
-; ---------------------------------------------------------------------------
-
-CharacterSelect_ChangeCharacter:
-	LDA Player1JoypadPress
-	AND #ControllerInput_Right
-	BEQ loc_BANKF_E2FE
-
-	DEC CurrentCharacter
-	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
-
-loc_BANKF_E2FE:
-	LDA Player1JoypadPress
-	AND #ControllerInput_Left
-	BEQ loc_BANKF_E30B
-
-	INC CurrentCharacter
-	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
-
-loc_BANKF_E30B:
-	LDA CurrentCharacter
-	AND #$03
-	STA CurrentCharacter
-
-loc_BANKF_E311:
-	LDY #$00
-	LDA #$21
-	STA PPUBuffer_301
-	LDA #$C9
-	STA PPUBuffer_301 + 1
-	LDA #$4F
-	STA PPUBuffer_301 + 2
-	LDA #$FB
-	STA PPUBuffer_301 + 3
-	LDA #$21
-	STA PPUBuffer_301 + 4
-	LDA #$E9
-	STA PPUBuffer_301 + 5
-	LDA #$4F
-	STA PPUBuffer_301 + 6
-	LDA #$FB
-	STA PPUBuffer_301 + 7
-	LDY CurrentCharacter
-	LDA #$21
-	STA PPUBuffer_301 + 8
-	LDA PlayerSelectArrowTop, Y
-	STA PPUBuffer_301 + 9
-	LDA #$02
-	STA PPUBuffer_301 + 10
-	LDA #$BE
-	STA PPUBuffer_301 + 11
-	LDA #$C0
-	STA PPUBuffer_301 + 12
-	LDA #$21
-	STA PPUBuffer_301 + 13
-	LDA PlayerSelectArrowBottom, Y
-	STA PPUBuffer_301 + 14
-	LDA #$02
-	STA PPUBuffer_301 + 15
-	LDA #$BF
-	STA PPUBuffer_301 + 16
-	LDA #$C1
-	STA PPUBuffer_301 + 17
-	LDA #$00
-	STA PPUBuffer_301 + 18
-	JSR WaitForNMI_TurnOnPPU
-
-	LDX #$12
-	LDY #$00
-
-loc_BANKF_E37D:
-	LDA PlayerSelectSpritePalettesDark, Y
-	STA PPUBuffer_301, Y
-	INY
-	DEX
-	BPL loc_BANKF_E37D
-
-	LDA #$06
-	STA byte_RAM_A
-	LDX CurrentCharacter
-	LDA PlayerSelectPaletteOffsets, X
-	TAX
-
-loc_BANKF_E391:
-	LDA PlayerSelectSpritePalettes, X
-	STA PPUBuffer_301, Y
-	INY
-	INX
-	DEC byte_RAM_A
-	BPL loc_BANKF_E391
-
-	LDA #$00
-	STA PPUBuffer_301, Y
-
-CharacterSelectMenuLoop:
-	JSR WaitForNMI_TurnOnPPU
-
-	LDA Player1JoypadPress
-	AND #ControllerInput_A
-	BNE loc_BANKF_E3AE
-
-	JMP loc_BANKF_E2E8
-
-; ---------------------------------------------------------------------------
-
-loc_BANKF_E3AE:
-	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
-	LDX CurrentWorld
-	LDY CurrentLevel
-	JSR DisplayLevelTitleCardText
-
-	LDA #$40
-	STA byte_RAM_10
-	JSR WaitForNMI
-
-	LDX #$F
-	LDA CurrentCharacter
-	TAY
-	LDA PlayerSelectSpriteIndexes, Y
-	TAY
-
-loc_BANKF_E3CC:
-	LDA PlayerSelectMarioSprites2, Y
-	STA SpriteDMAArea + $10, Y
-	INY
-	DEX
-	BPL loc_BANKF_E3CC
-
-loc_BANKF_E3D6:
-	JSR WaitForNMI
-
-	DEC byte_RAM_10
-	BPL loc_BANKF_E3D6
-
-	LDY #$3F
-
-loc_BANKF_E3DF:
-	LDA PlayerSelectMarioSprites1, Y
-	STA SpriteDMAArea + $10, Y
-	DEY
-	BPL loc_BANKF_E3DF
-
-	LDA #$40
-	STA byte_RAM_10
-
-loc_BANKF_E3EC:
-	JSR WaitForNMI
-
-	DEC byte_RAM_10
-	BPL loc_BANKF_E3EC
-
-	LDA #Music2_StopMusic
-	STA MusicQueue2
-	RTS
-
-
-;
 ; This starts the game once `RESET` has done its thing.
 ; We also come here after choosing "RETRY" from the game over menu.
 ;
@@ -863,6 +441,8 @@ StartGame:
 
 	JSR TitleScreen ; The whole title screen is a subroutine, lol
 
+  JSR WaitForNMI
+
 	INC GameMilestoneCounter
 SetNumContinues:
 	LDA #$02 ; Number of continues on start
@@ -873,6 +453,7 @@ ContinueGame:
 	LDA #$03 ; Number of lives to start
 	STA ExtraLives
 
+
 GoToWorldStartingLevel:
 	LDX CurrentWorld
 	LDY WorldStartingLevel, X
@@ -880,7 +461,7 @@ GoToWorldStartingLevel:
 	STY CurrentLevel_Init
 
 LevelStartCharacterSelectMenu:
-	JSR DoCharacterSelectMenu
+  JSR DumpHudInMemory
 
 	JSR InitializeSomeLevelStuff
 
@@ -891,7 +472,6 @@ LevelStartCharacterSelectMenu:
 	BNE StartLevel ; Branch always
 
 CharacterSelectMenu:
-	JSR DoCharacterSelectMenu
 
 StartLevelAfterTitleCard:
 	JSR DisplayLevelTitleCardAndMore
@@ -938,7 +518,7 @@ ENDIF
 	STA PPUCtrlMirror
 
 
-  LDA #$01 ; TEMP TODO FIX
+  LDA #$0F ; TEMP TODO FIX
   STA TargetCount
 
 HorizontalLevel_Loop:
@@ -957,10 +537,11 @@ HorizontalLevel_Loop:
 	LDA #$00
 	STA BreakStartLevelLoop
 	JSR WaitForNMI_TurnOnPPU
+
   CLI
 
 HorizontalLevel_CheckScroll:
-	JSR WaitForNMI
+  JSR WaitForNMI
 
 HorizontalLevel_CheckSubArea:
 
@@ -986,177 +567,42 @@ HorizontalLevel_CheckTransition:
 	STA DoAreaTransition
 	JMP StartLevel
 
-;VerticalLevel_Loop:
-;	JSR WaitForNMI
-;
-;	LDA #PRGBank_0_1
-;	JSR ChangeMappedPRGBank
-;
-;	JSR InitializeAreaVertical
-;
-;	JSR EnsureCorrectMusic
-;
-;	LDA BreakStartLevelLoop
-;	BEQ VerticalLevel_Loop
+PPUBuffer_DumpHud:
+  .db $23, $29, $02, $DF, $DF ; Target count
+  .db $23, $69, $02, $DF, $DF ; Restriction count
+  .db $00
 
-;	LDA #$00
-;	STA BreakStartLevelLoop
-;	JSR WaitForNMI_TurnOnPPU
+DumpHudInMemory:
+  LDY #$00
+DumpHudInMemoryLoop:
+  LDA PPUBuffer_DumpHud, Y
+  STA PPU_UpdateHudBuffer, Y
+  INY
+  CPY #$0B
+  BNE DumpHudInMemoryLoop
+  RTS
 
-;VerticalLevel_CheckScroll:
-;	JSR WaitForNMI
-;
-;	; Disable pause detection while scrolling
-;	; This is likely a work-around to avoid getting the PPU into a weird state
-;	; due to conflicts between the pause screen and attempting to draw the part
-;	; of the area scrolling into view.
-;	LDA NeedsScroll
-;	AND #%00000100
-;	BNE VerticalLevel_ProcessFrame
-;
-;	LDA Player1JoypadPress
-;	AND #ControllerInput_Start
-;	BNE ShowPauseScreen
-;
-;VerticalLevel_ProcessFrame:
-;	JSR HideAllSprites
-;
-;	JSR RunFrame_Vertical
-;
-;	LDY GameMode
-;	BEQ VerticalLevel_CheckTransition
-;
-;	JMP ResetAreaAndProcessGameMode
-;
-;VerticalLevel_CheckTransition:
-;;	LDA DoAreaTransition
-;;	BEQ VerticalLevel_CheckScroll
-;
-;;	JSR FollowCurrentAreaPointer
-;
-;;	JSR RememberAreaInitialState
-;
-;	LDA #$00
-;	STA DoAreaTransition
-;	JMP StartLevel
+UpdateHudTarget:
+  LDA #ScreenUpdateBuffer_UpdateHud
+  STA ScreenUpdateIndex
+; Update target count
+  LDA TargetCount
+  SEC
+  SBC #$0A
+  BCC TargetCountUnderTen
+; 10+
+  STA PPU_UpdateHudBuffer + 4
+  LDA #$01
+  STA PPU_UpdateHudBuffer + 3
+  RTS
+; 0-9
+TargetCountUnderTen:
+  LDA TargetCount
+  STA PPU_UpdateHudBuffer + 4
+  LDA #$00
+  STA PPU_UpdateHudBuffer + 3
 
-
-;
-; Pauses the game
-;
-ShowPauseScreen:
-IFNDEF RESPAWN_INSTEAD_OF_DEATH
-	JSR PauseScreen_ExtraLife
-ELSE
-	JMP PauseRespawn
-ENDIF
-
-SetStack100Pause:
-	; used when running sound queues
-	LDA #Stack100_Pause
-	STA StackArea
-
-PauseScreenLoop:
-	LDA #$0E
-	STA byte_RAM_6
-
-DoSuicideCheatCheck:
-	JSR WaitForNMI_TurnOnPPU
-
-	LDA PlayerState ; Check if the player is already dying
-	CMP #PlayerState_Dying
-	BEQ PauseScreenExitCheck ; If so, skip the suicide code check
-
-	LDA Player2JoypadHeld ; Check for suicide code
-	CMP #ControllerInput_Up | ControllerInput_B | ControllerInput_A ; Up + A + B
-	BNE PauseScreenExitCheck ; Not being held! Nothing to see here
-
-	JSR KillPlayer ; KILL THYSELF
-
-PauseScreenExitCheck:
-	LDA Player1JoypadPress
-	AND #ControllerInput_Start
-	BNE HidePauseScreen
-
-	DEC byte_RAM_6
-	BPL DoSuicideCheatCheck
-
-	INC byte_RAM_7
-	LDA byte_RAM_7
-	AND #$01
-	CLC
-	ADC #$0D ; Will use either $0D or $0E from the update index pointers
-	STA ScreenUpdateIndex ; @TODO I assume this is what blinks "PAUSE"
-	JMP PauseScreenLoop
-
-;
-; Unpauses the game
-;
-HidePauseScreen:
-	JSR WaitForNMI_TurnOffPPU
-
-IFDEF RESET_CHR_LATCH
-	LDA #$00
-	STA ResetCHRLatch
-ENDIF
-
-	JSR LoadWorldCHRBanks
-
-	LDA #PRGBank_6_7
-	JSR ChangeMappedPRGBank
-
-	JSR LoadCurrentPalette
-
-	JSR WaitForNMI
-
-	JSR SetStack100Gameplay
-
-	JSR HideAllSprites
-
-	LDA #PRGBank_0_1
-	JSR ChangeMappedPRGBank
-
-	JSR RestoreScreenScrollPosition
-
-	LDA IsHorizontalLevel
-	BNE HidePauseScreen_Horizontal
-
-HidePauseScreen_Vertical:
-	LDA #HMirror
-	JSR ChangeNametableMirroring
-
-	JSR sub_BANK0_81FE
-
-HidePauseScreen_Vertical_Loop:
-	JSR WaitForNMI
-
-	JSR sub_BANK0_823D
-
-	LDA byte_RAM_537
-	BEQ HidePauseScreen_Vertical_Loop
-
-	JSR WaitForNMI_TurnOnPPU
-
-;	JMP VerticalLevel_CheckScroll
-
-HidePauseScreen_Horizontal:
-	LDA #VMirror
-	JSR ChangeNametableMirroring
-
-	JSR sub_BANK0_8785
-
-HidePauseScreen_Horizontal_Loop:
-	JSR WaitForNMI
-
-	JSR sub_BANK0_87AA
-
-	LDA byte_RAM_537
-	BEQ HidePauseScreen_Horizontal_Loop
-
-	JSR WaitForNMI_TurnOnPPU
-
-	JMP HorizontalLevel_CheckScroll
-
+  RTS
 
 InitializeSubArea:
 	JSR ClearNametablesAndSprites
@@ -1889,8 +1335,6 @@ DisableNMI:
 
 
 PPUBuffer_Text_Game_Over:
-	.db $21, $CB, $0A
-	.db $E0, $DA, $E6, $DE, $FB, $FB, $E8, $EF, $DE, $EB ; GAME OVER
 	.db $00
 
 PPUBuffer_Text_Continue:
@@ -5754,14 +5198,21 @@ IRQ:
 
   LDA #$01
   STA MMC3_IRQDisable ; Acknowledge the IRQ by disabling it
+  LDA #$00
+  STA MMC3_BankSelect
+
+  LDX #$32
+
   LDA PPUCtrlMirror
   AND #$FE
 
-  LDY #$10
+  LDY #$0D
 
 IRQ_Loop:
   DEY
   BNE IRQ_Loop
+  STX MMC3_BankData
+  NOP
 
 
   STY PPUSCROLL

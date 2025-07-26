@@ -3399,6 +3399,7 @@ EnemyBehavior_Target:
 	JSR PlayBossHurtSound
 
   DEC TargetCount
+  JSR UpdateHudTarget
 	LDA #SpriteFlags46E_00
 	STA EnemyArray_46E, X
 	JMP TurnIntoPuffOfSmoke

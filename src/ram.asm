@@ -2212,7 +2212,10 @@ IFDEF CONTROLLER_2_DEBUG
 	CreateObjectAttributes = $7e83
 ENDIF
 
+PPU_UpdateHudBuffer = $7E00
+
 ItemCarryYOffsetsRAM = $7f00
+
 
 MMC3_BankSelect = $8000
 MMC3_BankData = $8001
