@@ -415,7 +415,6 @@ StartLevel_SetPPUCtrlMirror:
 	LDA #PRGBank_6_7
 	JSR ChangeMappedPRGBank
 
-
 	JSR LoadCurrentArea
 
 	JSR LoadCurrentPalette

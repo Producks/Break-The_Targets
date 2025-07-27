@@ -416,14 +416,7 @@ LoadCurrentAreaCharacterLoop:
   LDA CurrentCharacter
   STA SpriteCHR1
 
-  JSR UpdateCharacterPalette
-
-  RTS
-
-; ------------------------------------------------------------
-; Update PPUBuffer to update the current character palette
-; ------------------------------------------------------------
-UpdateCharacterPalette:
+; Update palette by setting up a buffer at 300
 	LDX byte_RAM_300
 	LDA #$3F
 	STA PPUBuffer_301, X
@@ -447,7 +440,8 @@ UpdateCharacterPalette:
 	CLC
 	ADC #$06
 	STA byte_RAM_300
-	RTS
+
+  RTS
 
 ;
 ; What is this for? It gets copied to RAM and then...that's all.
