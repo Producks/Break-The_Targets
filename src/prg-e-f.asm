@@ -1705,8 +1705,8 @@ NMI_Gameplay:
 	; columns of new tiles. As a result, we need special logic to draw the
 
 	; background in horizontal levels!
-	LDA IsHorizontalLevel
-	BEQ NMI_AfterBackgroundAttributesUpdate
+;	LDA IsHorizontalLevel
+;	BEQ NMI_AfterBackgroundAttributesUpdate CHECK IF TODO BUG BUG HERE FIRST THING TO CHECK
 
 	LDA HasScrollingPPUTilesUpdate
 	BEQ NMI_AfterBackgroundTilesUpdate
@@ -1721,9 +1721,9 @@ NMI_Gameplay:
 	STA PPUCTRL
 
 NMI_DrawBackgroundTilesOuterLoop:
-	LDA_abs DrawBackgroundTilesPPUAddrHi
+	LDA DrawBackgroundTilesPPUAddrHi
 	STA PPUADDR
-	LDA_abs DrawBackgroundTilesPPUAddrLo
+	LDA DrawBackgroundTilesPPUAddrLo
 	STA PPUADDR
 
 NMI_DrawBackgroundTilesInnerLoop:
@@ -1741,7 +1741,7 @@ NMI_DrawBackgroundTilesInnerLoop:
   INY
 
 	LDX #$18
-	INC_abs DrawBackgroundTilesPPUAddrLo
+	INC DrawBackgroundTilesPPUAddrLo
 
 	CPY #$3C
 	BNE NMI_DrawBackgroundTilesOuterLoop
@@ -1830,7 +1830,6 @@ NMI_Exit:
 	PLA
 	PLP
 	RTI
-
 ; End of function NMI
 
 
