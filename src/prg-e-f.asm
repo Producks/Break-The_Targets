@@ -415,6 +415,7 @@ StartLevel_SetPPUCtrlMirror:
 	LDA #PRGBank_6_7
 	JSR ChangeMappedPRGBank
 
+
 	JSR LoadCurrentArea
 
 	JSR LoadCurrentPalette
@@ -430,6 +431,13 @@ ENDIF
 
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
+
+  LDA #PRGBank_A_B
+  JSR ChangeMappedPRGBank
+
+  JSR WaitForNMI
+
+  JSR LoadCurrentAreaCharacter
 
 HorizontalLevel_Loop:
 	JSR WaitForNMI
@@ -539,7 +547,7 @@ AreaXSpawnPosition:
   .db $70, $10
 
 AreaYSpawnPosition:
-  .db $90, $A0
+  .db $90, $20
 
 AreaPlayerDirection:
   .db $00, $01
@@ -2845,6 +2853,10 @@ CharacterEyeTiles:
 	.db $D9 ; Luigi
 	.db $FB ; Toad
 	.db $D7 ; Princess
+	.db $D5 ; Wario
+	.db $D9 ; Waluigi
+	.db $FB ; Toadette
+	.db $D7 ; Rosalina
 
 CharacterTiles_Walk1:
 	.db $01
@@ -3136,8 +3148,9 @@ loc_BANKF_F3F8:
 	LDA CharacterFrameEyeTiles, X
 	BNE loc_BANKF_F408
 
-	LDX CurrentCharacter
-	LDA CharacterEyeTiles, X
+;	LDX CurrentCharacter
+;	LDA CharacterEyeTiles, X
+  LDA #$3E
 
 loc_BANKF_F408:
 	STA SpriteDMAArea + 1, Y
@@ -5142,17 +5155,6 @@ CHRBank_WorldBossBackground:
 	.db CHRBank_BackgroundDesert
 	.db CHRBank_BackgroundSky
 
-CHRBank_CharacterSize:
-	.db CHRBank_Mario
-	.db CHRBank_MarioSmall
-	.db CHRBank_Princess
-	.db CHRBank_PrincessSmall
-	.db CHRBank_Toad
-	.db CHRBank_ToadSmall
-	.db CHRBank_Luigi
-	.db CHRBank_LuigiSmall
-
-
 LoadWorldCHRBanks:
 	LDY #CHRBank_CommonEnemies1
 	STY SpriteCHR2
@@ -5175,10 +5177,6 @@ ENDIF
 
 LoadCharacterCHRBanks:
 	LDA CurrentCharacter
-	ASL A
-	ORA PlayerCurrentSize
-	TAY
-	LDA CHRBank_CharacterSize, Y
 	STA SpriteCHR1
 	RTS
 

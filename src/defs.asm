@@ -48,6 +48,10 @@ Character_Mario = $00
 Character_Princess = $01
 Character_Toad = $02
 Character_Luigi = $03
+Character_Wario = $04
+Character_Waluigi = $05
+Character_Toadette = $06
+Character_Rosalina = $07
 
 ; ---------------------------------------------------------------------------
 
@@ -788,10 +792,19 @@ CHRBank_Mario = $00
 CHRBank_Luigi = $01
 CHRBank_Princess = $02
 CHRBank_Toad = $03
+CHRBank_Wario = $04
+CHRBank_Waluigi = $05
+CHRBank_Toadette = $06
+CHRBank_Rosalina = $07
+
 CHRBank_MarioSmall = $04
 CHRBank_LuigiSmall = $05
 CHRBank_PrincessSmall = $06
 CHRBank_ToadSmall = $07
+CHRBank_WarioSmall = $09
+CHRBank_WaluigiSmall = $0B
+CHRBank_ToadetteSmall = $0D
+CHRBank_RosalinaSmall = $0F
 
 CHRBank_CommonEnemies1 = $08
 CHRBank_CommonEnemies2 = $09

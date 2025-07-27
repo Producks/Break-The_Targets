@@ -16,108 +16,12 @@
 ; The only difference is the loaded CHR banks.
 ;
 World1thru6TitleCard:
-	.db $FB, $FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
-	.db $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1, $FB, $FB, $FB, $FB ; $10
-	.db $FB, $FB, $B4, $B5, $FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8, $BA, $BC, $FB, $FB ; $20
-	.db $FB, $FB, $B4, $B5, $FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB ; $30
-	.db $FB, $FB, $B4, $B5, $FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB ; $40
-	.db $FB, $FB, $B4, $B5, $C0, $C1, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB ; $50
-	.db $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC, $CA, $CC ; $60
-	.db $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD, $CB, $CD ; $70
-	.db $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF ; $80
-	.db $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE, $CF, $CE ; $90
-
 ;
 ; This one is the special one used for World 7
 ;
 World7TitleCard:
-	.db $FB, $FB, $B0, $B2, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB
-	.db $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $FB, $FB, $C0, $C1, $FB, $FB, $FB, $FB ; $10
-	.db $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $B6, $B8, $BA, $B8, $BA, $BC, $FB, $FB ; $20
-	.db $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $B7, $B9, $BB, $B9, $BB, $BD, $FB, $FB ; $30
-	.db $FB, $FB, $B1, $B3, $FB, $FB, $FB, $FB, $CA, $FC, $FC, $FC, $FC, $CC, $FB, $FB ; $40
-	.db $FB, $FB, $B1, $B3, $C0, $C1, $FB, $FB, $CA, $FC, $FC, $FC, $FC, $CC, $FB, $FB ; $50
-	.db $A8, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AC, $AA, $AE ; $60
-	.db $A9, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AD, $AB, $AF ; $70
-	.db $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; $80
-	.db $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB, $FB ; $90
 
 BonusChanceLayout:
-	.db $20, $00, $60, $FD
-	.db $20, $20, $60, $FD
-	.db $20, $40, $60, $FD
-	.db $20, $60, $60, $FD
-	.db $23, $40, $60, $FD
-	.db $23, $60, $60, $FD
-	.db $23, $80, $60, $FD
-	.db $23, $A0, $60, $FD
-	.db $20, $80, $D6, $FD
-	.db $20, $81, $D6, $FD
-	.db $20, $82, $D6, $FD
-	.db $20, $9D, $D6, $FD
-	.db $20, $9E, $D6, $FD
-	.db $20, $9F, $D6, $FD
-
-	.db $20, $68, $10
-	.db $48, $4A, $4C, $4E, $50, $51, $52, $53, $54, $55, $56, $57, $58, $5A, $5C, $5E
-
-	.db $20, $83, $09, $FD, $FD, $22, $23, $24, $49, $4B, $4D, $4F
-	.db $20, $94, $09, $59, $5B, $5D, $5F, $2E, $2F, $30, $FD, $FD
-	.db $20, $A3, $04, $FD, $25, $26, $27
-	.db $20, $B9, $04, $31, $32, $33, $FD
-	.db $20, $C3, $04, $FD, $28, $29, $2A
-	.db $20, $D9, $04, $34, $35, $36, $FD
-	.db $20, $E3, $03, $2B, $2C, $2D
-	.db $20, $FA, $03, $37, $38, $39
-	.db $21, $03, $02, $3A, $3B
-	.db $21, $1B, $02, $40, $41
-	.db $21, $23, $D0, $3C
-	.db $21, $3C, $D0, $42
-	.db $22, $02, $02, $3E, $3F
-	.db $22, $1C, $02, $61, $62
-	.db $22, $22, $02, $43, $44
-	.db $22, $3C, $02, $63, $64
-	.db $22, $43, $01, $45
-	.db $22, $5C, $01, $65
-	.db $22, $C4, $02, $A6, $A8
-	.db $22, $E4, $02, $A7, $A9
-	.db $22, $FA, $04, $80, $82, $88, $8A
-	.db $23, $04, $02, $90, $92
-	.db $23, $14, $02, $9E, $A0
-	.db $23, $1A, $04, $81, $83, $89, $8B
-	.db $23, $23, $03, $46, $91, $93
-	.db $23, $2A, $02, $A2, $A4
-
-	.db $23, $2E, $10
-	.db $67, $6C, $6E, $70, $72, $69, $9F, $A1, $75, $98, $9A, $FB, $84, $86, $8C, $8E
-
-	.db $23, $43, $1B
-	.db $47, $94, $96, $74, $74, $74, $74, $A3, $A5, $74, $66, $68, $6D, $6F, $71, $73
-	.db $6A, $6B, $74, $74, $99, $9B, $74, $85, $87, $8D, $8F
-
-	.db $23, $64, $05, $95, $97, $FD, $AA, $AB
-	.db $23, $77, $05, $9C, $9D, $AA, $AB, $AB
-	.db $23, $89, $02, $AA, $AB
-	.db $20, $C9, $0E, $78, $AC, $B0, $B4, $B7, $BA, $FB, $BC, $BE, $C1, $C4, $C7, $CB, $7C
-
-	.db $20, $E8, $10
-	.db $1C, $79, $AD, $B1, $B5, $B8, $BB, $FB, $BD, $BF, $C2, $C5, $C8, $CC, $7D, $1E
-
-	.db $21, $08, $10
-	.db $1D, $7A, $AE, $B2, $B6, $B9, $FB, $FB, $FB, $C0, $C3, $C6, $C9, $CD, $7E, $1F
-
-	.db $21, $29, $03, $7B, $AF, $B3
-	.db $21, $34, $03, $CA, $CE, $7F
-	.db $21, $6A, $0C, $14, $10, $10, $16, $14, $10, $10, $16, $14, $10, $10, $16
-	.db $21, $8A, $0C, $11, $FC, $FC, $12, $11, $FC, $FC, $12, $11, $FC, $FC, $12
-	.db $21, $AA, $0C, $11, $FC, $FC, $12, $11, $FC, $FC, $12, $11, $FC, $FC, $12
-	.db $21, $CA, $0C, $15, $13, $13, $17, $15, $13, $13, $17, $15, $13, $13, $17
-	.db $22, $0D, $02, $18, $1A
-	.db $22, $2D, $02, $19, $1B
-	.db $23, $D2, $04, $80, $A0, $A0, $20
-	.db $23, $DA, $04, $88, $AA, $AA, $22
-	.db $23, $E4, $01, $0A
-	.db $23, $EA, $05, $A0, $A0, $A0, $A0, $20
 	.db $00
 
 
@@ -266,6 +170,10 @@ StatOffsets:
 	.db (PrincessStats - CharacterStats)
 	.db (ToadStats - CharacterStats)
 	.db (LuigiStats - CharacterStats)
+  .db (WarioStats - CharacterStats)
+  .db (WaluigiStats - CharacterStats)
+  .db (ToadetteStats - CharacterStats)
+  .db (RosalinaStats - CharacterStats)
 
 CharacterStats:
 MarioStats:
@@ -368,6 +276,106 @@ PrincessStats:
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
 
+WarioStats:
+	.db $00 ; Pick-up Speed, frame 1/6 - pulling
+	.db $04 ; Pick-up Speed, frame 2/6 - pulling
+	.db $02 ; Pick-up Speed, frame 3/6 - ducking
+	.db $01 ; Pick-up Speed, frame 4/6 - ducking
+	.db $04 ; Pick-up Speed, frame 5/6 - ducking
+	.db $07 ; Pick-up Speed, frame 6/6 - ducking
+	.db $B0 ; Jump Speed, still - no object
+	.db $B0 ; Jump Speed, still - with object
+	.db $98 ; Jump Speed, charged - no object
+	.db $98 ; Jump Speed, charged - with object
+	.db $A6 ; Jump Speed, running - no object
+	.db $AA ; Jump Speed, running - with object
+	.db $E0 ; Jump Speed - in quicksand
+	.db $00 ; Floating Time
+	.db $07 ; Gravity without Jump button pressed
+	.db $04 ; Gravity with Jump button pressed
+	.db $08 ; Gravity in quicksand
+	.db $18 ; Running Speed, right - no object
+	.db $18 ; Running Speed, right - with object
+	.db $04 ; Running Speed, right - in quicksand
+	.db $E8 ; Running Speed, left - no object
+	.db $E8 ; Running Speed, left - with object
+	.db $FC ; Running Speed, left - in quicksand
+
+WaluigiStats:
+	.db $00 ; Pick-up Speed, frame 1/6 - pulling
+	.db $04 ; Pick-up Speed, frame 2/6 - pulling
+	.db $02 ; Pick-up Speed, frame 3/6 - ducking
+	.db $01 ; Pick-up Speed, frame 4/6 - ducking
+	.db $04 ; Pick-up Speed, frame 5/6 - ducking
+	.db $07 ; Pick-up Speed, frame 6/6 - ducking
+	.db $D6 ; Jump Speed, still - no object
+	.db $D6 ; Jump Speed, still - with object
+	.db $C9 ; Jump Speed, charged - no object
+	.db $C9 ; Jump Speed, charged - with object
+	.db $D0 ; Jump Speed, running - no object
+	.db $D4 ; Jump Speed, running - with object
+	.db $E0 ; Jump Speed - in quicksand
+	.db $00 ; Floating Time
+	.db $02 ; Gravity without Jump button pressed
+	.db $01 ; Gravity with Jump button pressed
+	.db $08 ; Gravity in quicksand
+	.db $18 ; Running Speed, right - no object
+	.db $16 ; Running Speed, right - with object
+	.db $04 ; Running Speed, right - in quicksand
+	.db $E8 ; Running Speed, left - no object
+	.db $EA ; Running Speed, left - with object
+	.db $FC ; Running Speed, left - in quicksand
+
+ToadetteStats:
+	.db $00 ; Pick-up Speed, frame 1/6 - pulling
+	.db $00 ; Pick-up Speed, frame 2/6 - pulling
+	.db $00 ; Pick-up Speed, frame 3/6 - ducking
+	.db $00 ; Pick-up Speed, frame 4/6 - ducking
+	.db $00 ; Pick-up Speed, frame 5/6 - ducking
+	.db $00 ; Pick-up Speed, frame 6/6 - ducking
+	.db $B2 ; Jump Speed, still - no object
+	.db $B2 ; Jump Speed, still - with object
+	.db $98 ; Jump Speed, charged - no object
+	.db $98 ; Jump Speed, charged - with object
+	.db $AD ; Jump Speed, running - no object
+	.db $AD ; Jump Speed, running - with object
+	.db $E0 ; Jump Speed - in quicksand
+	.db $00 ; Floating Time
+	.db $07 ; Gravity without Jump button pressed
+	.db $04 ; Gravity with Jump button pressed
+	.db $08 ; Gravity in quicksand
+	.db $18 ; Running Speed, right - no object
+	.db $1D ; Running Speed, right - with object
+	.db $04 ; Running Speed, right - in quicksand
+	.db $E8 ; Running Speed, left - no object
+	.db $E3 ; Running Speed, left - with object
+	.db $FC ; Running Speed, left - in quicksand
+
+RosalinaStats:
+	.db $00 ; Pick-up Speed, frame 1/6 - pulling
+	.db $06 ; Pick-up Speed, frame 2/6 - pulling
+	.db $04 ; Pick-up Speed, frame 3/6 - ducking
+	.db $02 ; Pick-up Speed, frame 4/6 - ducking
+	.db $06 ; Pick-up Speed, frame 5/6 - ducking
+	.db $0C ; Pick-up Speed, frame 6/6 - ducking
+	.db $B3 ; Jump Speed, still - no object
+	.db $B3 ; Jump Speed, still - with object
+	.db $98 ; Jump Speed, charged - no object
+	.db $98 ; Jump Speed, charged - with object
+	.db $AC ; Jump Speed, running - no object
+	.db $B3 ; Jump Speed, running - with object
+	.db $E0 ; Jump Speed - in quicksand
+	.db $3C ; Floating Time
+	.db $07 ; Gravity without Jump button pressed
+	.db $04 ; Gravity with Jump button pressed
+	.db $08 ; Gravity in quicksand
+	.db $18 ; Running Speed, right - no object
+	.db $15 ; Running Speed, right - with object
+	.db $04 ; Running Speed, right - in quicksand
+	.db $E8 ; Running Speed, left - no object
+	.db $EB ; Running Speed, left - with object
+	.db $FC ; Running Speed, left - in quicksand
+
 CharacterPalette:
 MarioPalette:
 	.db $0F, $01, $16, $27
@@ -377,6 +385,69 @@ ToadPalette:
 	.db $0F, $01, $30, $27
 LuigiPalette:
 	.db $0F, $01, $2A, $36
+WarioPalette:
+	.db $0F, $05, $27, $36
+WaluigiPalette:
+  .db $0F, $03, $13, $36
+ToadettePalette:
+  .db $0F, $0D, $24, $36
+RosalinaPalette:
+  .db $0F, $08, $2C, $36
+
+CurrentCharacterTable:
+  .db Character_Mario, Character_Rosalina
+
+LoadCurrentAreaCharacter:
+  LDY CurrentLevelArea
+  LDA CurrentCharacterTable, Y
+  STA CurrentCharacter
+  TAX
+
+	LDY StatOffsets, X
+	LDX #$00
+LoadCurrentAreaCharacterLoop:
+	LDA CharacterStats, Y
+	STA CharacterStatsRAM, X
+	INY
+	INX
+	CPX #$17
+	BCC LoadCurrentAreaCharacterLoop
+
+  LDA CurrentCharacter
+  STA SpriteCHR1
+
+  JSR UpdateCharacterPalette
+
+  RTS
+
+; ------------------------------------------------------------
+; Update PPUBuffer to update the current character palette
+; ------------------------------------------------------------
+UpdateCharacterPalette:
+	LDX byte_RAM_300
+	LDA #$3F
+	STA PPUBuffer_301, X
+	LDA #$11
+	STA PPUBuffer_301 + 1, X
+	LDA #$03
+	STA PPUBuffer_301 + 2, X
+  LDA CurrentCharacter
+  ASL A
+  ASL A
+  TAY
+	LDA CharacterPalette + 1, Y
+	STA PPUBuffer_301 + 3, X
+	LDA CharacterPalette + 2, Y
+	STA PPUBuffer_301 + 4, X
+  LDA CharacterPalette + 3, Y
+	STA PPUBuffer_301 + 5, X
+	LDA #$00
+	STA PPUBuffer_301 + 6, X
+	TXA
+	CLC
+	ADC #$06
+	STA byte_RAM_300
+	RTS
 
 ;
 ; What is this for? It gets copied to RAM and then...that's all.

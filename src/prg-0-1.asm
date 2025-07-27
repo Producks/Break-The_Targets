@@ -6486,26 +6486,6 @@ ContributorSpriteZeroOAMData:
 	.db $8C, $FC, $20, $94
 
 ContributorCharacterOAMData:
-	; Mario
-	.db $4F, $61, $20, $50
-	.db $4F, $63, $20, $58
-	.db $5F, $65, $20, $50
-	.db $5F, $67, $20, $58
-	; Luigi
-	.db $4F, $69, $21, $68
-	.db $4F, $6B, $21, $70
-	.db $5F, $6D, $21, $68
-	.db $5F, $6F, $21, $70
-	; Toad
-	.db $4F, $83, $22, $88
-	.db $4F, $83, $62, $90
-	.db $5F, $87, $22, $88
-	.db $5F, $87, $62, $90
-	; Princess
-	.db $4F, $8B, $23, $A0
-	.db $4F, $8D, $23, $A8
-	.db $5F, $8F, $23, $A0
-	.db $5F, $91, $23, $A8
 
 
 ;
