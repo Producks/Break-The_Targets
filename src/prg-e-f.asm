@@ -1572,10 +1572,6 @@ ENDIF
 ; NMI logic for during a transition
 ;
 NMI_Transition:
-;	LDA #$00
-;	STA OAMADDR
-;	LDA #$02
-;	STA OAM_DMA
 	JSR ChangeCHRBanks
 
 	LDA PPUMaskMirror
@@ -1592,16 +1588,9 @@ NMI_Transition:
 ; NMI logic for during the pause menu
 ;
 NMI_PauseOrMenu:
-;	LDA #$00
-;	STA PPUMASK
-;	STA OAMADDR
-;	LDA #$02
-;	STA OAM_DMA
 	JSR ChangeCHRBanks
 
 	JSR UpdatePPUFromBufferWithOptions
-
-	JSR ResetPPUAddress
 
 	LDA PPUScrollXMirror
 	STA PPUSCROLL
@@ -1618,6 +1607,7 @@ NMI_PauseOrMenu:
 NMI_Waiting:
 	LDA PPUMaskMirror
 	STA PPUMASK
+  JSR ResetScrollNMI
 	JMP NMI_DoSoundProcessing
 
 
@@ -1699,15 +1689,17 @@ InputReadingloop:
 
 	JSR ChangeCHRBanks
 
+; Setup next IRQ
+  LDA #$C0 ; Scanline 129
+  STA MMC3_IRQLatch
+  STA MMC3_IRQReload
+  STA MMC3_IRQEnable
+
 NMI_CheckWaitFlag:
 	LDA NMIWaitFlag
 	BNE NMI_Waiting
 
 NMI_Gameplay:
-  LDA #$C0 ; Scanline 129
-  STA MMC3_IRQLatch
-  STA MMC3_IRQReload
-  STA MMC3_IRQEnable
 	; `UpdatePPUFromBufferNMI` draws in a row-oriented fashion, which makes it
 	; unsuitable for horizontal levels where scrolling the screen means drawing
 	; columns of new tiles. As a result, we need special logic to draw the
@@ -1791,15 +1783,8 @@ NMI_DrawBackgroundAttributesInnerLoop:
 NMI_AfterBackgroundAttributesUpdate:
 	JSR UpdatePPUFromBufferNMI
 
-	JSR ResetPPUAddress
-
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
 	ORA PPUScrollXHiMirror
-	LDY IsHorizontalLevel
-	BNE NMI_UpdatePPUScroll
-
-	AND #$FE
-	ORA PPUScrollYHiMirror
 
 NMI_UpdatePPUScroll:
 	STA PPUCTRL
@@ -1847,24 +1832,6 @@ NMI_Exit:
 	RTI
 
 ; End of function NMI
-
-;
-; Sets the PPU address to `$3f00`, then immediatley to `$0000`
-;
-; Speculation is that this ritual comes from a recommendation in some Nintendo
-; documentation, but isn't actually necessary.
-;
-; See: https://forums.nesdev.com/viewtopic.php?f=2&t=16721
-;
-ResetPPUAddress:
-	LDA PPUSTATUS
-	LDA #$3F
-	STA PPUADDR
-	LDA #$00
-	STA PPUADDR
-	STA PPUADDR
-	STA PPUADDR
-	RTS
 
 
 DoSoundProcessing:
@@ -2237,6 +2204,21 @@ SlotMachineNoCoinsJingle:
 	STA MusicQueue2
 	RTS
 ENDIF
+
+ResetScrollNMI:
+	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
+	ORA PPUScrollXHiMirror
+	STA PPUCTRL
+	STA PPUCtrlMirror
+	LDA PPUScrollXMirror
+	STA PPUSCROLL
+	LDA PPUScrollYMirror
+	CLC
+	ADC BackgroundYOffset
+	STA PPUSCROLL
+	LDA PPUMaskMirror
+	STA PPUMASK
+  RTS
 
 ; Unused space in the original ($ED4D - $EFFF)
 unusedSpace $F000, $FF
