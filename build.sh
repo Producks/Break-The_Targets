@@ -10,7 +10,7 @@ compareHash() {
 }
 
 build() {
-	tools/asm6f smb2.asm -n -c -L bin/smb2.nes "$@" > bin/assembler.log
+	tools/asm6f smb2.asm -n -c -L bin/smb2.nes bin/smb2.lst "$@" > bin/assembler.log
 }
 
 
