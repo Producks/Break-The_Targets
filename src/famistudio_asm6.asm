@@ -81,8 +81,8 @@
 ; For ASM6, you need to specify the .enum location for zeroage and RAM/BSS as well as the .org for the engine code.
 ;======================================================================================================================
 
-FAMISTUDIO_ASM6_ZP_ENUM   = FamiStudioZeroPage
-FAMISTUDIO_ASM6_BSS_ENUM  = FamiStudioWorkRam
+FAMISTUDIO_ASM6_ZP_ENUM   = $00bb
+FAMISTUDIO_ASM6_BSS_ENUM  = $6F00
 FAMISTUDIO_ASM6_CODE_BASE = $8000
 
 ;======================================================================================================================
@@ -6834,7 +6834,7 @@ famistudio_note_table_lsb:
             .incbin "NoteTables/famistudio_note_table_pal_lsb.bin"
         .endif
         .if FAMISTUDIO_CFG_NTSC_SUPPORT
-            .incbin "NoteTables/famistudio_note_table_lsb.bin"
+            .incbin "src/music/NoteTables/famistudio_note_table_lsb.bin"
         .endif
 
     .if FAMISTUDIO_EXP_S5B
@@ -6846,7 +6846,7 @@ famistudio_note_table_msb:
             .incbin "NoteTables/famistudio_note_table_pal_msb.bin"
         .endif
         .if FAMISTUDIO_CFG_NTSC_SUPPORT
-            .incbin "NoteTables/famistudio_note_table_msb.bin"
+            .incbin "src/music/NoteTables/famistudio_note_table_msb.bin"
         .endif
 
     .if FAMISTUDIO_EXP_VRC6

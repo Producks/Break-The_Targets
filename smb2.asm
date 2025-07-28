@@ -102,7 +102,7 @@ ENDIF
 ; ----------------------------------------
 ; Banks 4 and 5. Music engine and song data.
 .base $8000
-.include "src/prg-4-5.asm"
+.include "src/famistudio_asm6.asm"
 .pad $c000, $ff
 
 ; ----------------------------------------

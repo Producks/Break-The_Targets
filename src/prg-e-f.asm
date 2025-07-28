@@ -1633,8 +1633,9 @@ NMI_Exit:
 DoSoundProcessing:
 	LDA #PRGBank_4_5
 	JSR ChangeMappedPRGBankWithoutSaving
-
-	JSR StartProcessingSoundQueue
+LDA #$40  ; Set bit 6 to 1 (Interrupt Inhibit)
+STA $4017 ; Write to APU Frame Counter register
+;	JSR StartProcessingSoundQueue
 
 	LDA MMC3PRGBankTemp
 	JMP ChangeMappedPRGBank
