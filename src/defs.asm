@@ -789,9 +789,9 @@ CollisionFlags_80 = %10000000
 
 ; enum CHRBank (width 1 byte)
 CHRBank_Mario = $00
-CHRBank_Luigi = $01
-CHRBank_Princess = $02
-CHRBank_Toad = $03
+CHRBank_Princess = $01
+CHRBank_Toad = $02
+CHRBank_Luigi = $03
 CHRBank_Wario = $04
 CHRBank_Waluigi = $05
 CHRBank_Toadette = $06

@@ -446,6 +446,12 @@ HorizontalLevel_Loop:
 HorizontalLevel_CheckScroll:
   JSR WaitForNMI
 
+  LDA Player1JoypadPress
+	AND #ControllerInput_Select
+	BEQ HorizontalLevel_CheckSubArea
+
+	JMP PauseRespawn
+
 HorizontalLevel_CheckSubArea:
 
 HorizontalLevel_ProcessFrame:
@@ -4315,8 +4321,8 @@ IFNDEF RESPAWN_INSTEAD_OF_DEATH
 	STA DPCMQueue
 	RTS
 ELSE
-	LDA #DPCM_PlayerDeath
-	STA DPCMQueue
+;	LDA #DPCM_PlayerDeath
+;	STA DPCMQueue
 	JMP RespawnPlayer
 	NOP
 	NOP
@@ -5047,23 +5053,15 @@ LoadMarioSleepingCHRBanks:
 
 IFDEF RESPAWN_INSTEAD_OF_DEATH
 PauseRespawn:
-	; Check conditions where we shouldn't allow respawn
+; Check conditions where we shouldn't allow respawn
 	LDA PlayerLock
 	BNE PauseRespawn_Exit
-	; BNE PauseRespawn_ShowPauseScreen
 
 PauseRespawn_KillPlayer:
 	JSR KillPlayer
-PauseRespawn_Exit:
-	LDA IsHorizontalLevel
-	BEQ PauseRespawn_Vertical
-	JMP HorizontalLevel_CheckSubArea
-PauseRespawn_Vertical:
-;	JMP VerticalLevel_ProcessFrame
 
-PauseRespawn_ShowPauseScreen:
-;	JSR PauseScreen_ExtraLife
-;	JMP SetStack100Pause
+PauseRespawn_Exit:
+	JMP HorizontalLevel_CheckSubArea
 
 RespawnPlayer:
 	; Stop invincibility music

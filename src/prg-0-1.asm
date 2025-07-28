@@ -1917,25 +1917,7 @@ HandlePlayerState:
 IFDEF CONTROLLER_2_DEBUG
 	JSR CheckPlayer2Joypad
 ENDIF
-
-	LDA PlayerState ; Handles player states?
-	CMP #PlayerState_Lifting
-	BCS loc_BANK0_8A26 ; If the player is changing size, just handle that
-
-	LDA #$00 ; Check if the player needs to change size
-	LDY #$10
-	CPY PlayerHealth
-	ROL A
-	EOR PlayerCurrentSize
-	BEQ loc_BANK0_8A26
-
-	LDY PlayerCurrentSize
-	LDA GrowShrinkSFXIndexes, Y
-	STA SoundEffectQueue2
-	LDA #$1E
-	STA PlayerStateTimer
-	LDA #PlayerState_ChangingSize
-	STA PlayerState
+; Check later if bug... TODO BUG BUG
 
 loc_BANK0_8A26:
 	LDA #ObjAttrib_Palette0
@@ -5668,55 +5650,6 @@ HandlePlayerState_Respawning:
 	STA PlayerXVelocity
 	STA PlayerYVelocity
 
-	; Are the in a jar?
-	LDA InJarType
-	BNE HandlePlayerState_Respawning_Jar
-
-	; Are we in subspace?
-	LDA InSubspaceOrJar
-	BEQ HandlePlayerState_Respawning_Regular
-
-HandlePlayerState_Respawning_Subspace:
-	; Exit subspace immediately
-	LDA #$00
-	STA InSubspaceOrJar
-	STA SubspaceTimer
-
-	RTS
-
-HandlePlayerState_Respawning_Jar:
-	; Pointer jars reload like an area
-	CMP #$02
-	BEQ HandlePlayerState_Respawning_AreaReset
-
-HandlePlayerState_Respawning_JarSubArea:
-	; Clear the sub-area tile layout
-	JSR ResetSubAreaJarLayout
-
-	; Redraw tiles (horizontal level)
-	JSR WaitForNMI_TurnOffPPU
-
-	; Set update boundary to page 10 for sub-area
-	LDA #$0A
-	STA BackgroundUpdateBoundary
-
-HandlePlayerState_Respawning_JarSubArea_Loop:
-	JSR WaitForNMI
-
-	JSR sub_BANK0_87AA
-
-	LDA byte_RAM_537
-	BEQ HandlePlayerState_Respawning_JarSubArea_Loop
-
-	JSR WaitForNMI_TurnOnPPU
-	JSR WaitForNMI
-
-	JSR DoAreaReset
-
-	JSR ApplyAreaTransition
-
-	RTS
-
 HandlePlayerState_Respawning_Regular:
 	; Reset level
 	LDA CurrentLevel_Init
@@ -5747,6 +5680,7 @@ HandlePlayerState_Respawning_Regular:
 	STA PlayerCurrentSize
 	STA InSubspaceOrJar
 	STA SubspaceTimer
+  STA PlayerRidingCarpet
 
 	JSR RestorePlayerToFullHealth
 
@@ -7708,51 +7642,6 @@ loc_BANK1_BABC:
 
 
 PlayerTileCollision_HurtPlayer:
-	LDA DamageInvulnTime
-	BNE locret_BANK1_BAEC
-
-	LDA PlayerHealth
-	SEC
-	SBC #$10
-	BCC loc_BANK1_BAED
-
-	STA PlayerHealth
-	LDA #$7F
-	STA DamageInvulnTime
-	LDA PlayerScreenX
-	SEC
-	SBC SpriteTempScreenX
-	ASL A
-	ASL A
-	STA PlayerXVelocity
-	LDA #$C0
-	LDY PlayerYVelocity
-	BPL loc_BANK1_BAE5
-
-	LDA #$00
-
-loc_BANK1_BAE5:
-	STA PlayerYVelocity
-	LDA #DPCM_PlayerHurt
-	STA DPCMQueue
-
-locret_BANK1_BAEC:
-	RTS
-
-; ---------------------------------------------------------------------------
-
-loc_BANK1_BAED:
-	LDA #$C0
-	STA PlayerYVelocity
-	LDA #$20
-	STA PlayerStateTimer
-	LDY byte_RAM_12
-	BMI loc_BANK1_BAFD
-
-	LSR A
-	STA ObjectStunTimer, Y
-
-loc_BANK1_BAFD:
 	JMP KillPlayer
 
 
