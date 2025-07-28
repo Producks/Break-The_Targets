@@ -383,6 +383,7 @@ EnemyArray_B1:
 ; position. The left/right bounds of the area will overrule this.
 MoveCameraX:
 	.dsb 1 ; $00ba
+FamiStudioZeroPage:
 CurrentMusicPointer:
 	.dsb 2 ; $00bb
 NextFrequencyLo:
@@ -403,9 +404,13 @@ IFNDEF EXPAND_MUSIC
 MusicSquare2Lo: ; (unused)
 ENDIF
 	.dsb 1 ; $00c2
+; Famistudio ends here?
+
 	.dsb 1 ; $00c3
 SoundEffectTimer2:
-	.dsb 1 ; $00c4
+	.dsb 1 ; $00c4 ; Maybe free 2 bytes here for the zero page, might be worth looking into
+
+
 ; FOR RENT
 TargetsCount:
 	.dsb 1 ; $00c5
@@ -2214,6 +2219,8 @@ IFDEF CONTROLLER_2_DEBUG
 	CreateObjectType = $7e82
 	CreateObjectAttributes = $7e83
 ENDIF
+
+FamiStudioWorkRam = $6F00
 
 PPU_UpdateHudBuffer = $7E00
 PPU_UpdateAreaHudeBuffer = $7E0B
