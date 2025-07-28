@@ -413,34 +413,6 @@ LoadCurrentAreaCharacterLoop:
 	CPX #$17
 	BCC LoadCurrentAreaCharacterLoop
 
-  LDA CurrentCharacter
-  STA SpriteCHR1
-
-; Update palette by setting up a buffer at 300
-	LDX byte_RAM_300
-	LDA #$3F
-	STA PPUBuffer_301, X
-	LDA #$11
-	STA PPUBuffer_301 + 1, X
-	LDA #$03
-	STA PPUBuffer_301 + 2, X
-  LDA CurrentCharacter
-  ASL A
-  ASL A
-  TAY
-	LDA CharacterPalette + 1, Y
-	STA PPUBuffer_301 + 3, X
-	LDA CharacterPalette + 2, Y
-	STA PPUBuffer_301 + 4, X
-  LDA CharacterPalette + 3, Y
-	STA PPUBuffer_301 + 5, X
-	LDA #$00
-	STA PPUBuffer_301 + 6, X
-	TXA
-	CLC
-	ADC #$06
-	STA byte_RAM_300
-
   RTS
 
 ;

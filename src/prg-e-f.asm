@@ -99,37 +99,12 @@ WorldStartingLevel:
 	.db $12
 	.db $14
 
-BonusChanceCherrySprite:
-	.db $5F, $05, $01, $58
-	.db $5F, $07, $01, $60
-
-BonusChanceStarSprite:
-	.db $5F, $09, $01, $58
-	.db $5F, $09, $41, $60
-
-BonusChanceVeggieSprite:
-	.db $5F, $0B, $01, $58
-	.db $5F, $0B, $41, $60
-
 BonusChanceSnifitSprite:
 	.db $5F, $01, $01, $58
 	.db $5F, $03, $01, $60
 
-PlayerSelectSpritePalettesDark:
-	.db $3F, $10, $10 ; PPU Data
-	.db $0F, $22, $12, $01
-	.db $0F, $22, $12, $01
-	.db $0F, $22, $12, $01
-	.db $0F, $22, $12, $01
-
 TitleCardPalettes:
 	.db $00
-
-BonusChanceSpritePalettes:
-	.db $0F, $37, $16, $0F
-	.db $0F, $37, $16, $0F
-	.db $0F, $37, $16, $0F
-	.db $0F, $37, $16, $0F
 
 
 ;
@@ -417,8 +392,7 @@ StartLevel_SetPPUCtrlMirror:
 
 	JSR LoadCurrentArea
 
-	JSR LoadCurrentPalette
-
+	JSR LoadCurrentPalette_N_CHRBank
 
 IFDEF AREA_HEADER_TILESET
 	JSR LoadWorldCHRBanks
@@ -607,7 +581,7 @@ SubArea_Loop:
 	LDA #PRGBank_6_7
 	JSR ChangeMappedPRGBank
 
-	JSR LoadCurrentPalette
+;	JSR LoadCurrentPalette
 
 loc_BANKF_E606:
 	JSR WaitForNMI_TurnOnPPU
@@ -642,7 +616,7 @@ loc_BANKF_E627:
 	LDA #PRGBank_6_7
 	JSR ChangeMappedPRGBank
 
-	JSR LoadCurrentPalette
+;	JSR LoadCurrentPalette
 
 	JSR WaitForNMI_TurnOffPPU
 
@@ -986,125 +960,6 @@ EnsureCorrectWorld_Loop:
 
 
 StartSlotMachine:
-	DEC SlotMachineCoins
-	JSR WaitForNMI
-
-	JSR sub_BANKF_EA68
-
-	LDA #$01 ; Set all reel timers
-	STA ObjectXLo
-	STA ObjectXLo + 1
-	STA ObjectXLo + 2
-	LSR A ; Set all reels to the first position
-	STA ObjectXLo + 6
-	STA ObjectXLo + 7
-	STA ObjectXLo + 8
-
-DoSlotMachineSpinnyShit:
-	JSR WaitForNMI ; $2C-$2E: Reel change timer
-	; $2F-$31: Current reel icon
-
-	LDA #SoundEffect2_Climbing ; Play "reel sound" sound effect
-	STA SoundEffectQueue2
-	JSR sub_BANKF_EAC2
-
-	JSR sub_BANKF_EADC
-
-	JSR sub_BANKF_EAF6
-
-	JSR SlotMachineTextFlashIndex
-
-	LDA BonusChanceUpdateBuffer_PUSH_A_BUTTON, Y
-	STA ScreenUpdateIndex
-	INC byte_RAM_6
-	LDA ObjectXLo ; Reel 1 still active?
-	ORA ObjectXLo + 1 ; Reel 2 still active?
-	ORA ObjectXLo + 2 ; Reel 3 still active?
-	BNE DoSlotMachineSpinnyShit ; If any are still active, go back to waiting
-
-	LDA #ScreenUpdateBuffer_RAM_ErasePushAButtonText
-	STA ScreenUpdateIndex
-	JSR WaitForNMI
-
-	LDY #$00
-	LDX ObjectXLo + 6 ; Load reel 1
-	LDA SlotMachineReelOrder1RAM, X
-	BNE CheckReel2Symbol ; Is this reel a cherry?
-
-	INY ; Yes; add one life
-
-CheckReel2Symbol:
-	LDX ObjectXLo + 7 ; Load reel 2
-	CMP SlotMachineReelOrder2RAM, X
-	BNE AddSlotMachineExtraLives ; Does this match the previous symbol?
-
-	CMP #$00 ; Yes; are they both cherries?
-	BNE CheckReel3Symbol ; If no, skip to third reel
-
-	INY ; They are both cherries, add another life or something
-
-CheckReel3Symbol:
-	LDX ObjectXLo + 8 ; Load reel 3
-	CMP SlotMachineReelOrder3RAM, X ; Does reel 3 match the previous two?
-	BNE AddSlotMachineExtraLives ; No, fuck you
-
-	INY ; They all match! Yay! Add a life.
-; Cherry count: 3 / Non-cherry: 1
-	CMP #$00 ; Were they all cherries?
-	BNE AddSlotMachineExtraLives ; Nope, all done
-
-	INY ; Yes, add 2 more extra lives
-	INY
-
-AddSlotMachineExtraLives:
-	TYA ; Y contains extra lives to add
-	CLC
-	ADC ExtraLives ; Add won extra lives to current lives
-	BCC loc_BANKF_E8D3 ; Check if adding extra lives has wrapped the counter
-
-	LDA #$FF ; If so, set extra lives to 255 (#$FF)
-
-loc_BANKF_E8D3:
-	STA ExtraLives
-	TYA ; Did we actually win any lives?
-	BEQ SlotMachineLoseFanfare ; No, play lose sound effect
-
-	ORA #$D0
-	STA PPUBuffer_Player1UpText + 11 ; Update number of lives won
-	LDA #Music2_CrystalGetFanfare ; Play winner jingle
-	STA MusicQueue2
-	LDA #$A0
-	STA byte_RAM_6
-	JSR WaitForNMI
-
-	JSR sub_BANKF_EA68
-
-loc_BANKF_E8ED:
-	JSR WaitForNMI
-
-	JSR SlotMachineTextFlashIndex
-
-	LDA BonusChanceUpdateBuffer_PLAYER_1UP, Y
-	STA ScreenUpdateIndex
-	DEC byte_RAM_6
-	BNE loc_BANKF_E8ED
-
-	BEQ loc_BANKF_E90C
-
-SlotMachineLoseFanfare:
-	LDA #Music2_DeathJingle
-	STA MusicQueue2
-	JSR WaitForNMI
-
-	JSR sub_BANKF_EA68
-
-	JSR Delay160Frames
-
-loc_BANKF_E90C:
-	LDA #ScreenUpdateBuffer_RAM_EraseBonusMessageTextUnused
-	STA ScreenUpdateIndex
-	JSR WaitForNMI
-
 	JMP loc_BANKF_E7FD
 
 
@@ -1347,32 +1202,11 @@ loc_BANKF_EA43:
 	LDA #$10
 	STA PPUADDR
 
-SetBonusChancePalette:
-	LDA BonusChanceSpritePalettes, Y
-	STA PPUDATA
-	INY
-	CPY #$10
-	BCC SetBonusChancePalette
-
 ; End of function sub_BANKF_EA33
 
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EA68:
-	LDY ExtraLives
-	DEY
-	TYA
-	JSR GetTwoDigitNumberTiles
-	STY byte_RAM_599
-	STA byte_RAM_59A
-
-	LDA SlotMachineCoins
-	CLC
-	ADC #$D0
-	STA byte_RAM_588
-
-	LDA #ScreenUpdateBuffer_RAM_BonusChanceCoinsExtraLife
-	STA ScreenUpdateIndex
 	LDA #Stack100_Menu
 	STA StackArea
 	JSR EnableNMI
@@ -1504,49 +1338,6 @@ loc_BANKF_EAF2:
 ; =============== S U B R O U T I N E =======================================
 
 sub_BANKF_EAF6:
-	LDA #$02
-	STA byte_RAM_0
-
-loc_BANKF_EAFA:
-	LDA byte_RAM_0
-	TAY
-	ASL A
-	ASL A
-	ASL A
-	TAX
-	ADC ObjectXLo + 6, Y
-	TAY
-	LDA SlotMachineReelOrder1RAM, Y
-	TAY
-	LDA #$07
-	STA byte_RAM_1
-
-loc_BANKF_EB0D:
-	LDA BonusChanceCherrySprite, Y
-	STA SpriteDMAArea + $10, X
-	INX
-	INY
-	DEC byte_RAM_1
-	BPL loc_BANKF_EB0D
-
-	DEC byte_RAM_0
-	BPL loc_BANKF_EAFA
-
-	LDX #$17
-
-loc_BANKF_EB1F:
-	TXA
-	AND #$18
-	ASL A
-	ASL A
-	ADC SpriteDMAArea + $10, X
-	STA SpriteDMAArea + $10, X
-	DEX
-	DEX
-	DEX
-	DEX
-	BPL loc_BANKF_EB1F
-
 	RTS
 
 ; End of function sub_BANKF_EAF6
@@ -5268,11 +5059,11 @@ PauseRespawn_Exit:
 	BEQ PauseRespawn_Vertical
 	JMP HorizontalLevel_CheckSubArea
 PauseRespawn_Vertical:
-	JMP VerticalLevel_ProcessFrame
+;	JMP VerticalLevel_ProcessFrame
 
 PauseRespawn_ShowPauseScreen:
-	JSR PauseScreen_ExtraLife
-	JMP SetStack100Pause
+;	JSR PauseScreen_ExtraLife
+;	JMP SetStack100Pause
 
 RespawnPlayer:
 	; Stop invincibility music

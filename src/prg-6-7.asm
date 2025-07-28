@@ -21,448 +21,77 @@ RestrictionCountTable:
   .db $02, $03, $0F, $0F
 
 ;
-; ## Level palettes
-;
-; Each world has several sets of background and sprite palettes, which are set per area in the level
-; header. Subspace is defined separately in each world, but they all use the same colors!
-;
-
-;
 ; #### Palette pointers
 ;
-WorldBackgroundPalettePointersLo:
-	.db <World1BackgroundPalettes
-	.db <World2BackgroundPalettes
-	.db <World3BackgroundPalettes
-	.db <World4BackgroundPalettes
-	.db <World5BackgroundPalettes
-	.db <World6BackgroundPalettes
-	.db <World7BackgroundPalettes
+PalettePTRLo:
+	.db <Area0Palette
+  .db <Area1Palette
+  .db <Area2Palette
 
-WorldSpritePalettePointersLo:
-	.db <World1SpritePalettes
-	.db <World2SpritePalettes
-	.db <World3SpritePalettes
-	.db <World4SpritePalettes
-	.db <World5SpritePalettes
-	.db <World6SpritePalettes
-	.db <World7SpritePalettes
+PalettePTRHi:
+	.db >Area0Palette
+  .db >Area1Palette
+  .db >Area2Palette
 
-WorldBackgroundPalettePointersHi:
-	.db >World1BackgroundPalettes
-	.db >World2BackgroundPalettes
-	.db >World3BackgroundPalettes
-	.db >World4BackgroundPalettes
-	.db >World5BackgroundPalettes
-	.db >World6BackgroundPalettes
-	.db >World7BackgroundPalettes
-
-WorldSpritePalettePointersHi:
-	.db >World1SpritePalettes
-	.db >World2SpritePalettes
-	.db >World3SpritePalettes
-	.db >World4SpritePalettes
-	.db >World5SpritePalettes
-	.db >World6SpritePalettes
-	.db >World7SpritePalettes
-
-; #### World 1
-;
-World1BackgroundPalettes:
-	; Day
+Area0Palette:
+; Palette
 	.db $21, $30, $12, $0F ; $00
 	.db $21, $30, $16, $0F ; $04
 	.db $21, $27, $17, $0F ; $08
 	.db $21, $29, $1A, $0F ; $0C
-	; Night
-	.db $0F, $30, $12, $01 ; $10
-	.db $0F, $30, $16, $02 ; $14
-	.db $0F, $27, $17, $08 ; $18
-	.db $0F, $29, $1A, $0A ; $1C
-	; Underground
-	.db $0F, $2C, $1C, $0C ; $20
-	.db $0F, $30, $16, $02 ; $24
-	.db $0F, $27, $17, $08 ; $28
-	.db $0F, $2A, $1A, $0A ; $2C
-	; Jar
-	.db $07, $30, $27, $0F ; $30
-	.db $07, $30, $16, $0F ; $34
-	.db $07, $27, $17, $0F ; $38
-	.db $07, $31, $21, $0F ; $3C
-	; Castle
-	.db $03, $2C, $1C, $0F ; $40
-	.db $03, $30, $16, $0F ; $44
-	.db $03, $3C, $1C, $0F ; $48
-	.db $03, $25, $15, $05 ; $4C
-	; Boss
-	.db $0C, $30, $06, $0F ; $50
-	.db $0C, $30, $16, $0F ; $54
-	.db $0C, $30, $16, $0F ; $58
-	.db $0C, $30, $26, $0F ; $5C
-	; Subspace
-	.db $01, $0F, $0F, $0F ; $60
-	.db $01, $0F, $0F, $0F ; $64
-	.db $01, $0F, $0F, $0F ; $68
-	.db $01, $0F, $0F, $0F ; $6C
+	.db $21, $01, $16, $27 ; Mario
+	.db $21, $30, $16, $0F ; $00
+	.db $21, $38, $10, $0F ; $04
+	.db $21, $30, $25, $1B ; $08
 
-World1SpritePalettes:
-	; Overworld
-	.db $FF, $30, $16, $0F ; $00
-	.db $FF, $38, $10, $0F ; $04
-	.db $FF, $30, $25, $0F ; $08
-	; Underground
-	.db $FF, $30, $16, $02 ; $0C
-	.db $FF, $38, $10, $02 ; $10
-	.db $FF, $30, $25, $02 ; $14
-	; Boss
-	.db $FF, $30, $16, $0F ; $18
-	.db $FF, $30, $10, $0F ; $1C
-	.db $FF, $25, $10, $0F ; $20
-IFDEF EXPAND_TABLES
-	unusedSpace World1SpritePalettes + $30, $FF
-ENDIF
+; Background chr banks
+  .db CHRBank_BackgroundGrass
+  .db CHRBank_Animated1
+; Sprite chr banks
+  .db CHRBank_Mario
+  .db CHRBank_CommonEnemies1
+  .db CHRBank_CommonEnemies2
+  .db CHRBank_EnemiesGrass
 
-;
-; #### World 2
-;
-World2BackgroundPalettes:
-	; Day
-	.db $11, $30, $2A, $0F ; $00
+Area1Palette:
+; Day
+	.db $01, $30, $12, $0F ; $00
+	.db $01, $30, $16, $0F ; $04
+	.db $01, $27, $17, $0F ; $08
+	.db $01, $29, $1A, $0F ; $0C
+	.db $01, $01, $16, $27 ; Mario
+	.db $01, $30, $16, $0F ; $00
+	.db $01, $38, $10, $0F ; $04
+	.db $01, $30, $25, $1B ; $08
+
+; Background chr banks
+  .db CHRBank_BackgroundGrass
+  .db CHRBank_Animated1
+; Sprite chr banks
+  .db CHRBank_Mario
+  .db CHRBank_CommonEnemies1
+  .db CHRBank_CommonEnemies2
+  .db CHRBank_EnemiesGrass
+
+Area2Palette:
+; Day
+	.db $11, $30, $12, $0F ; $00
 	.db $11, $30, $16, $0F ; $04
-	.db $11, $28, $18, $0F ; $08
-	.db $11, $17, $07, $0F ; $0C
-	; Night (unused?)
-	.db $0F, $30, $2A, $0A ; $10
-	.db $0F, $30, $16, $02 ; $14
-	.db $0F, $28, $18, $08 ; $18
-	.db $0F, $17, $07, $08 ; $1C
-	; Underground
-	.db $0F, $2A, $1A, $0A ; $20
-	.db $0F, $30, $16, $02 ; $24
-	.db $0F, $28, $18, $08 ; $28
-	.db $0F, $27, $17, $07 ; $2C
-	; Jar
-	.db $07, $30, $27, $0F ; $30
-	.db $07, $30, $16, $0F ; $34
-	.db $07, $28, $17, $0F ; $38
-	.db $07, $31, $11, $0F ; $3C;
-	; Castle (unused)
-	.db $0C, $2A, $1A, $0F ; $40
-	.db $0C, $30, $16, $0F ; $44
-	.db $0C, $17, $07, $0F ; $48
-	.db $0C, $25, $15, $0F ; $4C
-	; Boss
-	.db $0C, $30, $1A, $0F ; $50
-	.db $0C, $30, $16, $0F ; $54
-	.db $0C, $30, $2A, $0F ; $58
-	.db $0C, $30, $3A, $0F ; $5C
-	; Subspace
-	.db $01, $0F, $0F, $0F ; $60
-	.db $01, $0F, $0F, $0F ; $64
-	.db $01, $0F, $0F, $0F ; $68
-	.db $01, $0F, $0F, $0F ; $6C
+	.db $11, $27, $17, $0F ; $08
+	.db $11, $29, $1A, $0F ; $0C
+	.db $11, $01, $2A, $36 ; Luigi
+	.db $11, $30, $16, $0F ; $00
+	.db $11, $38, $10, $0F ; $04
+	.db $11, $30, $25, $1B ; $08
 
-World2SpritePalettes:
-	; Overworld
-	.db $FF, $30, $16, $0F ; $00
-	.db $FF, $38, $2A, $0F ; $04
-	.db $FF, $30, $25, $0F ; $08
-	; Underground
-	.db $FF, $30, $16, $02 ; $0C
-	.db $FF, $38, $2A, $02 ; $10
-	.db $FF, $30, $25, $02 ; $14
-	; Boss
-	.db $FF, $30, $16, $0F ; $18
-	.db $FF, $30, $10, $0F ; $1C
-	.db $FF, $30, $23, $0F ; $20
-IFDEF EXPAND_TABLES
-	unusedSpace World2SpritePalettes + $30, $FF
-ENDIF
-
-;
-; #### World 3
-;
-World3BackgroundPalettes:
-	; Day
-	.db $22, $30, $12, $0F ; $00
-	.db $22, $30, $16, $0F ; $04
-	.db $22, $27, $17, $0F ; $08
-	.db $22, $29, $1A, $0F ; $0C
-	; Night (unused)
-	.db $0F, $30, $12, $01 ; $10
-	.db $0F, $30, $16, $02 ; $14
-	.db $0F, $27, $17, $08 ; $18
-	.db $0F, $29, $1A, $04 ; $1C
-	; Underground
-	.db $0F, $30, $1C, $0C ; $20
-	.db $0F, $30, $16, $02 ; $24
-	.db $0F, $27, $17, $08 ; $28
-	.db $0F, $26, $16, $06 ; $2C
-	; Jar
-	.db $07, $30, $27, $0F ; $30
-	.db $07, $30, $16, $0F ; $34
-	.db $07, $27, $17, $0F ; $38
-	.db $07, $31, $31, $0F ; $3C
-	; Castle
-	.db $03, $31, $21, $0F ; $40
-	.db $03, $30, $16, $0F ; $44
-	.db $03, $3C, $1C, $0F ; $48
-	.db $03, $2A, $1A, $0F ; $4C
-	; Boss
-	.db $0C, $30, $11, $0F ; $50
-	.db $0C, $30, $16, $0F ; $54
-	.db $0C, $30, $21, $0F ; $58
-	.db $0C, $30, $31, $0F ; $5C
-	; Subspace
-	.db $01, $0F, $0F, $0F ; $60
-	.db $01, $0F, $0F, $0F ; $64
-	.db $01, $0F, $0F, $0F ; $68
-	.db $01, $0F, $0F, $0F ; $6C
-
-World3SpritePalettes:
-	; Overworld
-	.db $FF, $30, $16, $0F ; $00
-	.db $FF, $38, $10, $0F ; $04
-	.db $FF, $30, $25, $0F ; $08
-	; Underground
-	.db $FF, $30, $16, $02 ; $0C
-	.db $FF, $38, $10, $02 ; $10
-	.db $FF, $30, $25, $02 ; $14
-	; Boss
-	.db $FF, $30, $16, $0F ; $18
-	.db $FF, $30, $10, $0F ; $1C
-	.db $FF, $2B, $10, $0F ; $20
-IFDEF EXPAND_TABLES
-	unusedSpace World3SpritePalettes + $30, $FF
-ENDIF
-
-;
-; #### World 4
-;
-World4BackgroundPalettes:
-	; Day
-	.db $23, $30, $12, $0F ; $00
-	.db $23, $30, $16, $0F ; $04
-	.db $23, $2B, $1B, $0F ; $08
-	.db $23, $30, $32, $0F ; $0C
-	; Night (unused)
-	.db $0F, $30, $12, $01 ; $10
-	.db $0F, $30, $16, $02 ; $14
-	.db $0F, $2B, $1B, $0B ; $18
-	.db $0F, $29, $1A, $0A ; $1C
-	; Underground
-	.db $0F, $32, $12, $01 ; $20
-	.db $0F, $30, $16, $02 ; $24
-	.db $0F, $2B, $1B, $0B ; $28
-	.db $0F, $27, $17, $07 ; $2C
-	; Jar
-	.db $07, $30, $27, $0F ; $30
-	.db $07, $30, $16, $0F ; $34
-	.db $07, $27, $17, $0F ; $38
-	.db $07, $21, $21, $0F ; $3C
-	; Castle
-	.db $03, $30, $12, $0F ; $40
-	.db $03, $30, $16, $0F ; $44
-	.db $03, $3C, $1C, $0F ; $48
-	.db $03, $28, $18, $0F ; $4C
-	; Boss
-	.db $0C, $30, $00, $0F ; $50
-	.db $0C, $30, $16, $0F ; $54
-	.db $0C, $30, $10, $0F ; $58
-	.db $0C, $30, $30, $0F ; $5C
-	; Subspace
-	.db $01, $0F, $0F, $0F ; $60
-	.db $01, $0F, $0F, $0F ; $64
-	.db $01, $0F, $0F, $0F ; $68
-	.db $01, $0F, $0F, $0F ; $6C
-
-World4SpritePalettes:
-	; Overworld
-	.db $FF, $30, $16, $0F ; $00
-	.db $FF, $38, $10, $0F ; $04
-	.db $FF, $30, $25, $0F ; $08
-	; Underground
-	.db $FF, $30, $16, $02 ; $0C
-	.db $FF, $38, $10, $02 ; $10
-	.db $FF, $30, $25, $02 ; $14
-	; Boss
-	.db $FF, $30, $16, $0F ; $18
-	.db $FF, $30, $10, $0F ; $1C
-	.db $FF, $27, $16, $0F ; $20
-IFDEF EXPAND_TABLES
-	unusedSpace World4SpritePalettes + $30, $FF
-ENDIF
-
-;
-; #### World 5
-;
-World5BackgroundPalettes:
-	; Night
-	.db $0F, $30, $12, $01 ; $00
-	.db $0F, $30, $16, $01 ; $04
-	.db $0F, $27, $17, $07 ; $08
-	.db $0F, $2B, $1B, $0B ; $0C
-	; Also night (unused)
-	.db $0F, $30, $12, $01 ; $10
-	.db $0F, $30, $16, $02 ; $14
-	.db $0F, $27, $17, $08 ; $18
-	.db $0F, $29, $1A, $0A ; $1C
-	; Underground
-	.db $0F, $31, $12, $01 ; $20
-	.db $0F, $30, $16, $02 ; $24
-	.db $0F, $3C, $1C, $0C ; $28
-	.db $0F, $2A, $1A, $0A ; $2C
-	; Jar/Tree
-	.db $07, $30, $27, $0F ; $30
-	.db $07, $30, $16, $0F ; $34
-	.db $07, $27, $17, $0F ; $38
-	.db $07, $31, $01, $0F ; $3C
-	; Castle
-	.db $01, $2A, $1A, $0F ; $40
-	.db $01, $30, $16, $0F ; $44
-	.db $01, $3C, $1C, $0F ; $48
-	.db $01, $25, $15, $05 ; $4C
-	; Boss
-	.db $0C, $30, $16, $0F ; $50
-	.db $0C, $30, $16, $0F ; $54
-	.db $0C, $30, $24, $0F ; $58
-	.db $0C, $30, $34, $0F ; $5C
-	; Subspace
-	.db $01, $0F, $0F, $0F ; $60
-	.db $01, $0F, $0F, $0F ; $64
-	.db $01, $0F, $0F, $0F ; $68
-	.db $01, $0F, $0F, $0F ; $6C
-
-World5SpritePalettes:
-	; Overworld
-	.db $FF, $30, $16, $0F ; $00
-	.db $FF, $38, $10, $0F ; $04
-	.db $FF, $30, $25, $0F ; $08
-	; Underground
-	.db $FF, $30, $16, $02 ; $0C
-	.db $FF, $38, $10, $02 ; $10
-	.db $FF, $30, $25, $02 ; $14
-	; Boss
-	.db $FF, $30, $16, $0F ; $18
-	.db $FF, $30, $16, $0F ; $1C
-	.db $FF, $16, $30, $0F ; $20
-IFDEF EXPAND_TABLES
-	unusedSpace World5SpritePalettes + $30, $FF
-ENDIF
-
-;
-; #### World 6
-;
-World6BackgroundPalettes:
-	; Day
-	.db $21, $30, $2A, $0F ; $00
-	.db $21, $30, $16, $0F ; $04
-	.db $21, $28, $18, $0F ; $08
-	.db $21, $17, $07, $0F ; $0C
-	; Night
-	.db $0F, $30, $2A, $01 ; $10
-	.db $0F, $30, $16, $02 ; $14
-	.db $0F, $28, $18, $08 ; $18
-	.db $0F, $17, $07, $08 ; $1C
-	; Underground
-	.db $0F, $30, $12, $01 ; $20
-	.db $0F, $30, $16, $02 ; $24
-	.db $0F, $28, $18, $08 ; $28
-	.db $0F, $27, $17, $07 ; $2C
-	; Jar
-	.db $07, $30, $27, $0F ; $30
-	.db $07, $30, $16, $0F ; $34
-	.db $07, $28, $17, $0F ; $38
-	.db $07, $31, $01, $0F ; $3C
-	; Castle
-	.db $0C, $2A, $1A, $0F ; $40
-	.db $0C, $30, $16, $0F ; $44
-	.db $0C, $17, $07, $0F ; $48
-	.db $0C, $25, $15, $0F ; $4C
-	; Boss
-	.db $0C, $30, $1B, $0F ; $50
-	.db $0C, $30, $16, $0F ; $54
-	.db $0C, $30, $2B, $0F ; $58
-	.db $0C, $30, $3B, $0F ; $5C
-	; Subspace
-	.db $01, $0F, $0F, $0F ; $60
-	.db $01, $0F, $0F, $0F ; $64
-	.db $01, $0F, $0F, $0F ; $68
-	.db $01, $0F, $0F, $0F ; $6C
-
-World6SpritePalettes:
-	; Overworld
-	.db $FF, $30, $16, $0F ; $00
-	.db $FF, $38, $2A, $0F ; $04
-	.db $FF, $30, $25, $0F ; $08
-	; Underground
-	.db $FF, $30, $16, $02 ; $0C
-	.db $FF, $38, $2A, $02 ; $10
-	.db $FF, $30, $25, $02 ; $14
-	; Boss
-	.db $FF, $30, $16, $0F ; $18
-	.db $FF, $30, $10, $0F ; $1C
-	.db $FF, $30, $23, $0F ; $20
-IFDEF EXPAND_TABLES
-	unusedSpace World6SpritePalettes + $30, $FF
-ENDIF
-
-;
-; #### World 7
-;
-World7BackgroundPalettes:
-	; Day
-	.db $21, $30, $12, $0F ; $00
-	.db $21, $30, $16, $0F ; $04
-	.db $21, $27, $17, $0F ; $08
-	.db $21, $29, $1A, $0F ; $0C
-	; Night (unused)
-	.db $0F, $30, $12, $01 ; $10
-	.db $0F, $30, $16, $02 ; $14
-	.db $0F, $27, $17, $08 ; $18
-	.db $0F, $29, $1A, $0A ; $1C
-	; Castle
-	.db $0F, $2C, $1C, $0C ; $20
-	.db $0F, $30, $16, $02 ; $24
-	.db $0F, $27, $17, $08 ; $28
-	.db $0F, $2A, $1A, $0A ; $2C
-	; Jar (unused)
-	.db $07, $30, $16, $0F ; $30
-	.db $07, $30, $16, $0F ; $34
-	.db $07, $27, $17, $0F ; $38
-	.db $07, $31, $01, $0F ; $3C
-	; Castle (unused)
-	.db $0F, $3C, $2C, $0C ; $40
-	.db $0F, $30, $16, $02 ; $44
-	.db $0F, $28, $18, $08 ; $48
-	.db $0F, $25, $15, $05 ; $4C
-	; Boss
-	.db $0C, $30, $08, $0F ; $50
-	.db $0C, $30, $16, $0F ; $54
-	.db $0C, $38, $18, $0F ; $58
-	.db $0C, $28, $08, $0F ; $5C
-	; Subspace
-	.db $01, $0F, $0F, $0F ; $60
-	.db $01, $0F, $0F, $0F ; $64
-	.db $01, $0F, $0F, $0F ; $68
-	.db $01, $0F, $0F, $0F ; $6C
-
-World7SpritePalettes:
-	; Overworld
-	.db $FF, $30, $16, $0F ; $00
-	.db $FF, $38, $10, $0F ; $04
-	.db $FF, $30, $25, $0F ; $08
-	; Underground
-	.db $FF, $30, $16, $02 ; $0C
-	.db $FF, $38, $10, $02 ; $10
-	.db $FF, $30, $25, $02 ; $14
-	; Boss
-	.db $FF, $30, $16, $0F ; $18
-	.db $FF, $30, $10, $0F ; $1C
-	.db $FF, $30, $2A, $0F ; $20
-IFDEF EXPAND_TABLES
-	unusedSpace World7SpritePalettes + $30, $FF
-ENDIF
+; Background chr banks
+  .db CHRBank_BackgroundGrass
+  .db CHRBank_Animated1
+; Sprite chr banks
+  .db CHRBank_Luigi
+  .db CHRBank_CommonEnemies1
+  .db CHRBank_CommonEnemies2
+  .db CHRBank_EnemiesDesert
 
 ; -----
 
@@ -3514,20 +3143,6 @@ ResetLevelData_Loop:
 ;
 ReadWorldBackgroundColor:
 	; stash X and Y registers
-	STY byte_RAM_E
-	STX byte_RAM_D
-	; look up the address of the current world's palette
-	LDY CurrentWorldTileset
-	LDA WorldBackgroundPalettePointersLo, Y
-	STA byte_RAM_7
-	LDA WorldBackgroundPalettePointersHi, Y
-	STA byte_RAM_8
-	; load the color
-	LDY byte_RAM_D
-	LDA (byte_RAM_7), Y
-	; restore prior X and Y registers
-	LDY byte_RAM_E
-	LDX byte_RAM_D
 	RTS
 
 ;
@@ -3540,65 +3155,23 @@ ReadWorldBackgroundColor:
 ; - `A`: background palette color
 ;
 ReadWorldSpriteColor:
-	; stash X and Y registers
-	STY byte_RAM_E
-	STX byte_RAM_D
-	; look up the address of the current world's palette
-	LDY CurrentWorldTileset
-	LDA WorldSpritePalettePointersLo, Y
-	STA byte_RAM_7
-	LDA WorldSpritePalettePointersHi, Y
-	STA byte_RAM_8
-	; load the color
-	LDY byte_RAM_D
-	LDA (byte_RAM_7), Y
-	; restore prior X and Y registers
-	LDY byte_RAM_E
-	LDX byte_RAM_D
 	RTS
 
-;
-; Loads the current area or jar palette
-;
-LoadCurrentPalette:
-	LDA InSubspaceOrJar
-	CMP #$01
-	BNE LoadCurrentPalette_NotJar
+LoadCurrentCHRBankArea:
+  LDX CurrentLevelArea
 
-	; This function call will overwrite the
-	; normal level loading area with $7A00
-	JSR HijackLevelDataCopyAddressWithJar
+  RTS
 
-	JMP LoadCurrentPalette_AreaOffset
-
-; ---------------------------------------------------------------------------
-
-LoadCurrentPalette_NotJar:
+LoadCurrentPalette_N_CHRBank:
 	JSR RestoreLevelDataCopyAddress
 
-; Read the palette offset from the area header
-LoadCurrentPalette_AreaOffset:
-	LDY #$00
-	LDA (byte_RAM_5), Y
+  LDX CurrentLevelArea
+  LDA PalettePTRLo, X
+  STA TempAdrLo
+  LDA PalettePTRHi, X
+  STA TempAdrHi
 
-; End of function LoadCurrentPalette
-
-;
-; Loads a world palette to RAM
-;
-; ##### Input
-; - `A`: background palette header byte
-;
-ApplyPalette:
-	; Read background palette index from area header byte
-	STA byte_RAM_F
-	AND #%00111000
-	ASL A
-	TAX
-	JSR ReadWorldBackgroundColor
-
-	; Something PPU-related. If it's not right, the colors are very wrong.
-	STA SkyColor
+; Setup addr in buffer
 	LDA #$3F
 	STA PPUBuffer_301
 	LDA #$00
@@ -3607,125 +3180,29 @@ ApplyPalette:
 	STA PPUBuffer_301 + 2
 
 	LDY #$00
+  LDA (TempAdrLo), Y
+	STA SkyColor
+
 ApplyPalette_BackgroundLoop:
-	JSR ReadWorldBackgroundColor
-	STA PPUBuffer_301 + 3, Y
-	INX
-	INY
-	CPY #$10
-	BCC ApplyPalette_BackgroundLoop
-
-	; Read sprite palette index from area header byte
-	LDA byte_RAM_F
-	AND #$03
-	ASL A
-	STA byte_RAM_F
-	ASL A
-	ADC byte_RAM_F
-	ASL A
-	TAX
-
-	LDY #$00
-ApplyPalette_SpriteLoop:
-	JSR ReadWorldSpriteColor
-	STA PPUBuffer_301 + $17, Y
-	INX
-	INY
-	CPY #$0C
-	BCC ApplyPalette_SpriteLoop
-
-	LDA #$00
-	STA PPUBuffer_301 + $17, Y
-	LDY #$03
-
-ApplyPalette_PlayerLoop:
-	LDA RestorePlayerPalette0, Y
-	STA PPUBuffer_301 + $13, Y
-	DEY
-	BPL ApplyPalette_PlayerLoop
-
-	LDX #$03
-	LDY #$10
-ApplyPalette_SkyLoop:
-	LDA SkyColor
+  LDA (TempAdrLo), Y
 	STA PPUBuffer_301 + 3, Y
 	INY
-	INY
-	INY
-	INY
-	DEX
-	BPL ApplyPalette_SkyLoop
+	CPY #$20
+  BNE ApplyPalette_BackgroundLoop
+
+  LDX #$00
+CHRBankAreaLoop:
+  LDA (TempAdrLo), Y
+  STA BackgroundCHR1, X
+  INY
+  INX
+  CPY #$26
+  BNE CHRBankAreaLoop
 
 	RTS
 
 
 GenerateSubspaceArea:
-	LDA CurrentLevelArea
-	STA CurrentLevelAreaCopy
-	LDA #$30 ; subspace palette (works like area header byte)
-	STA byte_RAM_F ; why...?
-	JSR ApplyPalette
-
-	LDA ScreenBoundaryLeftHi
-	STA byte_RAM_E8
-
-	LDA ScreenBoundaryLeftLo
-	CLC
-	ADC #$08
-	BCC GenerateSubspaceArea_SetMoveCameraX
-
-	INC byte_RAM_E8
-
-GenerateSubspaceArea_SetMoveCameraX:
-	AND #$F0
-	PHA
-
-	SEC
-	SBC ScreenBoundaryLeftLo
-	STA MoveCameraX
-
-	PLA
-	LSR A
-	LSR A
-	LSR A
-	LSR A
-	STA byte_RAM_E5
-
-	LDA #$00
-	STA byte_RAM_E6
-
-	LDA byte_RAM_E8
-	STA byte_RAM_D
-
-	JSR SetTileOffsetAndAreaPageAddr_Bank6
-
-	LDY byte_RAM_E7
-	LDX #$0F
-
-GenerateSubspaceArea_TileRemapLoop:
-	LDA (byte_RAM_1), Y
-	JSR DoSubspaceTileRemap
-
-	STA SubAreaTileLayout, X
-	TYA
-	CLC
-	ADC #$10
-	TAY
-	TXA
-	CLC
-	ADC #$10
-	TAX
-	AND #$F0
-	BNE GenerateSubspaceArea_TileRemapLoop
-
-	TYA
-	AND #$0F
-	TAY
-	JSR IncrementAreaXOffset
-
-	DEX
-	BPL GenerateSubspaceArea_TileRemapLoop
-
 	RTS
 
 
@@ -3741,45 +3218,6 @@ GenerateSubspaceArea_TileRemapLoop:
 ; - `A`: output tile
 ;
 DoSubspaceTileRemap:
-	STY byte_RAM_8
-	STX byte_RAM_7
-	LDX #(SubspaceTilesReplace - SubspaceTilesSearch - 1)
-
-DoSubspaceTileRemap_Loop:
-	CMP SubspaceTilesSearch, X
-	BEQ DoSubspaceTileRemap_ReplaceTile
-
-	DEX
-	BPL DoSubspaceTileRemap_Loop
-
-	CMP #BackgroundTile_SubspaceMushroom1
-	BEQ DoSubspaceTileRemap_CheckCreateMushroom
-
-	CMP #BackgroundTile_SubspaceMushroom2
-	BEQ DoSubspaceTileRemap_CheckCreateMushroom
-
-	JMP DoSubspaceTileRemap_Exit
-
-DoSubspaceTileRemap_CheckCreateMushroom:
-	SEC
-	SBC #BackgroundTile_SubspaceMushroom1
-	TAY
-	LDA Mushroom1Pulled, Y
-	BNE DoSubspaceTileRemap_AfterCreateMushroom
-
-	LDX byte_RAM_7
-	JSR CreateSubspaceMushroomObject
-
-DoSubspaceTileRemap_AfterCreateMushroom:
-	LDA #BackgroundTile_SubspaceMushroom1
-	JMP DoSubspaceTileRemap_Exit
-
-DoSubspaceTileRemap_ReplaceTile:
-	LDA SubspaceTilesReplace, X
-
-DoSubspaceTileRemap_Exit:
-	LDX byte_RAM_7
-	LDY byte_RAM_8
 	RTS
 
 
@@ -3787,57 +3225,6 @@ DoSubspaceTileRemap_Exit:
 ; Clears the sub-area tile layout when the player goes into a jar
 ;
 ClearSubAreaTileLayout:
-	LDX #$00
-	STX IsHorizontalLevel
-
-ClearSubAreaTileLayout_Loop:
-	LDA #BackgroundTile_Sky
-	STA SubAreaTileLayout, X
-	INX
-	BNE ClearSubAreaTileLayout_Loop
-
-	LDA CurrentLevelArea
-	STA CurrentLevelAreaCopy
-	LDA #$04 ; jar is always area 4
-	STA CurrentLevelArea
-	LDA #$0A
-	JSR HijackLevelDataCopyAddressWithJar
-
-	LDY #$00
-	LDA #$0A
-	STA byte_RAM_E8
-	STA byte_RAM_540
-	STY byte_RAM_E6
-	STY byte_RAM_E5
-	STY GroundType
-	LDY #$03
-	STY GroundSetting
-	LDY #$04
-	JSR ReadLevelBackgroundData_Page
-
-	; object type
-	LDY #$02
-	LDA (byte_RAM_5), Y
-	AND #%00000011
-	STA ObjectType3Xthru9X
-	LDA (byte_RAM_5), Y
-	LSR A
-	LSR A
-	AND #%00000011
-	STA ObjectTypeAXthruFX
-	JSR HijackLevelDataCopyAddressWithJar
-
-	LDA #$0A
-	STA byte_RAM_E8
-	LDA #$00
-	STA byte_RAM_E6
-	STA byte_RAM_E5
-	LDA #$03
-	STA byte_RAM_4
-	JSR ReadLevelForegroundData_NextByteObject
-
-	LDA #$01
-	STA IsHorizontalLevel
 	RTS
 
 ;
