@@ -102,13 +102,6 @@ ENDIF
 	STA PseudoRNGSeed
 	LDA TransitionType
 
-	; Play the slide-whistle when you start the game and drop into 1-1
-	ORA CurrentLevel
-	BNE AreaInitialization_CheckObjectCarriedOver
-
-	LDA #SoundEffect2_IntroFallSlide
-	STA SoundEffectQueue2
-
 AreaInitialization_CheckObjectCarriedOver:
 	LDA ObjectCarriedOver
 	BEQ AreaInitialization_SetEnemyData

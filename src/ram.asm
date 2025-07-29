@@ -530,6 +530,7 @@ Player1JoypadHeld:
 	.dsb 1 ; $00f7
 Player2JoypadHeld:
 	.dsb 1 ; $00f8
+CurrentMusicBank:
 	.dsb 1 ; $00f9
 TempAdrLo:
 	.dsb 1 ; $00fa
@@ -1580,12 +1581,13 @@ Continues:
 	.dsb 1 ; $05ea
 	.dsb 1 ; $05eb
 
-MusicPointerCurrentPart:
+MusicLoPTR:
 	.dsb 1 ; $05ec
-MusicSquare1NoteStartLength:
+MusicHiPTR:
 	.dsb 1 ; $05ed
-MusicPointerFirstPart:
+MusicUpdate:
 	.dsb 1 ; $05ee
+
 MusicPointerEndPart:
 	.dsb 1 ; $05ef
 MusicPointerLoopPart:

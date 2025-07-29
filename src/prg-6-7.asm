@@ -4586,3 +4586,6 @@ CreateSubspaceMushroomObject:
 	TAX
 
 	RTS
+
+.pad $A000, $ff
+.include "src/music/title_screen_song.asm"

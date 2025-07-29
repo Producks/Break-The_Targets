@@ -330,6 +330,12 @@ StartGame:
 	STA PPUMASK
 	JSR DisableNMI
 
+  LDA #PRGBank_4_5
+  JSR ChangeMappedPRGBankWithoutSaving
+  LDX #<sounds
+  LDY #>sounds
+  JSR famistudio_sfx_init
+
 	LDA #PRGBank_0_1
 	STA GameMilestoneCounter
 	JSR ChangeMappedPRGBank
@@ -1631,11 +1637,9 @@ NMI_Exit:
 
 
 DoSoundProcessing:
-	LDA #PRGBank_4_5
-	JSR ChangeMappedPRGBankWithoutSaving
-  LDA #$40  ; Set bit 6 to 1 (Interrupt Inhibit)
-  STA $4017 ; Write to APU Frame Counter register
-;	JSR StartProcessingSoundQueue
+  JSR SpecialBankSwapMusic
+
+  JSR AudioHandler
 
 	LDA MMC3PRGBankTemp
 	JMP ChangeMappedPRGBank
@@ -2015,6 +2019,44 @@ ResetScrollNMI:
 	STA PPUSCROLL
 	LDA PPUMaskMirror
 	STA PPUMASK
+  RTS
+
+MusicTracksAreaLo:
+  .db $00
+MusicTracksAreaHi:
+  .db $00
+MusicTrackAreaBank:
+  .db $00
+
+PlayAreaSong:
+  RTS
+
+StaticScreenMusicLo:
+StaticScreenMusicHi:
+StaticScreenBank:
+  .db $05
+
+PlayTitleScreenMusic:
+  LDA #$07
+  STA CurrentMusicBank
+  LDX #<music_data_pictionary_
+  STX MusicLoPTR
+  LDY #>music_data_pictionary_
+  STY MusicHiPTR
+  INC MusicUpdate
+  RTS
+
+SpecialBankSwapMusic:
+  LDA #$06
+  STA MMC3_BankSelect
+
+  LDA #$04
+  STA MMC3_BankData
+
+	LDA #$07
+  STA MMC3_BankSelect
+  LDA CurrentMusicBank
+  STA MMC3_BankData
   RTS
 
 ; Unused space in the original ($ED4D - $EFFF)
@@ -5143,6 +5185,11 @@ ELSE ;  INES_MAPPER == MAPPER_MMC3
 	LDA #$80
 	STA MMC3_PRGRamProtect
 ENDIF
+
+  LDA #$00
+  STA $4010
+  LDA #$40
+  STA $4017
 	JMP StartGame
 
 

@@ -142,8 +142,8 @@ FAMISTUDIO_ASM6_CODE_BASE = $8000
 FAMISTUDIO_CFG_NTSC_SUPPORT  = 1
 
 ; Support for sound effects playback + number of SFX that can play at once.
-; FAMISTUDIO_CFG_SFX_SUPPORT   = 1
-; FAMISTUDIO_CFG_SFX_STREAMS   = 2
+ FAMISTUDIO_CFG_SFX_SUPPORT   = 1
+ FAMISTUDIO_CFG_SFX_STREAMS   = 2
 
 ; Blaarg's smooth vibrato technique. Eliminates phase resets ("pops") on square channels. 
 ; FAMISTUDIO_CFG_SMOOTH_VIBRATO = 1
@@ -7494,3 +7494,56 @@ famistudio_rhythm_lut:
     .byte $ff
 .endif
 .endif
+
+; Audio magic happen here
+AudioHandler:
+SFXHandler:
+  LDA SoundEffectQueue1
+  BEQ CheckSecondSFX
+
+  LDX #FAMISTUDIO_SFX_CH0
+  JSR famistudio_sfx_play
+  LDA #$00
+  STA SoundEffectQueue1
+
+CheckSecondSFX:
+  LDA SoundEffectQueue2
+  BEQ CheckNoiseSFX
+
+  LDX #FAMISTUDIO_SFX_CH1
+  JSR famistudio_sfx_play
+  LDA #$00
+  STA SoundEffectQueue2
+
+CheckNoiseSFX:
+;  LDA SoundEffectQueue3
+;  BEQ MusicHandler
+;
+;  LDX #FAMISTUDIO_SFX_CH4
+;  JSR famistudio_sfx_play
+;  LDA #$00
+;  STA SoundEffectQueue3
+
+MusicHandler:
+  LDA MusicUpdate ; Check if we have any update for the music
+  BEQ UpdateAudio
+
+SetNewMusic:
+  LDX MusicLoPTR
+  LDY MusicHiPTR
+  LDA #$01
+  JSR famistudio_init
+
+  LDA #$00
+  JSR famistudio_music_play
+  DEC MusicUpdate
+
+UpdateAudio:
+	JSR famistudio_update
+  RTS
+
+; Non dpcm SFX included here
+.include "src/music/sfx.asm"
+
+.pad $A000, $ff
+;.include "src/music/title_screen_song.asm"
