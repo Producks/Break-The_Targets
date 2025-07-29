@@ -426,7 +426,8 @@ HorizontalLevel_Loop:
 
 	JSR InitializeAreaHorizontal
 
-	JSR EnsureCorrectMusic
+;	JSR EnsureCorrectMusic
+  JSR PlayAreaSong
 
 	LDA BreakStartLevelLoop
 	BEQ HorizontalLevel_Loop
@@ -2022,13 +2023,27 @@ ResetScrollNMI:
   RTS
 
 MusicTracksAreaLo:
-  .db $00
+  .db <music_data_super_mario_bros_3
+  .db <music_data_super_mario_bros_3
+  .db <music_data_duck_tales
 MusicTracksAreaHi:
-  .db $00
+  .db >music_data_super_mario_bros_3
+  .db >music_data_super_mario_bros_3
+  .db >music_data_duck_tales
 MusicTrackAreaBank:
-  .db $00
+  .db $05
+  .db $05
+  .db $05
 
 PlayAreaSong:
+  LDY CurrentLevelArea
+  LDA MusicTrackAreaBank, Y
+  STA CurrentMusicBank
+  LDA MusicTracksAreaLo, Y
+  STA MusicLoPTR
+  LDA MusicTracksAreaHi, Y
+  STA MusicHiPTR
+  INC MusicUpdate
   RTS
 
 StaticScreenMusicLo:

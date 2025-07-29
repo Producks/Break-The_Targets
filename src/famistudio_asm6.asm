@@ -7510,19 +7510,18 @@ CheckSecondSFX:
   LDA SoundEffectQueue2
   BEQ CheckNoiseSFX
 
-  LDX #FAMISTUDIO_SFX_CH1
+  LDX #FAMISTUDIO_SFX_CH0
   JSR famistudio_sfx_play
   LDA #$00
   STA SoundEffectQueue2
 
 CheckNoiseSFX:
-;  LDA SoundEffectQueue3
-;  BEQ MusicHandler
+ ; LDA DPCMQueue
+ ; BEQ MusicHandler
 ;
-;  LDX #FAMISTUDIO_SFX_CH4
-;  JSR famistudio_sfx_play
-;  LDA #$00
-;  STA SoundEffectQueue3
+ ; LDA #$00
+ ; JSR famistudio_sfx_sample_play
+ ; STA DPCMQueue
 
 MusicHandler:
   LDA MusicUpdate ; Check if we have any update for the music
@@ -7547,3 +7546,6 @@ UpdateAudio:
 
 .pad $A000, $ff
 ;.include "src/music/title_screen_song.asm"
+
+.include "src/music/merio3.asm"
+.include "src/music/moon.asm"

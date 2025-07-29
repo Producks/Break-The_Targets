@@ -768,3 +768,6 @@ ENDIF
 IFDEF DEBUG
 	.include "src/extras/debug-a.asm"
 ENDIF
+
+.pad $A000, $ff
+.include "src/music/ninja3.asm"

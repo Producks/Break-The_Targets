@@ -5304,7 +5304,7 @@ InitTitleBackgroundPalettesLoop:
 	STA ScreenUpdateIndex
 	JSR WaitForNMI_TitleScreen
 
-  JSR PlayTitleScreenMusic
+;  JSR PlayTitleScreenMusic
 	JSR WaitForNMI_TitleScreen_TurnOnPPU
 
 	; Set up the delay before showing the story
