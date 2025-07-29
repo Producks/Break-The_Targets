@@ -20,6 +20,9 @@ TargetsCountTable:
 RestrictionCountTable:
   .db $02, $03, $0F, $0F
 
+RestrictionTypeTable:
+  .db NoRestriction, JumpRestriction, JumpRestriction
+
 ;
 ; #### Palette pointers
 ;
@@ -3322,9 +3325,17 @@ LoadCurrentArea:
 	JSR LoadAreaMusic
 
 ; Load current target
-  LDY $0532
+  LDY CurrentLevelArea
   LDA TargetsCountTable, Y
   STA TargetsCount
+
+; Set restriction count
+  LDA RestrictionCountTable, Y
+  STA RestrictionsCount
+
+; Set restriction type
+  LDA RestrictionTypeTable, Y
+  STA RestrictionType
 
 	;
 	; Load initial ground appearance, which determines the tiles used for the background.

@@ -2432,6 +2432,16 @@ loc_BANK0_8C2B:
 	LDA Player1JoypadPress
 	BPL loc_BANK0_8C3D ; branch if not pressing A Button
 
+  LDA RestrictionType
+  CMP #JumpRestriction
+  BNE NoJumpRestriction
+
+  LDA RestrictionsCount
+  BEQ loc_BANK0_8C3D
+  DEC RestrictionsCount
+  JSR UpdateHudRestrictions
+
+NoJumpRestriction:
 	INC PlayerInAir
 	LDA #SpriteAnimation_Jumping
 	STA PlayerAnimationFrame

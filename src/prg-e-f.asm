@@ -185,7 +185,6 @@ ResetScreenForTitleCard:
 
 	RTS
 
-
 ;
 ; Enables NMI and draws the background of the pause screen
 ;

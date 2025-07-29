@@ -282,6 +282,11 @@ PlayerHealth_4_HP = $3F
 
 ; ---------------------------------------------------------------------------
 
+; Restriction type
+NoRestriction = $00
+JumpRestriction = $01
+
+
 ; enum PPUMaskBitmask (bitfield) (width 1 byte)
 PPUMask_Grayscale = %00000001
 PPUMask_ShowLeft8Pixels_BG = %00000010

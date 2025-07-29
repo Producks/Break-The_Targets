@@ -1240,6 +1240,7 @@ PokeyTempScreenX:
 StopwatchTimer:
 	.dsb 1 ; $04ff
 ; FOR RENT
+RestrictionType:
 	.dsb 1 ; $0500
 ; FOR RENT
 	.dsb 1 ; $0501
