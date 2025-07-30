@@ -2448,7 +2448,7 @@ NoJumpRestriction:
 	JSR PlayerStartJump
 
 	LDA #SoundEffect2_Jump
-	STA SoundEffectQueue2
+	STA SoundEffectQueue1
 
 loc_BANK0_8C3D:
 	LDA PlayerRidingCarpet
@@ -5270,7 +5270,7 @@ FreeSubconsScene_Phase1:
 
 FreeSubconsScene_Jump:
 	LDA #SoundEffect2_Jump
-	STA SoundEffectQueue2
+	STA SoundEffectQueue1
 	JMP PlayerStartJump
 
 

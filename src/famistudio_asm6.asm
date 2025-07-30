@@ -7510,7 +7510,7 @@ CheckSecondSFX:
   LDA SoundEffectQueue2
   BEQ CheckNoiseSFX
 
-  LDX #FAMISTUDIO_SFX_CH0
+  LDX #FAMISTUDIO_SFX_CH1
   JSR famistudio_sfx_play
   LDA #$00
   STA SoundEffectQueue2
