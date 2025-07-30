@@ -5050,6 +5050,8 @@ LoadTitleScreenCHRBanks:
 	STA BackgroundCHR1
 	LDA #CHRBank_TitleScreenBG2
 	STA BackgroundCHR2
+  LDA #CHRBank_TitleScreenBG2 + 2
+  STA SpriteCHR1
 	RTS
 
 

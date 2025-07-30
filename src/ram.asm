@@ -104,8 +104,10 @@ ObjectYHi:
 CastRollSprite1A:
 	.dsb 1 ; $001f
 CastRollSprite1B:
+PaletteIndexTitleScreen:
 	.dsb 1 ; 1                ; $0020
 CastRollSprite1C:
+PaletteTimerTitleScreen:
 	.dsb 1 ; 2                ; $0021
 CastRollSprite2A:
 	.dsb 1 ; 3                ; $0022
@@ -2230,9 +2232,15 @@ PPU_UpdateAreaHudeBuffer = $7E0B
 LevelTextUpper = $7E17
 LevelTextBottom = $7E22
 
-
+ShyGuy_Left_GFX = $020D
+ShyGuy_Left_X = $020F
+ShyGuy_Right_GFX = $0211
+ShyGuy_Right_X = $0213
 
 ItemCarryYOffsetsRAM = $7f00
+
+PPUBuffer_TitleScreen = $7f00
+PPUBuffer_TitleScreen_Palette = $7f03
 
 
 MMC3_BankSelect = $8000
