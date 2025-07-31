@@ -45,7 +45,7 @@ CheckCollisionWithPlayer_StompEnemy:
 	TAY
 
 	LDA #SoundEffect1_EnemyHit
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 
 CheckCollisionWithPlayer_ExitStompEnemy:
 	RTS

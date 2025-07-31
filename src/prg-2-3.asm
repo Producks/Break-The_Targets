@@ -286,7 +286,7 @@ ENDIF
 	BNE AreaMainRoutine_DecrementStopwatch
 
 	LDY #SoundEffect1_StopwatchTick
-	STY SoundEffectQueue1 ; TODO remove when music driver installed
+	STY SoundEffectQueue2 ; TODO remove when music driver installed
 
 AreaMainRoutine_DecrementStopwatch:
 	LSR A
@@ -3233,7 +3233,7 @@ BirdoBehavior_SpitProjectile:
 	BNE loc_BANK2_901B
 
 	LDA #SoundEffect1_BirdoShot
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	JSR sub_BANK2_95E5
 
 	BMI loc_BANK2_901B
@@ -3333,7 +3333,7 @@ Award1upMushroom:
 
 loc_BANK2_9050:
 	LDA #SoundEffect1_1UP
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	RTS
 
 ; ---------------------------------------------------------------------------
@@ -3580,7 +3580,7 @@ EnemyBehavior_SubspacePotion_CheckGroundCollision:
 	LDA #$10
 	STA ObjectTimer2, X
 	LDA #SoundEffect1_PotionDoorBong
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	INC EnemyArray_B1, X
 	LDA #Enemy_SubspaceDoor
 	STA ObjectType, X
@@ -5147,7 +5147,7 @@ EnemyBehavior_Shell:
 
 EnemyBehavior_Shell_Destroy:
 	LDA #SoundEffect1_EnemyHit
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	JMP TurnIntoPuffOfSmoke
 
 
@@ -5392,7 +5392,7 @@ EnemyBehavior_CheckDamagedInterrupt_SoundEffect:
 	BNE EnemyBehavior_CheckDamagedInterrupt_CheckPidgit
 
 	LDA #SoundEffect1_EnemyHit
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	BNE EnemyBehavior_CheckDamagedInterrupt_CheckPidgit
 
 EnemyBehavior_CheckDamagedInterrupt_BossDeathSound:
@@ -8186,7 +8186,7 @@ EnemyBehavior_Tryclyde_SpitFireball:
 	BMI RenderSprite_Tryclyde_Exit
 
 	LDA #SoundEffect1_BirdoShot
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	LDY byte_RAM_0
 	LDA #Enemy_Fireball
 	STA ObjectType, Y
@@ -10956,7 +10956,7 @@ CheckCollisionWithPlayer:
 	; accept the heart into your life
 	STA EnemyState, Y
 	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	LDY PlayerMaxHealth
 	LDA PlayerHealth
 	CLC
@@ -12450,7 +12450,7 @@ DebugCreateObject_ObjectCarried:
 	STX ObjectBeingCarriedIndex
 
 	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 
 DebugCreateObject_ObjectTimer:
 	ROL CreateObjectAttributes

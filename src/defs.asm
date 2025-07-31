@@ -140,16 +140,29 @@ ELSE
 ENDIF
 
 ; ---------------------------------------------------------------------------
+SoundEffect1_BirdoShot = $01 ; sq2
+SoundEffect1_PotionDoorBong = $02 ; sq2
+SoundEffect1_CherryGet = $03 ; sq2
+SoundEffect1_ThrowItem = $04 ; sq2
+SoundEffect1_1UP = $05 ; sq2
+SoundEffect1_EnemyHit = $06 ; sq2
+SoundEffect1_StopwatchTick = $07 ; sq2
+SoundEffect2_Jump = $08 ; sq1
+SoundEffect2_Growing = $09 ; s1
+SoundEffect3_POWRumble = $0A ; might not support noise
+SoundEffect2_CoinGet = $0B ; sq2
 
 ; enum SoundEffect1 (width 1 byte)
-SoundEffect1_BirdoShot = $01
-SoundEffect1_PotionDoorBong = $02
-SoundEffect1_CherryGet = $03
-SoundEffect1_ThrowItem = $04
-SoundEffect1_1UP = $05
-SoundEffect1_EnemyHit = $06
-SoundEffect1_StopwatchTick = $07
 SoundEffect1_HawkOpen_WartBarf = $80
+
+; enum SoundEffect2 (width 1 byte)
+SoundEffect2_Climbing = $02
+SoundEffect2_Shrinking = $08
+SoundEffect2_IntroFallSlide = $10
+
+; enum SoundEffect3
+SoundEffect3_WhaleSpout = $01
+SoundEffect3_Rocket = $02
 
 ; ---------------------------------------------------------------------------
 
@@ -227,14 +240,6 @@ MarioSleepingUpdateBuffer_Palettes = $09
 
 ; ---------------------------------------------------------------------------
 
-; enum SoundEffect2 (width 1 byte)
-SoundEffect2_Jump = $08
-SoundEffect2_Climbing = $02
-SoundEffect2_CoinGet = $04
-SoundEffect2_Shrinking = $08
-SoundEffect2_IntroFallSlide = $10
-SoundEffect2_Growing = $20
-
 ; ---------------------------------------------------------------------------
 
 ; enum PPUStatus (bitfield) (width 1 byte)
@@ -244,10 +249,7 @@ PPUStatus_VBlankHit = %10000000
 
 ; ---------------------------------------------------------------------------
 
-; enum SoundEffect3
-SoundEffect3_WhaleSpout = $01
-SoundEffect3_Rocket = $02
-SoundEffect3_POWRumble = $09
+
 
 ; ---------------------------------------------------------------------------
 

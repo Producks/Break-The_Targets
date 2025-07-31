@@ -2927,7 +2927,7 @@ loc_BANK0_8E42:
 	STA PlayerWalkFrameCounter
 	DEC HoldingItem
 	LDA #SoundEffect1_ThrowItem
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	LDA #$00
 	STA PlayerDucking
 	STA Player1JoypadPress
@@ -3429,7 +3429,7 @@ PlayerTileCollision_CheckCherryAndClimbable_AfterTick:
 
 PlayerTileCollision_Cherry:
 	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	LDA #BackgroundTile_Sky
 	JMP loc_BANK0_937C
 
@@ -5439,7 +5439,7 @@ FreeSubconsScene_Subcons_Loop:
 	BNE FreeSubconsScene_Subcons_Next
 
 	LDA #SoundEffect1_ThrowItem
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	BNE FreeSubconsScene_Subcons_Next
 
 FreeSubconsScene_Subcons_Movement:
@@ -7062,7 +7062,7 @@ CheckPlayer2Joypad_CheckUp:
 	BPL CheckPlayer2Joypad_CheckDown
 
 	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 
 	LDY PlayerMaxHealth
 	LDA PlayerHealth

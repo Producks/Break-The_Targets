@@ -493,7 +493,7 @@ DebugMenu_MenuStart:
 DebugMenu_MenuMove:
 DebugMenu_MenuChange:
 	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	RTS
 
 DebugMenu_MenuConfirm:

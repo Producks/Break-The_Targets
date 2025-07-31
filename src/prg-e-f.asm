@@ -1314,7 +1314,7 @@ loc_BANKF_EAD2:
 	LDA #$00
 	STA ObjectXLo, X
 	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
+	STA SoundEffectQueue2
 	RTS
 
 ; End of function sub_BANKF_EAC2
