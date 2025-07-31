@@ -5202,6 +5202,11 @@ ELSE ;  INES_MAPPER == MAPPER_MMC3
 	STA MMC3_PRGRamProtect
 ENDIF
 
+  LDA #PRGBank_4_5
+  JSR ChangeMappedPRGBankWithoutSaving
+
+  JSR famistudio_music_stop
+
   LDA #$00
   STA $4010
   LDA #$40
