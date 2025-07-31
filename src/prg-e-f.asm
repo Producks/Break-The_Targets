@@ -417,6 +417,7 @@ ENDIF
 
   JSR LoadCurrentAreaCharacter
 
+  JSR PlayAreaSong
 HorizontalLevel_Loop:
 	JSR WaitForNMI
 
@@ -426,7 +427,6 @@ HorizontalLevel_Loop:
 	JSR InitializeAreaHorizontal
 
 ;	JSR EnsureCorrectMusic
-  JSR PlayAreaSong
 
 	LDA BreakStartLevelLoop
 	BEQ HorizontalLevel_Loop
@@ -2021,14 +2021,19 @@ ResetScrollNMI:
 	STA PPUMASK
   RTS
 
+CurrentSongArea:
+  .db $01, $01, $02
+
 MusicTracksAreaLo:
   .db <music_data_super_mario_bros_3
   .db <music_data_super_mario_bros_3
   .db <music_data_duck_tales
+
 MusicTracksAreaHi:
   .db >music_data_super_mario_bros_3
   .db >music_data_super_mario_bros_3
   .db >music_data_duck_tales
+
 MusicTrackAreaBank:
   .db $05
   .db $05
@@ -2036,6 +2041,11 @@ MusicTrackAreaBank:
 
 PlayAreaSong:
   LDY CurrentLevelArea
+  LDA CurrentSongArea, Y
+  CMP CurrentSong
+  BEQ LeveaPlayAreaSong
+  STA CurrentSong
+
   LDA MusicTrackAreaBank, Y
   STA CurrentMusicBank
   LDA MusicTracksAreaLo, Y
@@ -2043,6 +2053,7 @@ PlayAreaSong:
   LDA MusicTracksAreaHi, Y
   STA MusicHiPTR
   INC MusicUpdate
+LeveaPlayAreaSong:
   RTS
 
 StaticScreenMusicLo:

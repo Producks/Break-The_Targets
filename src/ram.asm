@@ -1591,7 +1591,7 @@ MusicHiPTR:
 MusicUpdate:
 	.dsb 1 ; $05ee
 
-MusicPointerEndPart:
+CurrentSong:
 	.dsb 1 ; $05ef
 MusicPointerLoopPart:
 	.dsb 1 ; $05f0
