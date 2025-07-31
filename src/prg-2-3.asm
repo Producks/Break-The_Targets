@@ -1682,16 +1682,13 @@ DrawEndOfLevelDoorTiles:
 HandleEnemyState_PuffOfSmoke_CheckDestroy:
 	; Fryguy flames are extinguished in a puff of smoke
 	LDA ObjectType, X
-	CMP #Enemy_FryguySplit
+	CMP #Enemy_Porcupo
 	BNE HandleEnemyState_PuffOfSmoke_Destroy
 
-	DEC FryguySplitFlames
-	BPL HandleEnemyState_PuffOfSmoke_Destroy
+	LDA #EnemyState_Inactive
+	STA EnemyState, X
 
-	; Last Fryguy mini flame spawns the door
-	INC EnemyArray_SpawnsDoor, X
-	INC ObjectType, X
-	JMP HandleEnemyState_Dead_BossBeaten
+  RTS
 
 HandleEnemyState_PuffOfSmoke_Destroy:
 	JMP EnemyDestroy
