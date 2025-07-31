@@ -2225,6 +2225,9 @@ IFDEF CONTROLLER_2_DEBUG
 	CreateObjectAttributes = $7e83
 ENDIF
 
+SFX_Playing_SQ1 = $6DFD
+SFX_Playing_SQ2 = $6DFF
+
 FamiStudioWorkRam = $6F00
 
 PPU_UpdateHudBuffer = $7E00

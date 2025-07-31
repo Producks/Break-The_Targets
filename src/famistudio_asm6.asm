@@ -6710,6 +6710,19 @@ famistudio_sfx_update:
 @no_repeat:
     lda famistudio_sfx_ptr_hi,x ; Check if MSB of the pointer is not zero
     bne @sfx_active
+
+; Clear SFX if they are done playing
+@Clear_SFX_Flags:
+    LDA #$00
+    cpx #FAMISTUDIO_SFX_CH0
+    bne @Check_Flag_SQ1
+    STA SFX_Playing_SQ1
+    rts
+@Check_Flag_SQ1:
+    CPX #FAMISTUDIO_SFX_CH1
+    bne @Leave_Clear_SFX_Flags
+    STA SFX_Playing_SQ2
+@Leave_Clear_SFX_Flags:
     rts ; Return otherwise, no active effect
 
 @sfx_active:
@@ -6756,13 +6769,8 @@ famistudio_sfx_update:
     sta famistudio_sfx_ptr_hi,x ; Mark channel as inactive
 
 @update_buf:
-    lda famistudio_output_buf ; Compare effect output buffer with main output buffer
-    and #$0f ; If volume of pulse 1 of effect is higher than that of the main buffer, overwrite the main buffer value with the new one
-    sta tmp 
-    lda famistudio_sfx_buffer+0,x
-    and #$0f
-    cmp tmp
-    bcc @no_pulse1
+    LDA SFX_Playing_SQ1
+    BEQ @no_pulse1
     lda famistudio_sfx_buffer+0,x
     sta famistudio_output_buf+0
     lda famistudio_sfx_buffer+1,x
@@ -6771,13 +6779,8 @@ famistudio_sfx_update:
     sta famistudio_output_buf+2
 
 @no_pulse1:
-    lda famistudio_output_buf+3
-    and #$0f
-    sta tmp
-    lda famistudio_sfx_buffer+3,x
-    and #$0f
-    cmp tmp
-    bcc @no_pulse2
+    LDA SFX_Playing_SQ2
+    BEQ @no_pulse2
     lda famistudio_sfx_buffer+3,x
     sta famistudio_output_buf+3
     lda famistudio_sfx_buffer+4,x
@@ -7505,6 +7508,8 @@ SFXHandler:
   JSR famistudio_sfx_play
   LDA #$00
   STA SoundEffectQueue1
+  LDA #$01
+  STA SFX_Playing_SQ1
 
 CheckSecondSFX:
   LDA SoundEffectQueue2
@@ -7514,6 +7519,8 @@ CheckSecondSFX:
   JSR famistudio_sfx_play
   LDA #$00
   STA SoundEffectQueue2
+  LDA #$01
+  STA SFX_Playing_SQ2
 
 CheckNoiseSFX:
  ; LDA DPCMQueue
