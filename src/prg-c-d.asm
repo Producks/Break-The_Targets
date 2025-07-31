@@ -2592,3 +2592,6 @@ byte_BANKC_93A6:
 	.db $7A
 	.db $C8
 	.db $60
+
+.pad $A000, $ff
+;.include "src/music/silver_surfer_stage1.asm"

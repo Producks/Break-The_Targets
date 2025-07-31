@@ -2025,19 +2025,19 @@ CurrentSongArea:
   .db $01, $01, $02
 
 MusicTracksAreaLo:
+  .db <music_data_silver_surfer_c_stephen_ruddy
   .db <music_data_super_mario_bros_3
-  .db <music_data_super_mario_bros_3
-  .db <music_data_duck_tales
+  .db <music_data_treasure_master
 
 MusicTracksAreaHi:
+  .db >music_data_silver_surfer_c_stephen_ruddy
   .db >music_data_super_mario_bros_3
-  .db >music_data_super_mario_bros_3
-  .db >music_data_duck_tales
+  .db >music_data_treasure_master
 
 MusicTrackAreaBank:
+  .db $0A
   .db $05
-  .db $05
-  .db $05
+  .db $0B
 
 PlayAreaSong:
   LDY CurrentLevelArea

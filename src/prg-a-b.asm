@@ -769,5 +769,7 @@ IFDEF DEBUG
 	.include "src/extras/debug-a.asm"
 ENDIF
 
+.include "src/music/silver_surfer_stage2.asm"
+
 .pad $A000, $ff
-.include "src/music/ninja3.asm"
+.include "src/music/treasure_master_stage1.asm"
