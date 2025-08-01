@@ -48,33 +48,48 @@ Area0BackgroundBlocks:
 
 Area1BackgroundBlocks:
   .db $FF
+
 Area2BackgroundBlocks:
   .db $FF
+
 Area3BackgroundBlocks:
   .db $FF
+
 Area4BackgroundBlocks:
   .db $FF
+
 Area5BackgroundBlocks:
   .db $FF
+
 Area6BackgroundBlocks:
   .db $FF
+
 Area7BackgroundBlocks:
   .db $FF
+
 Area8BackgroundBlocks:
   .db $FF
+
 Area9BackgroundBlocks:
   .db $FF
+
 Area10BackgroundBlocks:
   .db $FF
+
 Area11BackgroundBlocks:
   .db $FF
+
 Area12BackgroundBlocks:
   .db $FF
+
 Area13BackgroundBlocks:
   .db $FF
+
 Area14BackgroundBlocks:
   .db $FF
+
 Area15BackgroundBlocks:
   .db $FF
+
 Area16BackgroundBlocks:
   .db $FF

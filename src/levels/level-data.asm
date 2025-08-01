@@ -56,18 +56,58 @@ include "src/levels/1/1-1/1-1-area3.asm"
 include "src/levels/1/1-1/1-1-area4.asm"
 include "src/levels/1/1-1/1-1-area5.asm"
 
-; World 1-2
-include "src/levels/1/1-2/1-2-area0.asm"
-include "src/levels/1/1-2/1-2-area1.asm"
-include "src/levels/1/1-2/1-2-area2.asm"
-include "src/levels/1/1-2/1-2-area3.asm"
-include "src/levels/1/1-2/1-2-area4.asm"
-
-; World 1-3
-include "src/levels/1/1-3/1-3-area0.asm"
-include "src/levels/1/1-3/1-3-area1.asm"
-include "src/levels/1/1-3/1-3-area2.asm"
-include "src/levels/1/1-3/1-3-area3.asm"
-include "src/levels/1/1-3/1-3-area4.asm"
-
 ; -------------------------------
+
+; $FF = END, $FE skip to the next screen, $FD Skip writes by -> $XX
+LevelDataArea0:
+  .db $FD, $B0
+  .db $10, BackgroundTile_Bridge
+  .db $FF
+
+LevelDataArea1:
+  .db $FF
+
+LevelDataArea2:
+  .db $FF
+
+LevelDataArea3:
+  .db $FF
+
+LevelDataArea4:
+  .db $FF
+
+LevelDataArea5:
+  .db $FF
+
+LevelDataArea6:
+  .db $FF
+
+LevelDataArea7:
+  .db $FF
+
+LevelDataArea8:
+  .db $FF
+
+LevelDataArea9:
+  .db $FF
+
+LevelDataArea10:
+  .db $FF
+
+LevelDataArea11:
+  .db $FF
+
+LevelDataArea12:
+  .db $FF
+
+LevelDataArea13:
+  .db $FF
+
+LevelDataArea14:
+  .db $FF
+
+LevelDataArea15:
+  .db $FF
+
+LevelDataArea16:
+  .db $FF

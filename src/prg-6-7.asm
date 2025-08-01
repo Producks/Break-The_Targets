@@ -3215,23 +3215,23 @@ ClearSubAreaTileLayout:
 ;
 ; This stops the current music unless the player is currently invincible.
 ;
-LoadAreaMusic:
-	LDY #$03
-	LDA (byte_RAM_5), Y
-	AND #%00000011
-	STA CompareMusicIndex
-	CMP CurrentMusicIndex
-	BEQ LoadAreaMusic_Exit
-
-	LDA StarInvincibilityTimer
-	CMP #$08
-	BCS LoadAreaMusic_Exit
-
-	LDA #Music2_StopMusic
-	STA MusicQueue2
-
-LoadAreaMusic_Exit:
-	RTS
+;LoadAreaMusic:
+;	LDY #$03
+;	LDA (byte_RAM_5), Y
+;	AND #%00000011
+;	STA CompareMusicIndex
+;	CMP CurrentMusicIndex
+;	BEQ LoadAreaMusic_Exit
+;
+;	LDA StarInvincibilityTimer
+;	CMP #$08
+;	BCS LoadAreaMusic_Exit
+;
+;	LDA #Music2_StopMusic
+;	STA MusicQueue2
+;
+;LoadAreaMusic_Exit:
+;	RTS
 
 
 ;
@@ -3246,21 +3246,21 @@ Unused_LevelMusicIndexes:
 	.db Music1_Subspace
 
 Unused_ChangeAreaMusic:
-	LDA CompareMusicIndex
-	CMP CurrentMusicIndex
-	BEQ Unused_ChangeAreaMusic_Exit
-
-	TAX
-	STX CurrentMusicIndex
-	LDA StarInvincibilityTimer
-	CMP #$08
-	BCS LoadAreaMusic_Exit
-
-	LDA Unused_LevelMusicIndexes, X
-	STA MusicQueue1
-
-Unused_ChangeAreaMusic_Exit:
-	RTS
+;	LDA CompareMusicIndex
+;	CMP CurrentMusicIndex
+;	BEQ Unused_ChangeAreaMusic_Exit
+;
+;	TAX
+;	STX CurrentMusicIndex
+;	LDA StarInvincibilityTimer
+;	CMP #$08
+;	BCS LoadAreaMusic_Exit
+;
+;	LDA Unused_LevelMusicIndexes, X
+;	STA MusicQueue1
+;
+;Unused_ChangeAreaMusic_Exit:
+;	RTS
 
 ; Unreferenced?
 	LDA CurrentLevelPage
@@ -3297,15 +3297,6 @@ LoadCurrentArea:
 	; Determine the address of the raw level data.
 	JSR RestoreLevelDataCopyAddress
 
-	;
-	; ### Read area header
-	;
-	; The level header is read backwards starting at the last byte.
-	;
-
-	; Queue any changes to the background music.
-	JSR LoadAreaMusic
-
 ; Load current target
   LDY CurrentLevelArea
   LDA TargetsCountTable, Y
@@ -3337,7 +3328,7 @@ ENDIF
 	STA GroundType
 
 	; This doesn't hurt, but shouldn't be necessary.
-	JSR RestoreLevelDataCopyAddress
+;	JSR RestoreLevelDataCopyAddress
 
 IFDEF ENABLE_LEVEL_OBJECT_MODE
 	; Read level object mode.

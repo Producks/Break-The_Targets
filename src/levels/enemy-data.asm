@@ -27,18 +27,4 @@ include "src/levels/1/1-1/1-1-area3-enemies.asm"
 include "src/levels/1/1-1/1-1-area4-enemies.asm"
 include "src/levels/1/1-1/1-1-area5-enemies.asm"
 
-; World 1-2
-include "src/levels/1/1-2/1-2-area0-enemies.asm"
-include "src/levels/1/1-2/1-2-area1-enemies.asm"
-include "src/levels/1/1-2/1-2-area2-enemies.asm"
-include "src/levels/1/1-2/1-2-area3-enemies.asm"
-include "src/levels/1/1-2/1-2-area4-enemies.asm"
-include "src/levels/1/1-2/1-2-area5-enemies.asm"
-
-; World 1-3
-include "src/levels/1/1-3/1-3-area0-enemies.asm"
-include "src/levels/1/1-3/1-3-area1-enemies.asm"
-include "src/levels/1/1-3/1-3-area2-enemies.asm"
-include "src/levels/1/1-3/1-3-area3-enemies.asm"
-include "src/levels/1/1-3/1-3-area4-enemies.asm"
 ; -------------------------------
