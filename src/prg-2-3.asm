@@ -3319,7 +3319,6 @@ EnemyBehavior_Mushroom1up:
 	CMP #Enemy_Mushroom1up
 	BEQ Award1upMushroom
 
-	INC SlotMachineCoins
 	RTS
 
 ; ---------------------------------------------------------------------------

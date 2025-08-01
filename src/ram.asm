@@ -408,15 +408,18 @@ ENDIF
 	.dsb 1 ; $00c2
 ; Famistudio ends here?
 
+RamIndexTopLo:
 	.dsb 1 ; $00c3
 SoundEffectTimer2:
+RamIndexTopHi:
 	.dsb 1 ; $00c4 ; Maybe free 2 bytes here for the zero page, might be worth looking into
 
-
 ; FOR RENT
+RamIndexBottomLo:
 TargetsCount:
 	.dsb 1 ; $00c5
 ; FOR RENT
+RamIndexBottomHi:
 RestrictionsCount:
 	.dsb 1 ; $00c6
 PlayerAnimationFrame:
@@ -1766,7 +1769,7 @@ CurrentLevelRelative:
 	.dsb 1 ; $0629
 CherryCount:
 	.dsb 1 ; $062a
-SlotMachineCoins:
+CurrentPageBackgroundBlocks:
 	.dsb 1 ; $062b
 BigVeggiesPulled:
 	.dsb 1 ; $062c
@@ -1778,6 +1781,7 @@ CharacterLevelsCompleted:
 MaxLevelsCompleted:
 	.dsb 1 ; $0631
 ; FOR RENT
+BlockCounterX:
 	.dsb 1 ; $0632
 ; FOR RENT
 LevelObjectMode:
@@ -2043,6 +2047,7 @@ BackgroundCHR2Timer:
 ResetCHRLatch:
 	.dsb 1 ; $06fe
 ; FOR RENT
+UnpackBackgroundDataLoopCount:
 	.dsb 1 ; $06ff
 
 ; When moving into subspace,  this area is turned into a tile represenation

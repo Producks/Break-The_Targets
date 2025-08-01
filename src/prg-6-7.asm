@@ -4598,5 +4598,117 @@ CreateSubspaceMushroomObject:
 
 	RTS
 
+include "src/levels/background-data.asm"
+
+PreCalculatedTableRAM_LevelDataStartLo:
+  .db $00, $F0, $E0, $D0, $C0, $B0, $A0, $90, $80, $70
+PreCalculatedTableRAM_LevelDataStartHi:
+  .db $60, $60, $61, $62, $63, $64, $65, $66, $67, $68
+
+;
+; Magic happens here, will iterate over how many pages there are, no more
+; Should 8 x 6 x screen number = total blocks unloaded.
+; XX   XX
+; LEN  BloackID
+; $FD inc page
+; $FF = END
+UnpackBackgroundBlocks:
+  LDX CurrentLevelArea
+  LDA BackgroundBlocks_Lo, X
+  STA TempAdrLo
+  LDA BackgroundBlocks_Hi, X
+  STA TempAdrHi
+
+  LDA #$08
+  STA BlockCounterX ; Counter for later
+  LDA #$00
+  STA CurrentPageBackgroundBlocks ; Set first page to 0
+
+SetPageRamIndex:
+  LDY CurrentPageBackgroundBlocks
+  LDA PreCalculatedTableRAM_LevelDataStartHi, Y
+  STA RamIndexTopHi
+  STA RamIndexBottomHi
+  LDA PreCalculatedTableRAM_LevelDataStartLo, Y
+  STA RamIndexTopLo
+  CLC
+  ADC #$10
+  STA RamIndexBottomLo
+  BCC SkipAddBottomHi
+  INC RamIndexBottomHi
+
+SkipAddBottomHi:
+  LDX #$00 ; cheat way
+
+; Load how many times we will need to repeat the block
+  LDA (BackgroundBlocks_Lo), X
+  CMP #$FF ; Check if we're done
+  BEQ UnpackBackgroundBlocksDone
+  CMP #$FD ; Check if we need to change page
+  BNE UnPackBackgroundData
+  INC CurrentPageBackgroundBlocks
+  JMP SetPageRamIndex
+
+; Here is where all the writting to buffer will happen!
+UnPackBackgroundData:
+  STA UnpackBackgroundDataLoopCount ; Give it the loop count
+  JSR Increment_BackgroundBlocks
+  LDA (BackgroundBlocks_Lo), X
+  JSR Increment_BackgroundBlocks
+  TAX
+
+UnPackBackgroundDataLoop:
+  LDA TableTopLeftBackGroundBlock, X
+  STA (RamIndexTopLo), Y
+  LDA TableBottomLeftBackGroundBlock, X
+  STA (RamIndexBottomLo), Y
+  INY
+  LDA TableTopRightBackgroundBlock, X
+  STA (RamIndexTopLo), Y
+  LDA TableBottomRightBackgroundBlock, X
+  STA (RamIndexBottomLo), Y
+  INY
+  JSR DecreaseBlockCounterX
+  DEC UnpackBackgroundDataLoopCount
+  BNE UnPackBackgroundDataLoop
+
+UnpackBackgroundBlocksDone:
+  RTS
+
+; Subroutine that check for overflow
+Increment_BackgroundBlocks:
+  INC BackgroundBlocks_Lo
+  BNE Increment_BackgroundBlocksLeave
+  INC BackgroundBlocks_Hi
+Increment_BackgroundBlocksLeave:
+  RTS
+
+; Decrease this until we reach 0, when we reach 0 we adjust the addr
+DecreaseBlockCounterX:
+  DEC BlockCounterX
+  BNE DecreaseBlockCounterXLeave
+  TYA
+  CLC
+  ADC #$10
+  TAY
+DecreaseBlockCounterXLeave:
+  RTS
+
+;
+; Index looking table for creating a block, will index real blocks
+; 4 x 4 of 8 x 8 pixels.
+
+TableTopLeftBackGroundBlock:
+  .db BackgroundTile_Sky, $00, $00, $00
+
+TableTopRightBackgroundBlock:
+  .db BackgroundTile_Sky, $00, $00, $00
+
+TableBottomLeftBackGroundBlock:
+  .db BackgroundTile_Sky, $00, $00, $00
+
+TableBottomRightBackgroundBlock:
+  .db BackgroundTile_Sky, $00, $00, $00
+
 .pad $A000, $ff
 .include "src/music/title_screen_song.asm"

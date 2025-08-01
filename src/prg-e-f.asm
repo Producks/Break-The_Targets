@@ -814,7 +814,6 @@ loc_BANKF_E747:
 	LDA byte_RAM_8
 	BNE GameOver_Retry
 
-	STA SlotMachineCoins
 	JMP ContinueGame
 
 ; ---------------------------------------------------------------------------
@@ -897,7 +896,6 @@ ENDIF
 
 	LDA #Music2_SlotWarpFanfare
 	STA MusicQueue2
-	LDA SlotMachineCoins
 	BNE loc_BANKF_E7F2
 
 	JMP NoCoinsForSlotMachine
@@ -912,7 +910,6 @@ loc_BANKF_E7F2:
 	JSR WaitForNMI_TurnOnPPU
 
 loc_BANKF_E7FD:
-	LDA SlotMachineCoins
 	BNE StartSlotMachine
 
 GoToNextLevel:
@@ -1067,7 +1064,6 @@ EndingSceneRoutine:
 
 	JSR DisableNMI
 
-	JSR LoadCelebrationSceneBackgroundCHR
 
 	JSR EnableNMI
 
@@ -5055,7 +5051,6 @@ CheckResetCHRLatch_Exit:
 	RTS
 ENDIF
 
-
 LoadTitleScreenCHRBanks:
 	LDA #CHRBank_TitleScreenBG1
 	STA BackgroundCHR1
@@ -5063,24 +5058,6 @@ LoadTitleScreenCHRBanks:
 	STA BackgroundCHR2
   LDA #CHRBank_TitleScreenBG2 + 2
   STA SpriteCHR1
-	RTS
-
-
-LoadCelebrationSceneBackgroundCHR:
-	LDA #CHRBank_CelebrationBG1
-	STA BackgroundCHR1
-	LDA #CHRBank_CelebrationBG2
-	STA BackgroundCHR2
-	RTS
-
-
-LoadCharacterSelectCHRBanks:
-	LDA #CHRBank_CharacterSelectSprites
-	STA SpriteCHR1
-	LDA #CHRBank_CharacterSelectBG1
-	STA BackgroundCHR1
-	LDA #CHRBank_CharacterSelectBG2
-	STA BackgroundCHR2
 	RTS
 
 
