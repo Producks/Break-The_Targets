@@ -3101,26 +3101,6 @@ ENDIF
 ; render the current area's level data.
 ;
 ResetLevelData:
-	LDA #<DecodedLevelData
-	STA byte_RAM_A
-	LDY #>(DecodedLevelData+$0900)
-	STY byte_RAM_B
-	LDY #>(DecodedLevelData-$0100)
-
-	; Set all tiles to sky
-	LDA #BackgroundTile_Sky
-
-ResetLevelData_Loop:
-	STA (byte_RAM_A), Y
-	DEY
-	CPY #$FF
-	BNE ResetLevelData_Loop
-
-	DEC byte_RAM_B
-	LDX byte_RAM_B
-	CPX #>DecodedLevelData
-	BCS ResetLevelData_Loop
-
 	LDA #$00
 	STA PPUScrollXMirror
 	STA PPUScrollYMirror
@@ -3311,6 +3291,8 @@ LoadCurrentArea:
 	JSR ResetLevelData
 
 	JSR ResetPPUScrollHi_Bank6
+
+  JSR UnpackBackgroundBlocks
 
 	; Determine the address of the raw level data.
 	JSR RestoreLevelDataCopyAddress
@@ -4619,12 +4601,13 @@ UnpackBackgroundBlocks:
   LDA BackgroundBlocks_Hi, X
   STA TempAdrHi
 
-  LDA #$08
-  STA BlockCounterX ; Counter for later
   LDA #$00
   STA CurrentPageBackgroundBlocks ; Set first page to 0
 
 SetPageRamIndex:
+  LDA #$08
+  STA BlockCounterX ; Counter for later
+
   LDY CurrentPageBackgroundBlocks
   LDA PreCalculatedTableRAM_LevelDataStartHi, Y
   STA RamIndexTopHi
@@ -4637,15 +4620,17 @@ SetPageRamIndex:
   BCC SkipAddBottomHi
   INC RamIndexBottomHi
 
+  LDY #$00
 SkipAddBottomHi:
   LDX #$00 ; cheat way
 
 ; Load how many times we will need to repeat the block
-  LDA (BackgroundBlocks_Lo), X
+  LDA (TempAdrLo, X)
   CMP #$FF ; Check if we're done
   BEQ UnpackBackgroundBlocksDone
-  CMP #$FD ; Check if we need to change page
+  CMP #$FE ; Check if we need to change page
   BNE UnPackBackgroundData
+  JSR Increment_BackgroundBlocks
   INC CurrentPageBackgroundBlocks
   JMP SetPageRamIndex
 
@@ -4653,7 +4638,7 @@ SkipAddBottomHi:
 UnPackBackgroundData:
   STA UnpackBackgroundDataLoopCount ; Give it the loop count
   JSR Increment_BackgroundBlocks
-  LDA (BackgroundBlocks_Lo), X
+  LDA (TempAdrLo, X)
   JSR Increment_BackgroundBlocks
   TAX
 
@@ -4671,15 +4656,15 @@ UnPackBackgroundDataLoop:
   JSR DecreaseBlockCounterX
   DEC UnpackBackgroundDataLoopCount
   BNE UnPackBackgroundDataLoop
-
+  BEQ SkipAddBottomHi
 UnpackBackgroundBlocksDone:
   RTS
 
 ; Subroutine that check for overflow
 Increment_BackgroundBlocks:
-  INC BackgroundBlocks_Lo
+  INC TempAdrLo
   BNE Increment_BackgroundBlocksLeave
-  INC BackgroundBlocks_Hi
+  INC TempAdrHi
 Increment_BackgroundBlocksLeave:
   RTS
 
@@ -4691,6 +4676,8 @@ DecreaseBlockCounterX:
   CLC
   ADC #$10
   TAY
+  LDA #$08
+  STA BlockCounterX
 DecreaseBlockCounterXLeave:
   RTS
 
@@ -4699,16 +4686,16 @@ DecreaseBlockCounterXLeave:
 ; 4 x 4 of 8 x 8 pixels.
 
 TableTopLeftBackGroundBlock:
-  .db BackgroundTile_Sky, $00, $00, $00
+  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
 
 TableTopRightBackgroundBlock:
-  .db BackgroundTile_Sky, $00, $00, $00
+  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
 
 TableBottomLeftBackGroundBlock:
-  .db BackgroundTile_Sky, $00, $00, $00
+  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
 
 TableBottomRightBackgroundBlock:
-  .db BackgroundTile_Sky, $00, $00, $00
+  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
 
 .pad $A000, $ff
 .include "src/music/title_screen_song.asm"

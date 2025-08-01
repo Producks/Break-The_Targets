@@ -37,7 +37,15 @@ BackgroundBlocks_Hi:
   .db >Area16BackgroundBlocks
 
 Area0BackgroundBlocks:
+  .db $08, $00
+  .db $08, $01
+  .db $20, $02
+  .db $FE
+  .db $08, $01
+  .db $20, $02
+  .db $08, $00
   .db $FF
+
 Area1BackgroundBlocks:
   .db $FF
 Area2BackgroundBlocks:
