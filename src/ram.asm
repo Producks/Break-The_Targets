@@ -409,9 +409,11 @@ ENDIF
 ; Famistudio ends here?
 
 RamIndexTopLo:
+LevelDataRamLo:
 	.dsb 1 ; $00c3
 SoundEffectTimer2:
 RamIndexTopHi:
+LevelDataRamHi:
 	.dsb 1 ; $00c4 ; Maybe free 2 bytes here for the zero page, might be worth looking into
 
 ; FOR RENT
@@ -1760,6 +1762,7 @@ GroundSlipperiness:
 ; FOR RENT
 	.dsb 1 ; $0625
 ; FOR RENT
+CurrentPageCount:
 	.dsb 1 ; $0626
 DoAreaTransition:
 	.dsb 1 ; $0627
@@ -2047,6 +2050,7 @@ BackgroundCHR2Timer:
 ResetCHRLatch:
 	.dsb 1 ; $06fe
 ; FOR RENT
+LoopCountDecodeLevelData:
 UnpackBackgroundDataLoopCount:
 	.dsb 1 ; $06ff
 

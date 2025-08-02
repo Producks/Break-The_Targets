@@ -38,11 +38,11 @@ BackgroundBlocks_Hi:
 
 Area0BackgroundBlocks:
   .db $08, $00
-  .db $08, $01
-  .db $20, $02
+  .db $08, $00
+  .db $20, $00
   .db $FE
-  .db $08, $01
-  .db $20, $02
+  .db $08, $00
+  .db $20, $00
   .db $08, $00
   .db $FF
 

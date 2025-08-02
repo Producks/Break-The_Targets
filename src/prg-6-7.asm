@@ -3372,30 +3372,8 @@ ENDIF
 	STA ObjectTypeAXthruFX
 	DEY
 
-IFDEF AREA_HEADER_TILESET
-	; World tileset to use for the area.
-	LDA (byte_RAM_5), Y
-	ROL A
-	ROL A
-	ROL A
-	ROL A
-	AND #%00000111
-	CMP #$07 ; only $00-06 are valid, force $07 to CurrentWorld
-	BCC LoadCurrentArea_IsValid
-	LDA CurrentWorld
-LoadCurrentArea_IsValid:
-	STA CurrentWorldTileset
-ENDIF
+  JMP DecodeLevelData
 
-	; Load initial ground setting, which determines the shape of the ground layout.
-	;
-	; Using `$1F` skips rendering ground settings entirely, but no areas seem to use it.
-	LDA (byte_RAM_5), Y
-	AND #%00011111
-	CMP #%00011111
-	BEQ LoadCurrentArea_ForegroundData
-
-	STA GroundSetting
 
 	;
 	; ### Process level data
@@ -3412,40 +3390,36 @@ ENDIF
 	;
 
 	; Advance to the first object in the level data.
-	INY
-	INY
-	INY
+;	INY
+;	INY
+;	INY
 
 	; Reset the tile placement offset for the first pass.
-	LDA #$00
-	STA byte_RAM_E5
-	STA byte_RAM_E6
+;	LDA #$00
+;	STA byte_RAM_E5
+;	STA byte_RAM_E6
 
 	; Run the first pass of level rendering to apply ground settings and appearance.
-	JSR ReadLevelBackgroundData
+;	JSR ReadLevelBackgroundData
 
 	;
 	; #### Second pass: foreground objects
 	;
 	; The second pass renders normal level objects and sets up area pointers.
 	;
-LoadCurrentArea_ForegroundData:
+;LoadCurrentArea_ForegroundData:
 	; Reset the tile placement offset for the second pass.
-	LDA #$00
-	STA byte_RAM_E6
+;	LDA #$00
+;	STA byte_RAM_E6
 
 	; Advance to the first object in the level data.
-	LDA #$03
-	STA byte_RAM_4
+;	LDA #$03
+;	STA byte_RAM_4
 
 	; Run the second pass of level rendering to place regular objects in the level.
-	JSR ReadLevelForegroundData
+;	JSR ReadLevelForegroundData
 
 	; Bootstrap the pseudo-random number generator.
-	LDA #$22
-	ORA byte_RAM_10
-	STA PseudoRNGSeed
-	RTS
 
 
 ;
@@ -3455,19 +3429,6 @@ RestoreLevelDataCopyAddress:
 	LDA #>RawLevelData
 	STA byte_RAM_6
 	LDA #<RawLevelData
-	STA byte_RAM_5
-	RTS
-
-
-;
-; Sets the raw level data pointer to the jar data.
-;
-; This is what allows jars to load so quickly.
-;
-HijackLevelDataCopyAddressWithJar:
-	LDA #>RawJarData
-	STA byte_RAM_6
-	LDA #<RawJarData
 	STA byte_RAM_5
 	RTS
 
@@ -3654,18 +3615,7 @@ ENDIF
 ProcessSpecialObjectBackground:
 	JSR JumpToTableAfterJump
 
-	.dw SetGroundSettingA ; Ground setting 0-7
-	.dw SetGroundSettingB ; Ground setting 8-15
-	.dw SkipForwardPage1Background ; Skip forward 1 page
-	.dw SkipForwardPage2Background ; Skip forward 2 pages
-	.dw ResetPageAndOffsetBackground ; New object layer
-	.dw SetAreaPointerNoOp ; Area pointer
-	.dw SetGroundType ; Ground appearance
-IFDEF LEVEL_ENGINE_UPGRADES
-	.dw CreateRawTilesNoOp
-ENDIF
-
-
+SetGroundSettingB:
 ;
 ; #### Special Object `$F2` / `$F3`: Skip Page (Foreground)
 ;
@@ -3739,18 +3689,6 @@ EatLevelObject1Byte:
 ; - `byte_RAM_F`: level data byte offset
 ;
 SetAreaPointer:
-	LDY byte_RAM_F
-	INY
-	LDA byte_RAM_E8
-	ASL A
-	TAX
-	LDA (byte_RAM_5), Y
-	STA AreaPointersByPage, X
-	INY
-	INX
-	LDA (byte_RAM_5), Y
-	STA AreaPointersByPage, X
-	STY byte_RAM_F
 	RTS
 
 
@@ -3767,95 +3705,6 @@ IFDEF LEVEL_ENGINE_UPGRADES
 ; - `L`: run length, L+1 subsequent bytes are the raw tiles
 ;
 CreateRawTiles:
-	LDY byte_RAM_F
-
-	; setting the page address allows this to be the first object of an area
-	LDX byte_RAM_E8
-	JSR SetAreaPageAddr_Bank6
-
-	INY
-	; read tile placement offset
-	LDA (byte_RAM_5), Y
-	CLC
-	ADC byte_RAM_E6 ; add current offset
-	STA byte_RAM_E7 ; target tile placement offset
-
-	; apply page Y offset
-	LDA (byte_RAM_5), Y
-	AND #$F0
-	JSR UpdateAreaYOffset
-
-	INY
-	; read run length
-	LDA (byte_RAM_5), Y
-	AND #$0F
-	STA byte_RAM_50D
-
-	; read wrap length
-	LDA (byte_RAM_5), Y
-	LSR A
-	LSR A
-	LSR A
-	LSR A
-	STA byte_RAM_50E
-
-	; start counting from 0
-	LDX #$00
-
-	; everything afterwards is raw data
-CreateRawTiles_Loop:
-	; increment and stash Y
-	INY
-	TYA
-	PHA
-
-	; write the next tile
-	LDA (byte_RAM_5), Y
-	LDY byte_RAM_E7
-	STA (byte_RAM_1), Y
-
-	; increment x-position (crossing page as necessary)
-	JSR IncrementAreaXOffset
-	STY byte_RAM_E7
-
-	; are we wrapping this run of tiles?
-	LDA byte_RAM_50E
-	BEQ CreateRawTiles_NoWrap
-
-	; increment y-position if we hit the wrap point
-	TXA
-	CLC
-	ADC #$01
-CreateRawTiles_CheckWrap:
-	SEC
-	SBC byte_RAM_50E
-	BMI CreateRawTiles_NoWrap
-	BNE CreateRawTiles_CheckWrap
-
-CreateRawTiles_Wrap:
-	TXA
-	PHA
-	JSR IncrementAreaYOffset
-	SEC
-	SBC byte_RAM_50E
-	TAY
-	STY byte_RAM_E7
-	PLA
-	TAX
-
-CreateRawTiles_NoWrap:
-	; restore Y and iterate
-	PLA
-	TAY
-
-	CPX byte_RAM_50D
-	INX
-	BCC CreateRawTiles_Loop
-
-	; update level data offset
-	STY byte_RAM_F
-
-CreateRawTilesNoOp:
 	RTS
 ENDIF
 
@@ -3867,15 +3716,6 @@ ENDIF
 ; - `A`: 0-7
 ;
 ReadGroundSettingOffset:
-	LDY byte_RAM_F
-	INY
-	LDA (byte_RAM_5), Y
-	AND #%11100000
-	LSR A
-	LSR A
-	LSR A
-	LSR A
-	LSR A
 	RTS
 
 ;
@@ -3894,27 +3734,6 @@ ReadGroundSettingOffset:
 ; - `byte_RAM_E`: tile placement offset
 ;
 SetGroundSettingA:
-	JSR ReadGroundSettingOffset
-	JMP SetGroundSetting
-
-SetGroundSettingB:
-	JSR ReadGroundSettingOffset
-	CLC
-	ADC #$08
-
-SetGroundSetting:
-	STA byte_RAM_E
-	LDA IsHorizontalLevel
-	BNE SetGroundSetting_Exit
-
-	LDA byte_RAM_E
-	ASL A
-	ASL A
-	ASL A
-	ASL A
-	STA byte_RAM_E
-
-SetGroundSetting_Exit:
 	RTS
 
 
@@ -3929,9 +3748,6 @@ SetGroundSetting_Exit:
 ; - `byte_RAM_E6`: tile placement offset
 ;
 ResetPageAndOffsetForeground:
-	LDA #$00
-	STA byte_RAM_E8 ; area page
-	STA byte_RAM_E6 ; tile placement offset
 	RTS
 
 
@@ -3946,9 +3762,6 @@ ResetPageAndOffsetForeground:
 ; - `byte_RAM_E`: tile placement offset
 ;
 ResetPageAndOffsetBackground:
-	LDA #$00
-	STA byte_RAM_540
-	STA byte_RAM_E
 	RTS
 
 
@@ -3969,13 +3782,6 @@ SetAreaPointerNoOp:
 ; `GroundType`: the ground type used for drawing the background
 ;
 SetGroundType:
-	LDY byte_RAM_F
-	INY
-	LDA (byte_RAM_5), Y
-	AND #%00001111
-	ASL A
-	ASL A
-	STA GroundType
 	RTS
 
 
@@ -4183,7 +3989,7 @@ ReadLevelBackgroundData_RenderGround_Exit:
 	AND #$1F
 	STA GroundSetting
 	JMP ReadLevelBackgroundData_ProcessObject_AdvanceByte
-
+ReadGroundSetByte_Exit:
 ; -----
 
 
@@ -4197,16 +4003,6 @@ ReadLevelBackgroundData_RenderGround_Exit:
 ; - `A`: Byte containing the 4 ground appearance bit pairs for the offset
 ;
 ReadGroundSetByte:
-	LDA IsHorizontalLevel
-	BNE ReadGroundSetByte_Vertical
-
-	LDA VerticalGroundSetData, X
-	RTS
-
-ReadGroundSetByte_Vertical:
-	LDA HorizontalGroundSetData, X
-
-ReadGroundSetByte_Exit:
 	RTS
 
 
@@ -4219,46 +4015,6 @@ ReadGroundSetByte_Exit:
 ; - `byte_RAM_E7`: tile placement offset
 ;
 LoadGroundSetData:
-	STY byte_RAM_4
-	LDA GroundSetting
-	ASL A
-	ASL A
-	TAX
-	LDY byte_RAM_E7
-
-LoadGroundSetData_Loop:
-	JSR ReadGroundSetByte
-
-	JSR WriteGroundSetTiles1
-
-	JSR ReadGroundSetByte
-
-	JSR WriteGroundSetTiles2
-
-	JSR ReadGroundSetByte
-
-	JSR WriteGroundSetTiles3
-
-	JSR ReadGroundSetByte
-
-	JSR WriteGroundSetTiles4
-
-	LDA IsHorizontalLevel
-	BEQ LoadGroundSetData_Horizontal
-
-	INX
-	BCS LoadGroundSetData_Exit
-
-	BCC LoadGroundSetData_Loop
-
-LoadGroundSetData_Horizontal:
-	INX
-	TYA
-	AND #$0F
-	BNE LoadGroundSetData_Loop
-
-LoadGroundSetData_Exit:
-	LDY byte_RAM_4
 	RTS
 
 ;
@@ -4509,66 +4265,6 @@ ResetPPUScrollHi_Exit_Bank6:
 ; - `Y`: Which mushroom (0 or 1)
 ;
 CreateSubspaceMushroomObject:
-	TXA
-	PHA
-	AND #$F0
-	STA ObjectYLo
-	TXA
-	ASL A
-	ASL A
-	ASL A
-	ASL A
-	STA ObjectXLo
-
-	; Subspace is page `$0A`.
-	LDA #$0A
-	STA ObjectXHi
-	LDX #$00
-	STX byte_RAM_12
-	STX ObjectYHi
-
-	; Create a living fungus.
-	; Even most of this routine uses an enemy slot offset, the next few lines assume slot 0.
-	; We just set `X` to 0, so this is a safe enough assumption.
-	LDA #Enemy_Mushroom
-	STA ObjectType
-	LDA #EnemyState_Alive
-	STA EnemyState
-	; Keep track of which mushroom so that you can't collect it twice.
-	STY EnemyVariable
-
-	; Reset various object timers and attributes
-	LDA #$00
-	STA ObjectTimer1, X
-	STA EnemyArray_B1, X
-	STA ObjectBeingCarriedTimer, X
-	STA ObjectAnimationTimer, X
-	STA ObjectShakeTimer, X
-	STA EnemyCollision, X
-	STA ObjectStunTimer, X
-	STA ObjectTimer2, X
-	STA ObjectFlashTimer, X
-	STA ObjectYVelocity, X
-	STA ObjectXVelocity, X
-
-	; Load various object attributes for a mushroom
-	LDY ObjectType, X
-	LDA ObjectAttributeTable, Y
-	AND #$7F
-	STA ObjectAttributes, X
-	LDA EnemyArray_46E_Data, Y
-	STA EnemyArray_46E, X
-	LDA ObjectHitbox_Data, Y
-	STA ObjectHitbox, X
-	LDA EnemyArray_492_Data, Y
-	STA EnemyArray_492, X
-	LDA #$FF
-	STA EnemyRawDataOffset, X
-
-	; Restore X to its previous value
-	PLA
-	TAX
-
 	RTS
 
 include "src/levels/background-data.asm"
@@ -4671,6 +4367,110 @@ DecreaseBlockCounterX:
   STA BlockCounterX
 DecreaseBlockCounterXLeave:
   RTS
+
+;
+; Decode RLE level data here
+; FF = END, FE next page, FD skip writes, FC repeat writes horizontal, FB repeat writes vertical
+DecodeLevelData:
+  LDX CurrentLevelArea
+  LDA LevelDataAreaLo, X
+  STA TempAdrLo
+  LDA LevelDataAreaHi, X
+  STA TempAdrHi
+
+  LDX #$00 ; Set current page count, and is also used has a deference index later
+  STX CurrentPageCount
+
+ReadParamDecodeLevelDataInit:
+  JSR AdvancePagePTR
+  LDY #$00 ; index baby
+ReadParamDecodeLevelData:
+  LDA (TempAdrLo, X)
+  CMP #$FF ; Quit if we find the FF
+  BEQ DecodeLEvelDataLeave
+  CMP #$FE ; Will swap page
+  BEQ ForwardPage
+  CMP #$FD ; skip writes if we find it
+  BNE DecodeLevelDataNormal
+
+SkipWritesLevelData:
+  JSR Increment_BackgroundBlocks
+  TYA
+  CLC
+  ADC (TempAdrLo, X)
+  TAY
+  JSR Increment_BackgroundBlocks
+  JMP ReadParamDecodeLevelData
+
+DecodeLevelDataNormal:
+  STA LoopCountDecodeLevelData
+  JSR Increment_BackgroundBlocks
+  LDA (TempAdrLo, X)
+
+DecodeLevelDataNormalLoop:
+  STA (LevelDataRamLo), Y
+  INY
+  DEC LoopCountDecodeLevelData
+  BNE DecodeLevelDataNormalLoop
+  JSR Increment_BackgroundBlocks
+  JMP ReadParamDecodeLevelData
+
+DecodeLEvelDataLeave:
+	LDA #$22
+	ORA byte_RAM_10
+	STA PseudoRNGSeed
+	RTS
+
+ForwardPage:
+  JSR Increment_BackgroundBlocks
+  INC CurrentPageCount
+  JMP ReadParamDecodeLevelDataInit
+
+AdvancePagePTR:
+  LDY CurrentPageCount
+  LDA PreCalculatedTableRAM_LevelDataStartLo, Y
+  STA LevelDataRamLo
+  LDA PreCalculatedTableRAM_LevelDataStartHi, Y
+  STA LevelDataRamHi
+  RTS
+
+LevelDataAreaLo:
+  .db <LevelDataArea0
+LevelDataAreaHi:
+  .db >LevelDataArea0
+
+; $FF = END, $FE skip to the next screen, $FD Skip writes by -> $XX
+LevelDataArea0:
+.db $FD, $35
+.db $01, $14
+.db $FD, $03
+.db $01, $14
+.db $FD, $1d
+.db $01, $14
+.db $FD, $1d
+.db $01, $14
+.db $FD, $03
+.db $01, $14
+.db $FD, $0c
+.db $03, $14
+.db $FD, $27
+.db $10, $14
+.db $FE
+.db $01, $14
+.db $FD, $35
+.db $FD, $03
+.db $01, $14
+.db $FD, $1d
+.db $01, $14
+.db $FD, $1d
+.db $01, $14
+.db $FD, $03
+.db $01, $14
+.db $FD, $0c
+.db $03, $14
+.db $FD, $27
+.db $10, $14
+.db $FF
 
 ;
 ; Index looking table for creating a block, will index real blocks

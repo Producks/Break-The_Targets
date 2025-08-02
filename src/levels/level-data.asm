@@ -59,10 +59,10 @@ include "src/levels/1/1-1/1-1-area5.asm"
 ; -------------------------------
 
 ; $FF = END, $FE skip to the next screen, $FD Skip writes by -> $XX
-LevelDataArea0:
-  .db $FD, $B0
-  .db $10, BackgroundTile_Bridge
-  .db $FF
+;LevelDataArea0:
+;  .db $FD, $B0
+;  .db $10, BackgroundTile_Bridge
+;  .db $FF
 
 LevelDataArea1:
   .db $FF
