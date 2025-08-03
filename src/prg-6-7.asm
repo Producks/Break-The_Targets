@@ -12,89 +12,9 @@
 ; -----
 ;
 
-; Targets number, Index by current area
-TargetsCountTable:
-  .db $02, $00, $0F, $0F
+.include "src/levels/targets-restriction-table.asm"
 
-; Restriction table, Index by current area
-RestrictionCountTable:
-  .db $02, $03, $0F, $0F
-
-RestrictionTypeTable:
-  .db NoRestriction, JumpRestriction, JumpRestriction
-
-;
-; #### Palette pointers
-;
-PalettePTRLo:
-	.db <Area0Palette
-  .db <Area1Palette
-  .db <Area2Palette
-
-PalettePTRHi:
-	.db >Area0Palette
-  .db >Area1Palette
-  .db >Area2Palette
-
-Area0Palette:
-; Palette
-	.db $21, $30, $12, $0F ; $00
-	.db $21, $30, $16, $0F ; $04
-	.db $21, $27, $17, $0F ; $08
-	.db $21, $29, $1A, $0F ; $0C
-	.db $21, $01, $16, $27 ; Mario
-	.db $21, $30, $16, $0F ; $00
-	.db $21, $38, $10, $0F ; $04
-	.db $21, $30, $25, $1B ; $08
-
-; Background chr banks
-  .db CHRBank_BackgroundGrass
-  .db CHRBank_Animated1
-; Sprite chr banks
-  .db CHRBank_Mario
-  .db CHRBank_CommonEnemies1
-  .db CHRBank_CommonEnemies2
-  .db CHRBank_EnemiesGrass
-
-Area1Palette:
-; Day
-	.db $01, $30, $12, $0F ; $00
-	.db $01, $30, $16, $0F ; $04
-	.db $01, $27, $17, $0F ; $08
-	.db $01, $29, $1A, $0F ; $0C
-	.db $01, $01, $16, $27 ; Mario
-	.db $01, $30, $16, $0F ; $00
-	.db $01, $38, $10, $0F ; $04
-	.db $01, $30, $25, $1B ; $08
-
-; Background chr banks
-  .db CHRBank_BackgroundGrass
-  .db CHRBank_Animated1
-; Sprite chr banks
-  .db CHRBank_Mario
-  .db CHRBank_CommonEnemies1
-  .db CHRBank_CommonEnemies2
-  .db CHRBank_EnemiesGrass
-
-Area2Palette:
-; Day
-	.db $11, $30, $12, $0F ; $00
-	.db $11, $30, $16, $0F ; $04
-	.db $11, $27, $17, $0F ; $08
-	.db $11, $29, $1A, $0F ; $0C
-	.db $11, $01, $2A, $36 ; Luigi
-	.db $11, $30, $16, $0F ; $00
-	.db $11, $38, $10, $0F ; $04
-	.db $11, $30, $25, $1B ; $08
-
-; Background chr banks
-  .db CHRBank_BackgroundGrass
-  .db CHRBank_Animated1
-; Sprite chr banks
-  .db CHRBank_Luigi
-  .db CHRBank_CommonEnemies1
-  .db CHRBank_CommonEnemies2
-  .db CHRBank_EnemiesDesert
+.include "src/levels/palette-chr-data.asm"
 
 ; -----
 
@@ -4470,7 +4390,6 @@ LevelDataArea0:
 .db $FD, $27
 .db $FC, $10, $14
 .db $FF
-
 
 ;
 ; Index looking table for creating a block, will index real blocks
