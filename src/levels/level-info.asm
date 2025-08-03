@@ -1,3 +1,19 @@
+; Include palettes, target count, CHR bank, restriction count, restriciton type
+
+; Targets number, Index by current area
+TargetsCountTable:
+  .db $02, $00, $0F, $0F
+
+; Restriction table, Index by current area
+RestrictionCountTable:
+  .db $02, $03, $0F, $0F
+
+RestrictionTypeTable:
+  .db NoRestriction, JumpRestriction, JumpRestriction
+
+ScreenCountArea:
+  .db $01, $01, $09
+
 ;
 ; #### Palette pointers
 ;

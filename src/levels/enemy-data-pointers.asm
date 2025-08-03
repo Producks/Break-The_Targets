@@ -26,25 +26,7 @@ EnemyPointersByLevel_LoLo:
 
 EnemyPointers_Level_1_1_Hi:
 	.db >EnemyData_Level_1_1_Area0
-	.db >EnemyData_Level_1_1_Area1
-	.db >EnemyData_Level_1_1_Area2
-	.db >EnemyData_Level_1_1_Area3
-	.db >EnemyData_Level_1_1_Area4
-	.db >EnemyData_Level_1_1_Area5
-	.db >EnemyData_Level_1_1_Area5
-	.db >EnemyData_Level_1_1_Area5
-	.db >EnemyData_Level_1_1_Area5
-	.db >EnemyData_Level_1_1_Area5
 
 EnemyPointers_Level_1_1_Lo:
 	.db <EnemyData_Level_1_1_Area0
-	.db <EnemyData_Level_1_1_Area1
-	.db <EnemyData_Level_1_1_Area2
-	.db <EnemyData_Level_1_1_Area3
-	.db <EnemyData_Level_1_1_Area4
-	.db <EnemyData_Level_1_1_Area5
-	.db <EnemyData_Level_1_1_Area5
-	.db <EnemyData_Level_1_1_Area5
-	.db <EnemyData_Level_1_1_Area5
-	.db <EnemyData_Level_1_1_Area5
 

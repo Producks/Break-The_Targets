@@ -21,10 +21,5 @@
 
 ; World 1-1
 include "src/levels/1/1-1/1-1-area0-enemies.asm"
-include "src/levels/1/1-1/1-1-area1-enemies.asm"
-include "src/levels/1/1-1/1-1-area2-enemies.asm"
-include "src/levels/1/1-1/1-1-area3-enemies.asm"
-include "src/levels/1/1-1/1-1-area4-enemies.asm"
-include "src/levels/1/1-1/1-1-area5-enemies.asm"
 
 ; -------------------------------

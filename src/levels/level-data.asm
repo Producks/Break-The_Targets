@@ -50,11 +50,6 @@
 
 ; World 1-1
 include "src/levels/1/1-1/1-1-area0.asm"
-include "src/levels/1/1-1/1-1-area1.asm"
-include "src/levels/1/1-1/1-1-area2.asm"
-include "src/levels/1/1-1/1-1-area3.asm"
-include "src/levels/1/1-1/1-1-area4.asm"
-include "src/levels/1/1-1/1-1-area5.asm"
 
 ; -------------------------------
 

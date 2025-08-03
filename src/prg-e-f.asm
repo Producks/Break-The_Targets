@@ -563,12 +563,6 @@ InitializeSubArea:
 InitializeJar:
 
 InitializeSubspace:
-	JSR GenerateSubspaceArea
-
-	LDA #Music1_Subspace
-	STA MusicQueue1
-	LDA #$04
-	STA CurrentMusicIndex
 
 loc_BANKF_E5E1:
 	LDA #PRGBank_0_1
@@ -4485,48 +4479,10 @@ CopyEnemyDataToMemory_Loop:
 
 	RTS
 
-
 ;
 ; Copies the raw level data for a jar to memory.
 ;
 CopyJarDataToMemory:
-	; Determine the global area index from the current level and area.
-	LDY CurrentLevel
-	LDA LevelAreaStartIndexes, Y
-	CLC
-	ADC #AreaIndex_Jar
-	TAY
-
-	; Calculate the pointer for the start of the level data.
-	LDA LevelDataPointersLo, Y
-	STA byte_RAM_5
-	LDA LevelDataPointersHi, Y
-	STA byte_RAM_6
-
-	; Set the destination address in RAM for copying level data.
-	LDA #>RawJarData
-	STA byte_RAM_2
-	LDY #<RawJarData
-	STY byte_RAM_1
-
-	; `Y = $00`
-CopyJarDataToMemory_Loop:
-	LDA (byte_RAM_5), Y
-	; Unlike `CopyLevelDataToMemory`, which always copies 255 bytes, this stops on any `$FF` read!
-	;
-	; This isn't technically "correct", but in practice it's not the most devastating limitation.
-	; Just don't expect to use a waterfall object that is exactly 16 tiles wide inside a jar.
-	;
-	; Fun fact: The largest possible waterfall objects are only used in two areas of World 5!
-	CMP #$FF ; This one actually terminates on any $FF read! Welp.
-	BEQ CopyJarDataToMemory_Exit
-
-	STA (byte_RAM_1), Y
-	INY
-	JMP CopyJarDataToMemory_Loop
-
-CopyJarDataToMemory_Exit:
-	STA (byte_RAM_1), Y
 	RTS
 
 
@@ -5125,14 +5081,6 @@ RespawnPlayer_AfterMusic:
 
 
 ResetSubAreaJarLayout:
-	LDA #PRGBank_6_7
-	JSR ChangeMappedPRGBank
-
-	JSR ClearSubAreaTileLayout
-
-	LDA #PRGBank_0_1
-	JSR ChangeMappedPRGBank
-
 	RTS
 
 ENDIF
