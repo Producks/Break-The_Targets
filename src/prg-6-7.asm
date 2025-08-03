@@ -4469,22 +4469,8 @@ LevelDataArea0:
 .db $FC, $03, $14
 .db $FD, $27
 .db $FC, $10, $14
-.db $FE
-.db $14
-.db $FD, $35
-.db $FD, $03
-.db $14
-.db $FD, $1d
-.db $14
-.db $FD, $1d
-.db $14
-.db $FD, $03
-.db $14
-.db $FD, $0c
-.db $FC, $03, $14
-.db $FD, $27
-.db $FC, $10, $14
 .db $FF
+
 
 ;
 ; Index looking table for creating a block, will index real blocks

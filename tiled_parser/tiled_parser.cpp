@@ -8,10 +8,12 @@
 #define WIDTH_LENGTH 16
 
 void write_value(int prev_value, int prev_value_length, std::ofstream &dst) {
-  if (prev_value == -1) 
+  if (prev_value == -1)
     dst << ".db $FD, $" << std::hex << std::setw(2) << prev_value_length << std::endl;
+  else if (prev_value_length == 1)
+    dst << ".db $" << std::hex << std::setw(2) << std::setfill('0') << prev_value << std::endl;
   else
-    dst << ".db $" << std::hex << std::setw(2) << std::setfill('0') << prev_value_length << ", $" << std::hex << std::setw(2) << prev_value << std::endl;
+    dst << ".db $FC, $" << std::hex << std::setw(2) << std::setfill('0') << prev_value_length << ", $" << std::hex << std::setw(2) <<  std::setfill('0') << prev_value << std::endl;
 }
 
 void parse_data(std::vector<std::vector<int>> &vector, int index, std::ofstream &dst) {
@@ -23,7 +25,6 @@ void parse_data(std::vector<std::vector<int>> &vector, int index, std::ofstream 
   for (int height = 0; height != HEIGHT_LENGTH; height++) {
     for (int width = 0; width != WIDTH_LENGTH; width++) {
       int value = vector[height][width + starting_index];
-      // std::cout << "Value " << value << " prev " << prev_value << std::endl;
       if (value == prev_value)
         prev_value_length++;
       else {
