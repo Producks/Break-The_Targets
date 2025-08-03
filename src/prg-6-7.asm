@@ -1,8 +1,10 @@
 .include "src/levels/level-info.asm"
 
-;.include "src/levels/level-data.asm"
+.include "src/levels/level-data.asm"
 
-;.include "src/levels/background-data.asm"
+.include "src/levels/enemy-data.asm"
+
+.include "src/levels/background-data.asm"
 
 ;
 ; Lookup tables for decoded level data by page
@@ -124,7 +126,31 @@ LoadCurrentArea:
   LDA ScreenCountArea, Y
 	STA CurrentLevelPages
 
-  JMP DecodeLevelData
+  JSR DecodeLevelData
+
+  JMP CopyEnemyData
+
+CopyEnemyData:
+	LDA #>RawEnemyDataAddr
+	STA byte_RAM_3
+	LDY #<RawEnemyDataAddr
+	STY byte_RAM_2
+
+  LDY CurrentLevelArea
+  LDA EnemyDataPTRLo, Y
+  STA TempAdrLo
+  LDA EnemyDataPTRHi, Y
+  STA TempAdrHi
+
+  LDY #$00
+
+CopyEnemyDataLoop: ; TODO Optimize this later so i dont copy 255 bytes lol
+  LDA (TempAdrLo), Y
+  STA (byte_RAM_2), Y
+  DEY
+  BNE CopyEnemyDataLoop
+
+  RTS
 
 ;
 ; Updates the area page and tile placement offset
@@ -211,8 +237,6 @@ ResetPPUScrollHi_NametableB_Bank6:
 ResetPPUScrollHi_Exit_Bank6:
 	STA PPUScrollCheckHi
 	RTS
-
-include "src/levels/background-data.asm"
 
 PreCalculatedTableRAM_LevelDataStartLo:
   .db $00, $F0, $E0, $D0, $C0, $B0, $A0, $90, $80, $70
@@ -393,44 +417,6 @@ AdvancePagePTR:
   LDA PreCalculatedTableRAM_LevelDataStartHi, Y
   STA LevelDataRamHi
   RTS
-
-LevelDataAreaLo:
-  .db <LevelDataArea0
-LevelDataAreaHi:
-  .db >LevelDataArea0
-
-LevelDataArea0:
-.db $FD, $35
-.db $14
-.db $FD, $03
-.db $14
-.db $FD, $1d
-.db $14
-.db $FD, $1d
-.db $14
-.db $FD, $03
-.db $14
-.db $FD, $0c
-.db $FC, $03, $14
-.db $FD, $27
-.db $FC, $10, $14
-.db $FF
-
-;
-; Index looking table for creating a block, will index real blocks
-; 4 x 4 of 8 x 8 pixels.
-
-TableTopLeftBackGroundBlock:
-  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
-
-TableTopRightBackgroundBlock:
-  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
-
-TableBottomLeftBackGroundBlock:
-  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
-
-TableBottomRightBackgroundBlock:
-  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
 
 .pad $A000, $ff
 .include "src/music/title_screen_song.asm"

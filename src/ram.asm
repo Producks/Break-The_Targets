@@ -2052,6 +2052,7 @@ ResetCHRLatch:
 ; FOR RENT
 LoopCountDecodeLevelData:
 UnpackBackgroundDataLoopCount:
+SpriteScreenCountLoopCount:
 	.dsb 1 ; $06ff
 
 ; When moving into subspace,  this area is turned into a tile represenation

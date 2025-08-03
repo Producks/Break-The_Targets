@@ -1,25 +1,69 @@
-;
-; Enemy Data
-; ==========
-;
-; This data is broken down by page (ie. screen), where the first byte indicates
-; the number of bytes for this page. Each enemy is two bytes, where the first
-; byte is the enemy, and the second byte is XY position.
-;
-; Each "page" of enemy data is 16x16 tiles.
-;
-; Note that this is one tile GREATER than level data. Consequently, level and
-; enemy data becomes increasingly misaligned in vertical areas.
-;
-; Examples:
-;   $01 - an empty page
-;   $03,$01,$47 - a page with a single pink shyguy ($01) at X=4, Y=7
-;
+EnemyDataPTRLo:
+  .db <EnemyData_Level_1_1_Area0
+  .db <EnemyData_Level_1_1_Area1
+  .db <EnemyData_Level_1_1_Area2
+  .db <EnemyData_Level_1_1_Area3
+  .db <EnemyData_Level_1_1_Area4
+  .db <EnemyData_Level_1_1_Area5
+  .db <EnemyData_Level_1_1_Area6
+  .db <EnemyData_Level_1_1_Area7
+  .db <EnemyData_Level_1_1_Area8
+  .db <EnemyData_Level_1_1_Area9
+  .db <EnemyData_Level_1_1_Area10
+  .db <EnemyData_Level_1_1_Area11
+  .db <EnemyData_Level_1_1_Area12
+  .db <EnemyData_Level_1_1_Area13
+  .db <EnemyData_Level_1_1_Area14
+  .db <EnemyData_Level_1_1_Area15
+  .db <EnemyData_Level_1_1_Area16
 
-; -------------------------------
-; World 1
+EnemyDataPTRHi:
+  .db >EnemyData_Level_1_1_Area0
+  .db >EnemyData_Level_1_1_Area1
+  .db >EnemyData_Level_1_1_Area2
+  .db >EnemyData_Level_1_1_Area3
+  .db >EnemyData_Level_1_1_Area4
+  .db >EnemyData_Level_1_1_Area5
+  .db >EnemyData_Level_1_1_Area6
+  .db >EnemyData_Level_1_1_Area7
+  .db >EnemyData_Level_1_1_Area8
+  .db >EnemyData_Level_1_1_Area9
+  .db >EnemyData_Level_1_1_Area10
+  .db >EnemyData_Level_1_1_Area11
+  .db >EnemyData_Level_1_1_Area12
+  .db >EnemyData_Level_1_1_Area13
+  .db >EnemyData_Level_1_1_Area14
+  .db >EnemyData_Level_1_1_Area15
+  .db >EnemyData_Level_1_1_Area16
 
-; World 1-1
-include "src/levels/1/1-1/1-1-area0-enemies.asm"
+EnemyData_Level_1_1_Area0:
+; Page 0
+	distTo + ; $07 (3 enemies)
+	enemy $2, $4, Enemy_Porcupo
+	enemy $4, $5, Enemy_Porcupo
+	enemy $6, $6, Enemy_Porcupo
+	enemy $7, $7, Enemy_Porcupo
+	enemy $8, $8, Enemy_VegetableLarge
 
-; -------------------------------
+; Page 1
++	distTo + ; $01 (0 enemies)
+
+; End of enemy data
++
+
+EnemyData_Level_1_1_Area1:
+EnemyData_Level_1_1_Area2:
+EnemyData_Level_1_1_Area3:
+EnemyData_Level_1_1_Area4:
+EnemyData_Level_1_1_Area5:
+EnemyData_Level_1_1_Area6:
+EnemyData_Level_1_1_Area7:
+EnemyData_Level_1_1_Area8:
+EnemyData_Level_1_1_Area9:
+EnemyData_Level_1_1_Area10:
+EnemyData_Level_1_1_Area11:
+EnemyData_Level_1_1_Area12:
+EnemyData_Level_1_1_Area13:
+EnemyData_Level_1_1_Area14:
+EnemyData_Level_1_1_Area15:
+EnemyData_Level_1_1_Area16:

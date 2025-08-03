@@ -387,10 +387,6 @@ StartLevel_SetPPUCtrlMirror:
 	STA PPUCTRL
 	LDA #Stack100_Transition
 	STA StackArea
-	LDA #PRGBank_8_9
-	JSR ChangeMappedPRGBank
-
-	JSR CopyLevelDataToMemory
 
 	LDA #PRGBank_6_7
 	JSR ChangeMappedPRGBank
@@ -398,10 +394,6 @@ StartLevel_SetPPUCtrlMirror:
 	JSR LoadCurrentArea
 
 	JSR LoadCurrentPalette_N_CHRBank
-
-IFDEF AREA_HEADER_TILESET
-	JSR LoadWorldCHRBanks
-ENDIF
 
 	JSR HideAllSprites
 
@@ -2604,13 +2596,6 @@ SetPlayerScreenPosition_ExitPointerJar:
 	RTS
 
 SetPlayerScreenPosition_ExitSubAreaJar:
-	STY InSubspaceOrJar
-	LDA CurrentLevelAreaCopy
-	STA CurrentLevelArea
-	LDA #PRGBank_8_9
-	JSR ChangeMappedPRGBank
-
-	JMP CopyEnemyDataToMemory
 
 SetPlayerScreenPosition_Exit:
 	RTS
@@ -4386,105 +4371,6 @@ ELSE
 	NOP
 	NOP
 ENDIF
-
-
-;
-; Copies the raw level data to memory.
-;
-CopyLevelDataToMemory:
-	; Determine the global area index from the current level and area.
-	LDY CurrentLevel
-	LDA LevelAreaStartIndexes, Y
-	CLC
-	ADC CurrentLevelArea
-	TAY
-
-	; Calculate the pointer for the start of the level data.
-	LDA LevelDataPointersLo, Y
-	STA byte_RAM_5
-	LDA LevelDataPointersHi, Y
-	STA byte_RAM_6
-
-	; Blindly copy 255 bytes of data, which is presumed to contain the full area.
-	LDX #$FF
-
-	; Set the destination address in RAM for copying level data.
-	LDA #>RawLevelData
-	STA byte_RAM_2
-	LDY #<RawLevelData
-	STY byte_RAM_1
-
-	; `Y = $00`
-CopyLevelDataToMemory_Loop:
-	LDA (byte_RAM_5), Y
-	STA (byte_RAM_1), Y
-	INY
-	DEX
-	BNE CopyLevelDataToMemory_Loop
-
-	; We end up copying the first byte twice!
-	STA (byte_RAM_1), Y
-
-
-;
-; Copies the raw enemy data to memory.
-;
-CopyEnemyDataToMemory:
-	; Determine the address of the level's enemy pointer tables.
-	LDY CurrentLevel
-	LDA EnemyPointersByLevel_HiHi, Y
-	STA byte_RAM_1
-	LDA EnemyPointersByLevel_HiLo, Y
-	STA byte_RAM_0
-	LDA EnemyPointersByLevel_LoHi, Y
-	STA byte_RAM_3
-	LDA EnemyPointersByLevel_LoLo, Y
-	STA byte_RAM_2
-
-	; Determine whether we want the enemy data for the area or for the jar.
-	LDA InSubspaceOrJar
-	CMP #$01
-	BNE CopyEnemyDataToMemory_Area
-
-CopyEnemyDataToMemory_Jar:
-	LDY #AreaIndex_Jar
-	JMP CopyEnemyDataToMemory_SetAddress
-
-CopyEnemyDataToMemory_Area:
-	LDY CurrentLevelArea
-
-CopyEnemyDataToMemory_SetAddress:
-	; Calculate the pointer for the start of the enemy data.
-	LDA (byte_RAM_0), Y
-	STA byte_RAM_1
-	LDA (byte_RAM_2), Y
-	STA byte_RAM_0
-
-	; Blindly copy 255 bytes of data, which is presumed to contain the full area.
-	LDX #$FF
-
-	; Set the destination address in RAM for copying level data.
-	LDA #>RawEnemyDataAddr
-	STA byte_RAM_3
-	LDY #<RawEnemyDataAddr
-	STY byte_RAM_2
-
-	; `Y = $00`
-CopyEnemyDataToMemory_Loop:
-	LDA (byte_RAM_0), Y
-	STA (byte_RAM_2), Y
-	INY
-	DEX
-	BNE CopyEnemyDataToMemory_Loop
-
-	RTS
-
-;
-; Copies the raw level data for a jar to memory.
-;
-CopyJarDataToMemory:
-	RTS
-
 
 ;
 ; ## Tile Quads

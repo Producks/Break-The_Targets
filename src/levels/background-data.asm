@@ -1,3 +1,19 @@
+;
+; Index looking table for creating a block, will index real blocks
+; 4 x 4 of 8 x 8 pixels.
+
+TableTopLeftBackGroundBlock:
+  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
+
+TableTopRightBackgroundBlock:
+  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
+
+TableBottomLeftBackGroundBlock:
+  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
+
+TableBottomRightBackgroundBlock:
+  .db BackgroundTile_Sky, BackgroundTile_BgCloudLeft, BackgroundTile_BgCloudRight, $00
+
 BackgroundBlocks_Lo:
   .db <Area0BackgroundBlocks
   .db <Area1BackgroundBlocks
