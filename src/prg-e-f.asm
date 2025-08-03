@@ -77,8 +77,6 @@ PPUBuffer_TitleCard:
 
 ; nametable attribute data
 PPUBuffer_PauseExtraLife:
-	.db $27, $EA, $05
-	.db $AA, $AA, $AA, $AA, $AA
 
 ; This draws two columns of black tiles along the right side of the nametable to the left of the
 ; title card, which was the character/level select in Doki Doki Panic. In SMB2, it remains unused.
@@ -91,17 +89,8 @@ PPUBuffer_TitleCardLeftover:
 ; such world is playable!
 WorldStartingLevel:
 	.db $00
-	.db $03
-	.db $06
-	.db $09
-	.db $0C
-	.db $0F
-	.db $12
-	.db $14
 
 BonusChanceSnifitSprite:
-	.db $5F, $01, $01, $58
-	.db $5F, $03, $01, $60
 
 TitleCardPalettes:
 	.db $00
@@ -243,19 +232,6 @@ InitializeSomeLevelStuff:
 	STA StopwatchTimer
 	STA PlayerCurrentSize
 	RTS
-
-
-PlayerSelectArrowTop:
-	.db $C9
-	.db $D5
-	.db $D1
-	.db $CD
-PlayerSelectArrowBottom:
-	.db $E9
-	.db $F5
-	.db $F1
-	.db $ED
-
 
 ;
 ; Displays the level title card and prepares the level to start by loading
@@ -3597,22 +3573,24 @@ IFDEF ENABLE_TILE_ATTRIBUTES_TABLE
 ; * bit 0: whether left side is solid
 ;
 TileCollisionAttributesTable:
-	.db %00000000 ; $00
-	.db %11110000 ; $01
-	.db %11110000 ; $02
-	.db %11110000 ; $03
-	.db %11110000 ; $04
-	.db %11110000 ; $05
-	.db %11110000 ; $06
-	.db %11110000 ; $07
-	.db %11110000 ; $08
-	.db %11110000 ; $09
-	.db %11110000 ; $0A
-	.db %11110000 ; $0B
-	.db %11110000 ; $0C
-	.db %11110000 ; $0D
-	.db %11110000 ; $0E
-	.db %11110000 ; $0F
+	.db %00000000 ; Tile_Background_First_FP
+	.db %00000000 ; Tile_Background_Second_FP
+	.db %00000000 ; Tile_Background_Third_FP
+	.db %00000000 ; Tile_Background_Fourth_FP
+	.db %00000000 ; Tile_Background_Fith_FP
+	.db %00000000 ; Tile_Background_Sixth_FP
+	.db %00000000 ; Tile_Background_Seventh_FP
+	.db %00000000 ; Tile_Background_Eighth_FP
+
+	.db %11111111 ; Tile_Solid_First_FP
+	.db %11111111 ; Tile_Solid_Second_FP
+	.db %11111111 ; Tile_Solid_Third_FP
+	.db %11111111 ; Tile_Solid_Fourth_FP
+	.db %11111111 ; Tile_Solid_Fith_FP
+	.db %11111111 ; Tile_Solid_Sixth_FP
+	.db %11111111 ; Tile_Solid_Seventh_FP
+	.db %11111111 ; Tile_Solid_Eighth_FP
+
 	.db %11110000 ; $10
 	.db %11110000 ; $11
 	.db %00000100 ; $12
@@ -3661,22 +3639,27 @@ TileCollisionAttributesTable:
 	.db %00001111 ; $3D
 	.db %00001111 ; $3E
 	.db %00001111 ; $3F
-	.db %00000000 ; $40
-	.db %00000000 ; $41
-	.db %00000000 ; $42
-	.db %11110000 ; $43
-	.db %11110000 ; $44
-	.db %11110000 ; $45
-	.db %11110000 ; $46
-	.db %11110000 ; $47
-	.db %11110000 ; $48
-	.db %11110000 ; $49
-	.db %11110000 ; $4A
-	.db %11110000 ; $4B
-	.db %11110000 ; $4C
-	.db %11110000 ; $4D
-	.db %11110000 ; $4E
-	.db %11110000 ; $4F
+;
+; cutoff to palette 2
+;
+	.db %00000000 ; Tile_Background_First_SP
+	.db %00000000 ; Tile_Background_Second_SP
+	.db %00000000 ; Tile_Background_Third_SP
+	.db %00000000 ; Tile_Background_Fourth_SP
+	.db %00000000 ; Tile_Background_Fith_SP
+	.db %00000000 ; Tile_Background_Sixth_SP
+	.db %00000000 ; Tile_Background_Seventh_SP
+	.db %00000000 ; Tile_Background_Eighth_SP
+
+	.db %11111111 ; Tile_Solid_First_SP
+	.db %11111111 ; Tile_Solid_Second_SP
+	.db %11111111 ; Tile_Solid_Third_SP
+	.db %11111111 ; Tile_Solid_Fourth_SP
+	.db %11111111 ; Tile_Solid_Fith_SP
+	.db %11111111 ; Tile_Solid_Sixth_SP
+	.db %11111111 ; Tile_Solid_Seventh_SP
+	.db %11111111 ; Tile_Solid_Eighth_SP
+
 	.db %11110000 ; $50
 	.db %11110000 ; $51
 	.db %11110000 ; $52
@@ -3725,22 +3708,27 @@ TileCollisionAttributesTable:
 	.db %00001111 ; $7D
 	.db %00001111 ; $7E
 	.db %00001111 ; $7F
-	.db %11110000 ; $80
-	.db %11110000 ; $81
-	.db %11110000 ; $82
-	.db %11110000 ; $83
-	.db %11110000 ; $84
-	.db %11110000 ; $85
-	.db %11110000 ; $86
-	.db %11110000 ; $87
-	.db %11110000 ; $88
-	.db %11110000 ; $89
-	.db %11110000 ; $8A
-	.db %11110000 ; $8B
-	.db %11110000 ; $8C
-	.db %11110000 ; $8D
-	.db %11110000 ; $8E
-	.db %11110000 ; $8F
+;
+; cutoff to palette 2
+;
+	.db %00000000 ; Tile_Background_First_TP
+	.db %00000000 ; Tile_Background_Second_TP
+	.db %00000000 ; Tile_Background_Third_TP
+	.db %00000000 ; Tile_Background_Fourth_TP
+	.db %00000000 ; Tile_Background_Fith_TP
+	.db %00000000 ; Tile_Background_Sixth_TP
+	.db %00000000 ; Tile_Background_Seventh_TP
+	.db %00000000 ; Tile_Background_Eighth_TP
+
+	.db %11111111 ; Tile_Solid_First_TP
+	.db %11111111 ; Tile_Solid_Second_TP
+	.db %11111111 ; Tile_Solid_Third_TP
+	.db %11111111 ; Tile_Solid_Fourth_TP
+	.db %11111111 ; Tile_Solid_Fith_TP
+	.db %11111111 ; Tile_Solid_Sixth_TP
+	.db %11111111 ; Tile_Solid_Seventh_TP
+	.db %11111111 ; Tile_Solid_Eighth_TP
+
 	.db %11110000 ; $90
 	.db %00000100 ; $91
 	.db %00000100 ; $92
@@ -3789,7 +3777,10 @@ TileCollisionAttributesTable:
 	.db %00001111 ; $BD
 	.db %00001111 ; $BE
 	.db %00001111 ; $BF
-	.db %11110000 ; $C0
+;
+; Cutoff palette 4
+;
+	.db %00000000 ; Tile_Sky_Background
 	.db %11110000 ; $C1
 	.db %11110000 ; $C2
 	.db %11110000 ; $C3
@@ -3866,22 +3857,24 @@ TileCollisionAttributesTable:
 ; * H: health effect (0 = none, 1 = damage, 2 = kill, 3 = heal)
 ;
 TileInteractionAttributesTable:
-	.db %00000000 ; $00
-	.db %00000000 ; $01
-	.db %00000000 ; $02
-	.db %00000000 ; $03
-	.db %00000000 ; $04
-	.db %00000000 ; $05
-	.db %00000000 ; $06
-	.db %00000000 ; $07
-	.db %00000000 ; $08
-	.db %00000000 ; $09
-	.db %00000000 ; $0A
-	.db %00000000 ; $0B
-	.db %00000000 ; $0C
-	.db %00000000 ; $0D
-	.db %00000000 ; $0E
-	.db %00000000 ; $0F
+	.db %00000000 ; Tile_Background_First_FP
+	.db %00000000 ; Tile_Background_Second_FP
+	.db %00000000 ; Tile_Background_Third_FP
+	.db %00000000 ; Tile_Background_Fourth_FP
+	.db %00000000 ; Tile_Background_Fith_FP
+	.db %00000000 ; Tile_Background_Sixth_FP
+	.db %00000000 ; Tile_Background_Seventh_FP
+	.db %00000000 ; Tile_Background_Eighth_FP
+
+	.db %00000000 ; Tile_Solid_First_FP
+	.db %00000000 ; Tile_Solid_Second_FP
+	.db %00000000 ; Tile_Solid_Third_FP
+	.db %00000000 ; Tile_Solid_Fourth_FP
+	.db %00000000 ; Tile_Solid_Fith_FP
+	.db %00000000 ; Tile_Solid_Sixth_FP
+	.db %00000000 ; Tile_Solid_Seventh_FP
+	.db %00000000 ; Tile_Solid_Eighth_FP
+
 	.db %00000000 ; $10
 	.db %00000000 ; $11
 	.db %00000000 ; $12
@@ -3930,22 +3923,27 @@ TileInteractionAttributesTable:
 	.db %00000000 ; $3D
 	.db %00000000 ; $3E
 	.db %00000000 ; $3F
-	.db %00000000 ; $40
-	.db %00000000 ; $41
-	.db %00000000 ; $42
-	.db %00000000 ; $43
-	.db %00000000 ; $44
-	.db %00000000 ; $45
-	.db %00000000 ; $46
-	.db %00000000 ; $47
-	.db %00000000 ; $48
-	.db %00000000 ; $49
-	.db %00000000 ; $4A
-	.db %00000000 ; $4B
-	.db %00000000 ; $4C
-	.db %00000000 ; $4D
-	.db %00000000 ; $4E
-	.db %00000000 ; $4F
+;
+; Cutoff palette 2
+;
+	.db %00000000 ; Tile_Background_First_SP
+	.db %00000000 ; Tile_Background_Second_SP
+	.db %00000000 ; Tile_Background_Third_SP
+	.db %00000000 ; Tile_Background_Fourth_SP
+	.db %00000000 ; Tile_Background_Fith_SP
+	.db %00000000 ; Tile_Background_Sixth_SP
+	.db %00000000 ; Tile_Background_Seventh_SP
+	.db %00000000 ; Tile_Background_Eighth_SP
+
+	.db %00000000 ; Tile_Solid_First_SP
+	.db %00000000 ; Tile_Solid_Second_SP
+	.db %00000000 ; Tile_Solid_Third_SP
+	.db %00000000 ; Tile_Solid_Fourth_SP
+	.db %00000000 ; Tile_Solid_Fith_SP
+	.db %00000000 ; Tile_Solid_Sixth_SP
+	.db %00000000 ; Tile_Solid_Seventh_SP
+	.db %00000000 ; Tile_Solid_Eighth_SP
+
 	.db %00000000 ; $50
 	.db %00000000 ; $51
 	.db %00000000 ; $52
@@ -3994,22 +3992,27 @@ TileInteractionAttributesTable:
 	.db %00000000 ; $7D
 	.db %00000000 ; $7E
 	.db %00000000 ; $7F
-	.db %00000000 ; $80
-	.db %00000000 ; $81
-	.db %00000000 ; $82
-	.db %00000000 ; $83
-	.db %00000000 ; $84
-	.db %00000000 ; $85
-	.db %00000000 ; $86
-	.db %00000000 ; $87
-	.db %00000000 ; $88
-	.db %00000000 ; $89
-	.db %00001000 ; $8A
-	.db %00001000 ; $8B
-	.db %00000000 ; $8C
-	.db %00000000 ; $8D
-	.db %00000000 ; $8E
-	.db %00000000 ; $8F
+;
+; Cutoff palette 3
+;
+	.db %00000000 ; Tile_Background_First_TP
+	.db %00000000 ; Tile_Background_Second_TP
+	.db %00000000 ; Tile_Background_Third_TP
+	.db %00000000 ; Tile_Background_Fourth_TP
+	.db %00000000 ; Tile_Background_Fith_TP
+	.db %00000000 ; Tile_Background_Sixth_TP
+	.db %00000000 ; Tile_Background_Seventh_TP
+	.db %00000000 ; Tile_Background_Eighth_TP
+
+	.db %00000000 ; Tile_Solid_First_TP
+	.db %00000000 ; Tile_Solid_Second_TP
+	.db %00000000 ; Tile_Solid_Third_TP
+	.db %00000000 ; Tile_Solid_Fourth_TP
+	.db %00000000 ; Tile_Solid_Fith_TP
+	.db %00000000 ; Tile_Solid_Sixth_TP
+	.db %00000000 ; Tile_Solid_Seventh_TP
+	.db %00000000 ; Tile_Solid_Eighth_TP
+
 	.db %00000000 ; $90
 	.db %00000000 ; $91
 	.db %00000000 ; $92
@@ -4058,7 +4061,10 @@ TileInteractionAttributesTable:
 	.db %00000000 ; $BD
 	.db %00000000 ; $BE
 	.db %00000000 ; $BF
-	.db %00000000 ; $C0
+;
+; Cutoff palette 4
+;
+	.db %00000000 ; Tile_Sky_Background
 	.db %00000000 ; $C1
 	.db %00000000 ; $C2
 	.db %00000000 ; $C3
@@ -4404,22 +4410,24 @@ TileQuadPointersHi:
 ; map tile within the table.
 ;
 TileQuads1:
-	.db $FE, $FE, $FE, $FE ; $00
-	.db $B4, $B6, $B5, $B7 ; $04
-	.db $B8, $FA, $B9, $FA ; $08
-	.db $FA, $FA, $B2, $B3 ; $0C
-	.db $BE, $BE, $BF, $BF ; $10
-	.db $BF, $BF, $BF, $BF ; $14
-	.db $4A, $4A, $4B, $4B ; $18
-	.db $5E, $5F, $5E, $5F ; $1C
-	.db $E8, $E8, $A9, $A9 ; $20
-	.db $46, $FC, $46, $FC ; $24
-	.db $A9, $A9, $A9, $A9 ; $28
-	.db $FC, $FC, $FC, $FC ; $2C
-	.db $E9, $E9, $A9, $A9 ; $30
-	.db $FC, $48, $FC, $48 ; $34
-	.db $11, $11, $11, $11 ; $38
-	.db $22, $22, $22, $22 ; $3C
+	.db $00, $02, $01, $03 ; Tile_Background_First_FP
+	.db $04, $06, $05, $07 ; Tile_Background_Second_FP
+	.db $20, $22, $21, $23 ; Tile_Background_Third_FP
+	.db $24, $26, $25, $27 ; Tile_Background_Fourth_FP
+	.db $40, $42, $41, $43 ; Tile_Background_Fith_FP
+	.db $44, $46, $45, $47 ; Tile_Background_Sixth_FP
+	.db $60, $62, $61, $63 ; Tile_Background_Seventh_FP
+	.db $64, $66, $65, $67 ; Tile_Background_Eighth_FP
+
+	.db $00, $02, $01, $03 ; Tile_Solid_First_FP
+	.db $04, $06, $05, $07 ; Tile_Solid_Second_FP
+	.db $20, $22, $21, $23 ; Tile_Solid_Third_FP
+	.db $24, $26, $25, $27 ; Tile_Solid_Fourth_FP
+	.db $40, $42, $41, $43 ; Tile_Solid_Fith_FP
+	.db $44, $46, $45, $47 ; Tile_Solid_Sixth_FP
+	.db $60, $62, $61, $63 ; Tile_Solid_Seventh_FP
+	.db $64, $66, $65, $67 ; Tile_Solid_Eighth_FP
+
 	.db $33, $33, $33, $33 ; $40
 	.db $E8, $EB, $A9, $A9 ; $44
 	.db $74, $76, $75, $77 ; $48
@@ -4444,22 +4452,24 @@ IFDEF EXPAND_TABLES
 ENDIF
 
 TileQuads2:
-	.db $FA, $FA, $FA, $FA ; $00
-	.db $FA, $FA, $FA, $FA ; $04
-	.db $FA, $FA, $FA, $FA ; $08
-	.db $FA, $FA, $B0, $B1 ; $0C
-	.db $FA, $FA, $B0, $B1 ; $10
-	.db $FA, $FA, $B0, $B1 ; $14
-	.db $FA, $FA, $B0, $B1 ; $18
-	.db $FA, $FA, $B0, $B1 ; $1C
-	.db $FA, $FA, $B0, $B1 ; $20
-	.db $FA, $FA, $B0, $B1 ; $24
-	.db $FA, $FA, $B0, $B1 ; $28
-	.db $FA, $FA, $B0, $B1 ; $2C
-	.db $FA, $FA, $B0, $B1 ; $30
-	.db $FA, $FA, $B0, $B1 ; $34
-	.db $A0, $A2, $A1, $A3 ; $38
-	.db $80, $82, $81, $83 ; $3C
+	.db $10, $12, $11, $13 ; Tile_Background_First_TP
+	.db $14, $16, $15, $17 ; Tile_Background_Second_TP
+	.db $30, $32, $31, $33 ; Tile_Background_Third_TP
+	.db $34, $36, $35, $37 ; Tile_Background_Fourth_TP
+	.db $50, $52, $51, $53 ; Tile_Background_Fith_TP
+	.db $54, $56, $55, $57 ; Tile_Background_Sixth_TP
+	.db $70, $72, $71, $73 ; Tile_Background_Seventh_TP
+	.db $74, $76, $75, $77 ; Tile_Background_Eighth_TP
+
+	.db $10, $12, $11, $13 ; Tile_Solid_First_TP
+	.db $14, $16, $15, $17 ; Tile_Solid_Second_TP
+	.db $30, $32, $31, $33 ; Tile_Solid_Third_TP
+	.db $34, $36, $35, $37 ; Tile_Solid_Fourth_TP
+	.db $50, $52, $51, $53 ; Tile_Solid_Fith_TP
+	.db $54, $56, $55, $57 ; Tile_Solid_Sixth_TP
+	.db $70, $72, $71, $73 ; Tile_Solid_Seventh_TP
+	.db $74, $76, $75, $77 ; Tile_Solid_Eighth_TP
+
 	.db $F4, $86, $F5, $87 ; $40
 	.db $84, $86, $85, $87 ; $44
 	.db $FC, $FC, $FC, $FC ; $48
@@ -4508,22 +4518,24 @@ IFDEF EXPAND_TABLES
 ENDIF
 
 TileQuads3:
-	.db $94, $95, $94, $95 ; $00
-	.db $96, $97, $96, $97 ; $04
-	.db $48, $49, $48, $49 ; $08
-	.db $FE, $FE, $FE, $FE ; $0C
-	.db $FB, $32, $32, $33 ; $10
-	.db $33, $33, $33, $33 ; $14
-	.db $FD, $FD, $FD, $FD ; $18
-	.db $34, $FB, $FD, $34 ; $1C
-	.db $FB, $30, $FB, $FB ; $20
-	.db $FB, $FB, $31, $FB ; $24
-	.db $D0, $D0, $D0, $D0 ; $28
-	.db $D1, $D1, $D1, $D1 ; $2C
-	.db $64, $66, $65, $67 ; $30
-	.db $68, $6A, $69, $6B ; $34
-	.db $FA, $6C, $FA, $6C ; $38
-	.db $6D, $FA, $6D, $FA ; $3C
+	.db $08, $0A, $09, $0B ; Tile_Background_First_TP
+	.db $0C, $0E, $0D, $0F ; Tile_Background_Second_TP
+	.db $28, $2A, $29, $2B ; Tile_Background_Third_TP
+	.db $2C, $2E, $2D, $2F ; Tile_Background_Fourth_TP
+	.db $48, $49, $4A, $4B ; Tile_Background_Fith_TP
+	.db $4C, $4E, $4D, $4F ; Tile_Background_Sixth_TP
+	.db $68, $6A, $69, $6B ; Tile_Background_Seventh_TP
+	.db $6C, $6E, $6D, $6F ; Tile_Background_Eighth_TP
+
+	.db $08, $0A, $09, $0B ; Tile_Solid_First_TP
+	.db $0C, $0E, $0D, $0F ; Tile_Solid_Second_TP
+	.db $28, $2A, $29, $2B ; Tile_Solid_Third_TP
+	.db $2C, $2E, $2D, $2F ; Tile_Solid_Fourth_TP
+	.db $48, $49, $4A, $4B ; Tile_Solid_Fith_TP
+	.db $4C, $4E, $4D, $4F ; Tile_Solid_Sixth_TP
+	.db $68, $6A, $69, $6B ; Tile_Solid_Seventh_TP
+	.db $6C, $6E, $6D, $6F ; Tile_Solid_Eighth_TP
+
 	.db $92, $93, $93, $92 ; $40
 	.db $AE, $AF, $AE, $AF ; $44
 	.db $78, $7A, $79, $7B ; $48
@@ -4556,7 +4568,8 @@ IFDEF EXPAND_TABLES
 	unusedSpace TileQuads3 + $100, $FC
 ENDIF
 TileQuads4:
-	.db $40, $42, $41, $43 ; $00
+	.db $FA, $FA, $FA, $FA ; Tile_Sky_Background
+
 	.db $40, $42, $41, $43 ; $04
 	.db $BA, $BC, $BB, $BD ; $08
 	.db $BA, $BC, $90, $91 ; $0C
@@ -4780,7 +4793,7 @@ IRQ:
   LDA #$00
   STA MMC3_BankSelect
 
-  LDX #$32
+  LDX #CHRBank_Hud
 
   LDA PPUCtrlMirror
   AND #$FE

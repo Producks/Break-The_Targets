@@ -383,6 +383,69 @@ SpriteFlags46E_MirrorAnimation = %10000000
 
 ; ---------------------------------------------------------------------------
 
+; enum Newtiles
+
+; Palette 0 range 0x00 to 0x40
+Tile_Background_First_FP =    $00
+Tile_Background_Second_FP =   $01
+Tile_Background_Third_FP =    $02
+Tile_Background_Fourth_FP =   $03
+Tile_Background_Fith_FP =     $04
+Tile_Background_Sixth_FP =    $05
+Tile_Background_Seventh_FP =  $06
+Tile_Background_Eighth_FP =   $07
+
+Tile_Solid_First_FP =         $08
+Tile_Solid_Second_FP =        $09
+Tile_Solid_Third_FP =         $0A
+Tile_Solid_Fourth_FP =        $0B
+Tile_Solid_Fith_FP =          $0C
+Tile_Solid_Sixth_FP =         $0D
+Tile_Solid_Seventh_FP =       $0E
+Tile_Solid_Eighth_FP =        $0F
+
+
+; Palette 1 range 0x40 to 0x80
+Tile_Background_First_SP =    $40
+Tile_Background_Second_SP =   $41
+Tile_Background_Third_SP =    $42
+Tile_Background_Fourth_SP =   $43
+Tile_Background_Fith_SP =     $44
+Tile_Background_Sixth_SP =    $45
+Tile_Background_Seventh_SP =  $46
+Tile_Background_Eighth_SP =   $47
+
+Tile_Solid_First_SP =         $48
+Tile_Solid_Second_SP =        $49
+Tile_Solid_Third_SP =         $4A
+Tile_Solid_Fourth_SP =        $4B
+Tile_Solid_Fith_SP =          $4C
+Tile_Solid_Sixth_SP =         $4D
+Tile_Solid_Seventh_SP =       $4E
+Tile_Solid_Eighth_SP =        $4F
+
+; Palette 2 range 0x80 to 0xC0
+Tile_Background_First_TP =    $80
+Tile_Background_Second_TP =   $81
+Tile_Background_Third_TP =    $82
+Tile_Background_Fourth_TP =   $83
+Tile_Background_Fith_TP =     $84
+Tile_Background_Sixth_TP =    $85
+Tile_Background_Seventh_TP =  $86
+Tile_Background_Eighth_TP =   $87
+
+Tile_Solid_First_TP =         $88
+Tile_Solid_Second_TP =        $89
+Tile_Solid_Third_TP =         $8A
+Tile_Solid_Fourth_TP =        $8B
+Tile_Solid_Fith_TP =          $8C
+Tile_Solid_Sixth_TP =         $8D
+Tile_Solid_Seventh_TP =       $8E
+Tile_Solid_Eighth_TP =        $8F
+
+; Palette 2 range 0xC0 to 0xFF
+Tile_Sky_Background =         $C0
+
 ; enum BackgroundTileIds
 BackgroundTile_Black = $00
 BackgroundTile_BgCloudLeft = $01
@@ -843,6 +906,12 @@ CHRBank_TitleScreenBG2 = $2A
 CHRBank_CharacterSelectBG1 = $2C
 CHRBank_CharacterSelectBG2 = $2E
 CHRBank_CharacterSelectSprites = $30
+
+CHRBank_Hud = $32
+
+CHRBANK_Mario1_TileSet = $34
+CHRBANK_Mario1_SpriteSet_Top = $36
+CHRBANK_Mario1_SpriteSet_Bottom = $37
 
 CHRBank_ChanceBG1 = $34
 CHRBank_ChanceBG2 = $36

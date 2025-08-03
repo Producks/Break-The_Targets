@@ -40,12 +40,12 @@ Area0Palette:
 	.db $22, $1A, $30, $27 ; $08
 
 ; Background chr banks
-  .db CHRBank_BackgroundGrass
+  .db CHRBANK_Mario1_TileSet
   .db CHRBank_Animated1
 ; Sprite chr banks
   .db CHRBank_Mario
-  .db CHRBank_CommonEnemies1
-  .db CHRBank_CommonEnemies2
+  .db CHRBANK_Mario1_SpriteSet_Top
+  .db CHRBANK_Mario1_SpriteSet_Bottom
   .db CHRBank_EnemiesGrass
 
 Area1Palette:

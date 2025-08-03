@@ -14,10 +14,10 @@ LevelDataArea0:
   .db $14
   .db $FD, $03
   .db $14
-  .db $FD, $0c
+  .db $FD, $0C
   .db $FC, $03, $14
   .db $FD, $27
-  .db $FC, $10, $14
+  .db $FC, $10, Tile_Solid_Third_FP
   .db $FF
 
 LevelDataArea1:
