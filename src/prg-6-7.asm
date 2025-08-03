@@ -4317,16 +4317,16 @@ SkipAddBottomHi:
   BEQ UnpackBackgroundBlocksDone
   CMP #$FE ; Check if we need to change page
   BNE UnPackBackgroundData
-  JSR Increment_BackgroundBlocks
+  JSR Increment_TempAdrLo
   INC CurrentPageBackgroundBlocks
   JMP SetPageRamIndex
 
 ; Here is where all the writting to buffer will happen!
 UnPackBackgroundData:
   STA UnpackBackgroundDataLoopCount ; Give it the loop count
-  JSR Increment_BackgroundBlocks
+  JSR Increment_TempAdrLo
   LDA (TempAdrLo, X)
-  JSR Increment_BackgroundBlocks
+  JSR Increment_TempAdrLo
   TAX
 
 UnPackBackgroundDataLoop:
@@ -4348,11 +4348,11 @@ UnpackBackgroundBlocksDone:
   RTS
 
 ; Subroutine that check for overflow
-Increment_BackgroundBlocks:
+Increment_TempAdrLo:
   INC TempAdrLo
-  BNE Increment_BackgroundBlocksLeave
+  BNE Increment_TempAdrLoLeave
   INC TempAdrHi
-Increment_BackgroundBlocksLeave:
+Increment_TempAdrLoLeave:
   RTS
 
 ; Decrease this until we reach 0, when we reach 0 we adjust the addr
@@ -4370,7 +4370,12 @@ DecreaseBlockCounterXLeave:
 
 ;
 ; Decode RLE level data here
-; FF = END, FE next page, FD skip writes, FC repeat writes horizontal, FB repeat writes vertical
+; $FF = END
+; $FE next page
+; $FD skip writes, $XX LEN
+; $FC repeat writes horizontal $XX LEN, $XX Tile ID
+; $FB special tile, $XX Tile ID
+; Nothing that match will just write raw!
 DecodeLevelData:
   LDX CurrentLevelArea
   LDA LevelDataAreaLo, X
@@ -4391,28 +4396,38 @@ ReadParamDecodeLevelData:
   CMP #$FE ; Will swap page
   BEQ ForwardPage
   CMP #$FD ; skip writes if we find it
-  BNE DecodeLevelDataNormal
+  BEQ SkipWritesLevelData
+  CMP #$FC
+  BEQ RepeatWritesLevelData
+
+WriteRaw:
+  STA (LevelDataRamLo), Y
+  INY
+  JSR Increment_TempAdrLo
+  JMP ReadParamDecodeLevelData
 
 SkipWritesLevelData:
-  JSR Increment_BackgroundBlocks
+  JSR Increment_TempAdrLo
   TYA
   CLC
   ADC (TempAdrLo, X)
   TAY
-  JSR Increment_BackgroundBlocks
+  JSR Increment_TempAdrLo
   JMP ReadParamDecodeLevelData
 
-DecodeLevelDataNormal:
+RepeatWritesLevelData:
+  JSR Increment_TempAdrLo ; $FC
+  LDA (TempAdrLo, X) ; Get LEN
   STA LoopCountDecodeLevelData
-  JSR Increment_BackgroundBlocks
+  JSR Increment_TempAdrLo
   LDA (TempAdrLo, X)
 
-DecodeLevelDataNormalLoop:
+RepeatWritesLevelDataLoop:
   STA (LevelDataRamLo), Y
   INY
   DEC LoopCountDecodeLevelData
-  BNE DecodeLevelDataNormalLoop
-  JSR Increment_BackgroundBlocks
+  BNE RepeatWritesLevelDataLoop
+  JSR Increment_TempAdrLo
   JMP ReadParamDecodeLevelData
 
 DecodeLEvelDataLeave:
@@ -4422,7 +4437,7 @@ DecodeLEvelDataLeave:
 	RTS
 
 ForwardPage:
-  JSR Increment_BackgroundBlocks
+  JSR Increment_TempAdrLo
   INC CurrentPageCount
   JMP ReadParamDecodeLevelDataInit
 
@@ -4439,37 +4454,36 @@ LevelDataAreaLo:
 LevelDataAreaHi:
   .db >LevelDataArea0
 
-; $FF = END, $FE skip to the next screen, $FD Skip writes by -> $XX
 LevelDataArea0:
 .db $FD, $35
-.db $01, $14
+.db $14
 .db $FD, $03
-.db $01, $14
+.db $14
 .db $FD, $1d
-.db $01, $14
+.db $14
 .db $FD, $1d
-.db $01, $14
+.db $14
 .db $FD, $03
-.db $01, $14
+.db $14
 .db $FD, $0c
-.db $03, $14
+.db $FC, $03, $14
 .db $FD, $27
-.db $10, $14
+.db $FC, $10, $14
 .db $FE
-.db $01, $14
+.db $14
 .db $FD, $35
 .db $FD, $03
-.db $01, $14
+.db $14
 .db $FD, $1d
-.db $01, $14
+.db $14
 .db $FD, $1d
-.db $01, $14
+.db $14
 .db $FD, $03
-.db $01, $14
+.db $14
 .db $FD, $0c
-.db $03, $14
+.db $FC, $03, $14
 .db $FD, $27
-.db $10, $14
+.db $FC, $10, $14
 .db $FF
 
 ;
