@@ -9,7 +9,7 @@ InfoScreenLoopUpdate:
 
 ; Stuff that need to be updated every frame, chr animation, sprites and the seed counter
 FrameUpdateOptionSelect:
-;  JSR UpdateSpriteLogicOptionSelect
+  JSR UpdateSpriteLogicOptionSelect
   JSR WaitForNMI_Menu
   RTS
 

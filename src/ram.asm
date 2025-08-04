@@ -139,8 +139,10 @@ CastRollSpriteIndex:
 	.dsb 1 ; 2                ; $002b
 	.dsb 1 ; 3                ; $002c
 	.dsb 1 ; 4                ; $002d
+DittoDanceCounter:
 CastRollThrottle:
 	.dsb 1 ; 5                ; $002e
+DittoDanceSpriteCount:
 CastRollSpriteLo:
 	.dsb 1 ; 6                ; $002f
 CastRollSpriteHi:

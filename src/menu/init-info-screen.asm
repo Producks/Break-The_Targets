@@ -9,6 +9,8 @@ InfoScreenInit:
   STA BackgroundCHR1
   LDA #CHRBank_InfoScreen_Sprites1
   STA SpriteCHR1
+  LDA #CHRBank_InfoScreen_Sprites2
+  STA SpriteCHR2
 
   JSR SetScrollXYTo0
 
@@ -28,7 +30,7 @@ InfoScreenInit:
   STA ScreenUpdateIndex
   JSR WaitForNMI_Menu
 
-;  JSR DumpSpriteOptionSelect
+  JSR DumpSpriteOptionSelect
 
   JSR WaitForNMI_Menu_TurnOnPPU
 

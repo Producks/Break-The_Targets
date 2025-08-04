@@ -4258,6 +4258,7 @@ ENDIF
 
 ; Info screen code
 .include "src/menu/info-screen-gfx.asm"
+.include "src/menu/info-screen-sprites.asm"
 .include "src/menu/init-info-screen.asm"
 .include "src/menu/loop-info-screen.asm"
 

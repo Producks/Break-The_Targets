@@ -905,6 +905,7 @@ CHRBank_TitleScreenBG1 = $28
 CHRBank_TitleScreenBG2 = $2A
 
 CHRBank_InfoScreen_Sprites1 = $2C
+CHRBank_InfoScreen_Sprites2 = $2D
 CHRBank_InfoScreen_BG1 = $2E
 
 CHRBank_CharacterSelectBG1 = $2C

@@ -12,7 +12,7 @@ OptionMenuSpritePalettes:
 	.db $0F, $30, $16, $02
 	.db $0F, $38, $10, $02
 	.db $0F, $30, $25, $02
-	.db $0F, $38, $2A, $02
+	.db $0F, $23, $02, $30
 
 MenuBorder:
   .db $20, $63, $01, $52
