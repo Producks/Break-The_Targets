@@ -2,7 +2,8 @@ InfoScreenLoop:
 ; Read input
   LDA Player1JoypadPress
   AND #ControllerInput_A
-
+  BNE UpdateInfo
+InfoScreenLoopUpdate:
   JSR FrameUpdateOptionSelect
   JMP InfoScreenLoop ; Jump back to the loop
 
@@ -20,6 +21,20 @@ WaitFixedAmountOptionSelectNMI:
   JSR FrameUpdateOptionSelect ; LOL
   RTS
 
+UpdateInfo:
+  LDA CursorLocation
+  STA PrevCursorLocation
+  INC CursorLocation
+  LDA CursorLocation
+  CMP #$02
+  BEQ LeaveInfoScreen
+  JSR UpdateGFXMenuOption
+  JMP InfoScreenLoopUpdate
+
+LeaveInfoScreen:
+  JSR PaletteFadeOut
+  JMP CleanupBeforeCharacterSelect
+
 ; ------------------------------------------------------------
 ; Fade in the text color and dump the graphics update
 ; Params: 
@@ -32,12 +47,10 @@ PaletteTableOtherOption:
 FadeOutTableHi:
   .db >TraditionalPalette
   .db >TagTeamPalette
-  .db >SharedControlPalette
 
 FadeOutTableLo:
   .db <TraditionalPalette
   .db <TagTeamPalette
-  .db <SharedControlPalette
 
 ; This subroutine works, but is beyond stupid and smart
 ; Use a temp buffer that is normaly overwritten
@@ -164,7 +177,7 @@ NoCarryUpdateGFXMenuOption:
   TAX
 
   INX ; Increment our index
-  CPX #$10
+  CPX #$07
   BNE UpdateGFXMenuOptionLoop
 ExitUpdateGFXMenu:
 ;  JSR UpdateChrBankOption
@@ -196,4 +209,3 @@ DumpGFXMenuOptionLoop:
   ADC byte_RAM_300 ; Add to byte_RAM_300
   STA byte_RAM_300
   RTS
-

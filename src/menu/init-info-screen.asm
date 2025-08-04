@@ -38,5 +38,10 @@ InfoScreenInit:
   LDA #>OptionMenuBackgroundPalettes
   STA HiPaletteAddress
   JSR PaletteFadeIn
-  LDA #Music1_Subspace
-	STA MusicQueue1
+  LDA #<music_data_pictionary_
+  STA MusicLoPTR
+  LDA #>music_data_pictionary_
+  STA MusicHiPTR
+  LDA #$07
+  STA CurrentMusicBank
+  INC MusicUpdate
