@@ -23,28 +23,8 @@ WaitThenJmpToLoop:
 
 
 QuitTitleScreen:
-;	LDA #$D0
-;	JSR WaitTitleScreenTimer
-
-	LDA #$00 ; ???
-	TAY
-
-ZeroMemoryAfterTitleScreen: ; CREATED MASSIVE BUG IF AUDIO WAS GOING, MADE ME LOSE 2 HOURS
-	STA byte_RAM_0, Y
-	INY
-	CPY #$F0
-	BCC ZeroMemoryAfterTitleScreen
-
-  LDY #$00
-  LDA #Tile_Empty_Hud
-DumpTileInWorkRam:
-  STA $60C0, Y
-  STA $61B0, Y
-  INY
-  CPY #$30
-  BNE DumpTileInWorkRam
-
-	JMP HideAllSprites
+  JSR PaletteFadeOut
+  JMP InfoScreenInit
 
 PaletteTimerTable:
   .db $24, $08, $08, $08

@@ -2,6 +2,9 @@ TitleScreenPPUDataPointers:
 	.dw PPUBuffer_301
 	.dw TitleLayout
   .dw PPUBuffer_TitleScreen
+  .dw MenuBorder
+  .dw MenuFirstOption ; To speed up the transition
+  .dw PPU_PaletteBuffer
 
 SpriteTitleScreenDMAInfo:
   .db $8E, $0D, $03, $57 ; Mushroom Cursor
@@ -123,16 +126,17 @@ InitMemoryLoop2:
 	STY PPUADDR
 
 InitTitleBackgroundPalettesLoop:
-	LDA TitleBackgroundPalettes, Y
+	LDA #$0F
 	STA PPUDATA
 	INY
 	CPY #$20
 	BCC InitTitleBackgroundPalettesLoop
 
-	LDA #$01
-	STA RAM_PPUDataBufferPointer
-	LDA #$03
-	STA RAM_PPUDataBufferPointer + 1
+;	LDA #$01
+;	STA RAM_PPUDataBufferPointer
+;	LDA #$03
+;	STA RAM_PPUDataBufferPointer + 1
+
 	LDA #Stack100_Menu
 	STA StackArea
 	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
@@ -162,6 +166,12 @@ SetPaletteInfo:
   STA PaletteTimerTitleScreen
 
 	JSR WaitForNMI_TitleScreen_TurnOnPPU
+
+  LDA #<TitleBackgroundPalettes
+  STA LoPaletteAddress
+  LDA #>TitleBackgroundPalettes
+  STA HiPaletteAddress
+  JSR PaletteFadeIn
 
  ;- End of initilization of the title screen and rendering -;
 

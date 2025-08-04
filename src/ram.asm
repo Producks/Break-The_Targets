@@ -50,8 +50,10 @@ byte_RAM_C:
 byte_RAM_D:
 	.dsb 1 ; $000d
 byte_RAM_E:
+LoPaletteAddress:
 	.dsb 1 ; $000e
 byte_RAM_F:
+HiPaletteAddress:
 	.dsb 1 ; $000f
 ; This is used as a global counter.
 ; It continuouly increments during gameplay and freezes for the pause screen
@@ -93,8 +95,10 @@ TitleScreenStoryTextLineTimer: ; used to pause between writing lines of text
 MarioSnoringCounter7:
 	.dsb 1 ; 6                ; $001b
 MarioSnoringTheEndFrameCounter: ; controls writing speed
+CursorLocation:
 	.dsb 1 ; 7                ; $001c
 MarioSnoringCounter9:
+PrevCursorLocation:
 	.dsb 1 ; 8                ; $001d
 
 PlayerYHi:
@@ -116,6 +120,7 @@ CastRollSprite2B:
 CastRollSprite2C:
 	.dsb 1 ; 5                ; $0024
 CastRollSprite3A:
+FadeCounter:
 	.dsb 1 ; 6                ; $0025
 CastRollSprite3B:
 	.dsb 1 ; 7                ; $0026
@@ -156,16 +161,20 @@ CastRollSpriteActive3:
 CastRollSpriteActive4:
 	.dsb 1 ; 5                ; $0038
 CastRollSpriteCounter1:
+MenuPointerLo:
 	.dsb 1 ; 6                ; $0039
 CastRollSpriteCounter2:
+MenuPointerHi:
 	.dsb 1 ; 7                ; $003a
 CastRollSpriteCounter3:
 	.dsb 1 ; 8                ; $003b
 
 CastRoll_Temp9:
 PlayerXVelocity:
+PaletteOptionLo:
 	.dsb 1 ; $003c
 CastRoll_TempA:
+PaletteOptionHi:
 ObjectXVelocity:
 	.dsb 1 ; $003d
 CastRoll_TempA1:
@@ -2242,8 +2251,15 @@ FamiStudioWorkRam = $6F00
 
 PPU_UpdateHudBuffer = $7E00
 PPU_UpdateAreaHudeBuffer = $7E0B
+
+
 LevelTextUpper = $7E17
 LevelTextBottom = $7E22
+
+; Allocate 36 bytes total. 3 bytes for the parameters, 32 bytes for colors and 1 bytes for the terminating 0
+PPU_PaletteBuffer = $7E40
+PPU_PaletteBufferBegin = $7E43
+PPU_PaletteBufferEnd = $7E63
 
 ShyGuy_Left_GFX = $020D
 ShyGuy_Left_X = $020F

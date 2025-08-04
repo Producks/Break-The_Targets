@@ -904,6 +904,9 @@ CHRBank_Animated8 = $26
 CHRBank_TitleScreenBG1 = $28
 CHRBank_TitleScreenBG2 = $2A
 
+CHRBank_InfoScreen_Sprites1 = $2C
+CHRBank_InfoScreen_BG1 = $2E
+
 CHRBank_CharacterSelectBG1 = $2C
 CHRBank_CharacterSelectBG2 = $2E
 CHRBank_CharacterSelectSprites = $30
@@ -942,5 +945,22 @@ CHRBank_MarioSleepingBackground9 = $70
 CHRBank_MarioSleepingBackground10 = $74
 CHRBank_MarioSleepingBackground11 = $78
 CHRBank_MarioSleepingBackground12 = $7C
+
+FadeoutTimer = $04
+
+UpdatePallettePPUBuffer = $05
+BorderPPUBuffer = $03
+
+; Option Enum
+BorderPPUBuffer = $03
+TraditionalPPUBuffer = $00
+TagTeamPPUBuffer = $01
+TwoPOneCPPUBuffer = $02
+ChaosPPUBuffer = $03
+CHRAnimationSpeedOption = $08
+CHRStartExpand = $80
+CHRStartOption = $82
+CHRStartOptionAnimation = $88
+
 
 .endinl
