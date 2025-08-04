@@ -35,6 +35,15 @@ ZeroMemoryAfterTitleScreen: ; CREATED MASSIVE BUG IF AUDIO WAS GOING, MADE ME LO
 	CPY #$F0
 	BCC ZeroMemoryAfterTitleScreen
 
+  LDY #$00
+  LDA #Tile_Empty_Hud
+DumpTileInWorkRam:
+  STA $60C0, Y
+  STA $61B0, Y
+  INY
+  CPY #$30
+  BNE DumpTileInWorkRam
+
 	JMP HideAllSprites
 
 PaletteTimerTable:

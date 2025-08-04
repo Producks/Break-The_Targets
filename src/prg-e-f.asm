@@ -53,23 +53,41 @@ ScreenUpdateBufferPointers:
 
 PPUBuffer_Hud:
 ; Second part of the screen
-  .db $27, $00, $60, $FE
-  .db $27, $20, $60, $FE
-  .db $27, $40, $60, $FE
-  .db $27, $60, $60, $FE
-  .db $27, $80, $60, $FE
-  .db $27, $A0, $60, $FE
+  .db $27, $00, $60, $7D
+  .db $27, $20, $60, $7D
+  .db $27, $40, $60, $7D
+  .db $27, $60, $60, $7D
+  .db $27, $80, $60, $7D
+  .db $27, $A0, $60, $7D
 
 ; First part of the screen
-  .db $23, $00, $60, $FE
-  .db $23, $20, $60, $FE
-  .db $23, $40, $60, $FE
-  .db $23, $60, $60, $FE
-  .db $23, $80, $60, $FE
-  .db $23, $A0, $60, $FE
+  .db $23, $00, $60, $7D
+  .db $23, $20, $60, $7D
+  .db $23, $40, $60, $7D
+  .db $23, $60, $60, $7D
+  .db $23, $80, $60, $7D
+  .db $23, $A0, $60, $7D
 
 ; Targets
-  .db $23, $22, $07, $33, $60, $71, $66, $64, $73, $72
+
+  .db $27, $02, $01, $56
+  .db $27, $03, $51, $5C
+  .db $27, $14, $01, $5A
+
+  .db $27, $22, $01, $58
+  .db $27, $23, $51, $7C
+  .db $27, $34, $01, $59
+
+  .db $27, $42, $01, $58
+  .db $27, $43, $51, $7C
+  .db $27, $54, $01, $59
+
+  .db $27, $62, $01, $57
+  .db $27, $63, $51, $5D
+  .db $27, $74, $01, $5B
+
+  .db $27, $23, $07, $10, $12, $14, $16, $18, $1A, $1C
+  .db $27, $45, $01, $00
 	.db $00
 
 PPUBuffer_TitleCard:
@@ -1008,52 +1026,6 @@ DelayFrames_Loop:
 ; Do the ending!
 ;
 EndingSceneRoutine:
-	JSR SetScrollXYTo0
-
-	LDA #$80
-	; FDS leftover; $4080 is an old sound register
-	; The prototype had two writes to this address!
-	; It looks like they missed this one, though.
-	STA FDS_WAVETABLE_VOL
-	ASL A
-	STA SoundEffectPlaying1
-	LDA #PRGBank_0_1
-	JSR ChangeMappedPRGBank
-
-	JSR FreeSubconsScene
-
-	JSR WaitForNMI_TurnOffPPU
-
-	JSR DisableNMI
-
-
-	JSR EnableNMI
-
-	JSR WaitForNMI
-
-	LDA #PRGBank_0_1
-	JSR ChangeMappedPRGBank
-
-	INC GameMilestoneCounter
-
-	JSR ContributorScene
-
-	JSR WaitForNMI_TurnOffPPU
-
-	JSR DisableNMI
-
-SetupMarioSleepingScene:
-	JSR LoadMarioSleepingCHRBanks
-
-	JSR EnableNMI
-
-	JSR WaitForNMI
-
-	LDA #PRGBank_C_D
-	JSR ChangeMappedPRGBank
-
-	INC GameMilestoneCounter
-	JMP MarioSleepingScene
 
 
 DisableNMI:
@@ -2362,40 +2334,6 @@ RunFrame_Exit:
 ; Does a lot of important stuff in vertical levels
 ;
 RunFrame_Vertical:
-	JSR NextSpriteFlickerSlot
-
-	JSR DetermineVerticalScroll
-
-	; If the player is in a rocket, cut to the chase
-	LDA PlayerInRocket
-	BNE RunFrame_Vertical_Common
-
-	; If the boss clear fanfare is playing or `PlayerLock` is set, skip the
-	; player state update subroutine
-	LDA MusicPlaying2
-	CMP #Music2_BossClearFanfare
-	BEQ RunFrame_Vertical_AfterPlayerState
-
-	LDA PlayerLock
-	BNE RunFrame_Vertical_AfterPlayerState
-
-	; Switch to banks 0/1 for the scrolling logic
-	LDA #PRGBank_0_1
-	JSR ChangeMappedPRGBank
-
-	JSR HandlePlayerState
-
-RunFrame_Vertical_AfterPlayerState:
-	LDA #PRGBank_0_1
-	JSR ChangeMappedPRGBank
-
-	JSR ApplyVerticalScroll
-
-	JSR SetPlayerScreenPosition
-
-	JSR RenderPlayer
-
-RunFrame_Vertical_Common:
 	JMP RunFrame_Common
 
 
@@ -3781,7 +3719,7 @@ TileCollisionAttributesTable:
 ; Cutoff palette 4
 ;
 	.db %00000000 ; Tile_Sky_Background
-	.db %11110000 ; $C1
+	.db %00000000 ; Tile_Empty_Hud
 	.db %11110000 ; $C2
 	.db %11110000 ; $C3
 	.db %11110000 ; $C4
@@ -4065,7 +4003,7 @@ TileInteractionAttributesTable:
 ; Cutoff palette 4
 ;
 	.db %00000000 ; Tile_Sky_Background
-	.db %00000000 ; $C1
+	.db %00000000 ; Tile_Empty_Hud
 	.db %00000000 ; $C2
 	.db %00000000 ; $C3
 	.db %00000000 ; $C4
@@ -4570,7 +4508,8 @@ ENDIF
 TileQuads4:
 	.db $FA, $FA, $FA, $FA ; Tile_Sky_Background
 
-	.db $40, $42, $41, $43 ; $04
+	.db $7D, $7D, $7D, $7D ; Tile_Empty_Hud
+
 	.db $BA, $BC, $BB, $BD ; $08
 	.db $BA, $BC, $90, $91 ; $0C
 	.db $FA, $FA, $FA, $FA ; $10
@@ -4796,7 +4735,8 @@ IRQ:
   LDX #CHRBank_Hud
 
   LDA PPUCtrlMirror
-  AND #$FE
+;  AND #$FE
+  ORA #$01
 
   LDY #$0D
 

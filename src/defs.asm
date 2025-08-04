@@ -445,6 +445,7 @@ Tile_Solid_Eighth_TP =        $8F
 
 ; Palette 2 range 0xC0 to 0xFF
 Tile_Sky_Background =         $C0
+Tile_Empty_Hud      =         $C1
 
 ; enum BackgroundTileIds
 BackgroundTile_Black = $00
