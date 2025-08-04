@@ -1423,7 +1423,7 @@ InputReadingloop:
 	JSR ChangeCHRBanks
 
 ; Setup next IRQ
-  LDA #$C0 ; Scanline 129
+  LDA #$BF ; Scanline 129
   STA MMC3_IRQLatch
   STA MMC3_IRQReload
   STA MMC3_IRQEnable
