@@ -189,6 +189,7 @@ ScreenUpdateBuffer_UpdateHud = $05
 ScreenUpdateBuffer_Text_Game_Over = $05
 ScreenUpdateBuffer_UpdateAreaHud = $06
 ScreenUpdateBuffer_RAM_ContinueRetryText = $06
+ScreenUPdateBuffer_EndScreen = $07
 ScreenUpdateBuffer_Text_Retry = $07
 ScreenUpdateBuffer_RAM_TitleCardText = $08
 ScreenUpdateBuffer_RAM_BonusChanceUnused = $09
@@ -911,6 +912,8 @@ CHRBank_InfoScreen_BG1 = $2E
 CHRBank_CharacterSelectBG1 = $2C
 CHRBank_CharacterSelectBG2 = $2E
 CHRBank_CharacterSelectSprites = $30
+
+CHRBank_Ending = $30
 
 CHRBank_Hud = $32
 

@@ -3214,51 +3214,8 @@ loc_BANK0_9205:
 	JSR JumpToTableAfterJump
 
 DoorHandlingPointers:
-	.dw DoorHandling_UnlockedDoor ; unlocked door
-	.dw DoorHandling_LockedDoor ; locked door
-	.dw DoorHandling_Entrance ; dark door
-	.dw DoorHandling_Entrance ; light door
-
-
-DoorHandling_UnlockedDoor:
-	JSR DoorAnimation_Unlocked
-
-DoorHandling_GoThroughDoor:
-	INC DoorAnimationTimer
-	INC PlayerLock
-	JSR SnapPlayerToTile
-
-	LDA #DPCM_DoorOpenBombBom
-	STA DPCMQueue
-
-DoorHandling_Exit:
-	RTS
-
 
 DoorHandling_LockedDoor:
-	LDA HoldingItem
-	; don't come to a locked door empty-handed
-	BEQ DoorHandling_Exit
-
-	; and make sure you have a key
-	LDY ObjectBeingCarriedIndex
-	LDA ObjectType, Y
-	CMP #Enemy_Key
-	BNE DoorHandling_Exit
-
-	; the key has been used
-	INC KeyUsed
-	TYA
-	TAX
-
-	JSR TurnKeyIntoPuffOfSmoke
-	JSR DoorAnimation_Locked
-	JMP DoorHandling_GoThroughDoor
-
-
-DoorHandling_Entrance:
-	INC DoAreaTransition
-	JMP DoAreaReset
 
 
 DoorTiles:
@@ -3405,53 +3362,6 @@ byte_BANK0_92E0:
 	.db $0A
 	.db $01
 	.db $0B
-
-
-; Unused?
-; Copy of DetermineVerticalScroll
-_code_12E3:
-	LDX NeedsScroll
-	BNE locret_BANK0_9311
-
-	LDA PlayerState
-	CMP #PlayerState_Lifting
-	BCS locret_BANK0_9311
-
-	LDA PlayerScreenYLo
-	LDY PlayerScreenYHi
-	BMI loc_BANK0_92FF
-
-	BNE loc_BANK0_9305
-
-	CMP #$B4
-	BCS loc_BANK0_9305
-
-	CMP #$21
-	BCS loc_BANK0_9307
-
-loc_BANK0_92FF:
-	LDY PlayerInAir
-	BNE loc_BANK0_9307
-
-	BEQ loc_BANK0_9306
-
-loc_BANK0_9305:
-	INX
-
-loc_BANK0_9306:
-	INX
-
-loc_BANK0_9307:
-	LDA VerticalScrollDirection
-	STX VerticalScrollDirection
-	BNE locret_BANK0_9311
-
-loc_BANK0_930F:
-	STX NeedsScroll
-
-locret_BANK0_9311:
-	RTS
-
 
 PlayerCollisionDirectionTable:
 	.db CollisionFlags_Right

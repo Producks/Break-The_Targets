@@ -33,7 +33,7 @@ ScreenUpdateBufferPointers:
 	.dw PPUBuffer_TitleCard
 	.dw PPU_UpdateHudBuffer
 	.dw PPU_UpdateAreaHudeBuffer
-	.dw PPUBuffer_Text_Retry
+	.dw EndScreenGFX
 	.dw PPUBuffer_TitleCardText
 	.dw PPUBuffer_BonusChanceUnusedText ; Doki Doki Panic leftover
 	.dw PPUBuffer_NoBonusText
@@ -460,6 +460,10 @@ HorizontalLevel_CheckTransition:
 	LDA TargetsCount
 	BNE HorizontalLevel_CheckScroll
 
+  LDA CurrentLevelArea
+  CMP #$00
+  BEQ CallEnding
+
   JSR DoAreaReset
 
 	JSR FollowCurrentAreaPointer
@@ -470,6 +474,11 @@ HorizontalLevel_CheckTransition:
 	STA DoAreaTransition
 	JMP StartLevel
 
+CallEnding:
+  LDA #PRGBank_C_D
+  JSR ChangeMappedPRGBank
+
+  JMP ShowEndScreen
 
 UpdateHudTarget:
   LDA #ScreenUpdateBuffer_UpdateHud
@@ -3058,6 +3067,13 @@ locret_BANKF_F4D9:
 	RTS
 
 ; End of function GetVerticalAreaStartPage
+StopMusic:
+  LDA #PRGBank_4_5
+  JSR ChangeMappedPRGBankWithoutSaving
+
+  JSR famistudio_music_stop
+  LDA #PRGBank_C_D
+  JMP ChangeMappedPRGBank
 
 
 SpriteFlickerDMAOffset:
