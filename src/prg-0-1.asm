@@ -3133,11 +3133,11 @@ loc_BANK0_91AE:
 
 ; check to see if the tile matches one of the door tiles
 loc_BANK0_91B7:
-	CMP DoorTiles, Y
-	BEQ loc_BANK0_91EB
-
-	DEY
-	BPL loc_BANK0_91B7
+;	CMP DoorTiles, Y
+;	BEQ loc_BANK0_91EB
+;
+;	DEY
+;	BPL loc_BANK0_91B7
 
 loc_BANK0_91BF:
 	BIT Player1JoypadPress

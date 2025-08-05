@@ -1054,28 +1054,28 @@ EnemyDeathMaybe:
 	LDA ObjectType, X
 	CMP #Enemy_Bullet ; "Stray bullet" enemy type
 	BEQ MakeEnemyFlipUpsideDown
-
-	INC EnemiesKilledForHeart
-	LDY EnemiesKilledForHeart
-	CPY #$08 ; number of enemies to kill before a heart appears
-	BCC MakeEnemyFlipUpsideDown
-
-	LDA #$00 ; reset enemy kill counter for heart counter
-	STA EnemiesKilledForHeart
-
-	LDA #EnemyState_Alive ; convert dead enemy to living heart
-	STA EnemyState, X
-	STA ObjectAttributes, X
-	LDA #SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision
-	STA EnemyArray_46E, X
-	LDA #Enemy_Heart
-	STA ObjectType, X
-	LDA ObjectYLo, X
-	SBC #$60 ; subtract this amount from the y position where the enemy despawned
-	STA ObjectYLo, X
-	LDA ObjectYHi, X
-	SBC #$00
-	STA ObjectYHi, X
+  BNE MakeEnemyFlipUpsideDown
+;	INC EnemiesKilledForHeart
+;	LDY EnemiesKilledForHeart
+;	CPY #$08 ; number of enemies to kill before a heart appears
+;	BCC MakeEnemyFlipUpsideDown
+;
+;	LDA #$00 ; reset enemy kill counter for heart counter
+;	STA EnemiesKilledForHeart
+;
+;	LDA #EnemyState_Alive ; convert dead enemy to living heart
+;	STA EnemyState, X
+;	STA ObjectAttributes, X
+;	LDA #SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision
+;	STA EnemyArray_46E, X
+;	LDA #Enemy_Heart
+;	STA ObjectType, X
+;	LDA ObjectYLo, X
+;	SBC #$60 ; subtract this amount from the y position where the enemy despawned
+;	STA ObjectYLo, X
+;	LDA ObjectYHi, X
+;	SBC #$00
+;	STA ObjectYHi, X
 
 
 ;
@@ -2018,8 +2018,8 @@ IFDEF REV_A
 	BEQ loc_BANK2_8A0A
 ENDIF
 
-	CMP #Enemy_Heart
-	BEQ loc_BANK2_8A0A
+;	CMP #Enemy_Heart
+;	BEQ loc_BANK2_8A0A
 
 	CMP #Enemy_FlyingCarpet
 	BEQ loc_BANK2_89F0
@@ -5843,12 +5843,12 @@ RenderSprite_NotWhaleSpout:
 	JMP RenderSprite_Pokey
 
 RenderSprite_NotPokey:
-	CPY #Enemy_Heart
-	BNE RenderSprite_NotHeart
+;	CPY #Enemy_Heart
+;	BNE RenderSprite_NotHeart
 
 	; This jump appears to never be taken;
 	; I don't think this code even runs with an enemy ID of 0 (heart)
-	JMP RenderSprite_Heart
+;	JMP RenderSprite_Heart
 
 RenderSprite_NotHeart:
 	CPY #Enemy_Ostro

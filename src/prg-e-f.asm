@@ -412,8 +412,6 @@ HorizontalLevel_Loop:
 
 	JSR InitializeAreaHorizontal
 
-;	JSR EnsureCorrectMusic
-
 	LDA BreakStartLevelLoop
 	BEQ HorizontalLevel_Loop
 
@@ -524,13 +522,13 @@ RestrictionsCountUnderTen:
   RTS
 
 AreaXSpawnPosition:
-  .db $70, $10
+  .db $21, $10
 
 AreaYSpawnPosition:
-  .db $90, $20
+  .db $81, $20
 
 AreaPlayerDirection:
-  .db $00, $01
+  .db $01, $01
 
 ; Areas don't always spawn you in the same place, this take care of putting you in the right position. :)
 SetCharacterPositionTransition:

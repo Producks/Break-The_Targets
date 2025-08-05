@@ -722,7 +722,7 @@ BackgroundTile_UnusedFE = $FE
 BackgroundTile_UnusedFF = $FF
 
 ; enum EnemyIds
-Enemy_Heart = $00
+;Enemy_Heart = $00
 Enemy_ShyguyRed = $01
 Enemy_Tweeter = $02
 Enemy_ShyguyPink = $03
