@@ -30,9 +30,10 @@ PalettePTRHi:
 Area0Palette:
 ; Background
 	.db $22, $36, $17, $0F ; $00
-	.db $22, $30, $21, $0F ; $04
-	.db $22, $29, $1A, $0F ; $08
+	.db $22, $29, $1A, $0F ; $04
+	.db $22, $30, $21, $0F ; $08
 	.db $22, $00, $0F, $30 ; $0C
+
 ; Sprites
 	.db $22, $01, $16, $27 ; Mario
 	.db $22, $30, $16, $27 ; Keep eye in mind for first slot, has to be white
@@ -46,7 +47,7 @@ Area0Palette:
   .db CHRBank_Mario
   .db CHRBANK_Mario1_SpriteSet_Top
   .db CHRBANK_Mario1_SpriteSet_Bottom
-  .db CHRBank_EnemiesGrass
+  .db CHRBank_Global_Sprites
 
 Area1Palette:
 ; Day

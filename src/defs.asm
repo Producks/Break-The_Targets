@@ -425,6 +425,19 @@ Tile_Solid_Sixth_SP =         $4D
 Tile_Solid_Seventh_SP =       $4E
 Tile_Solid_Eighth_SP =        $4F
 
+; Grass stuff
+BackgroundTile_GrassCoin =        $50
+BackgroundTile_GrassLargeVeggie = $51
+BackgroundTile_GrassSmallVeggie = $52
+BackgroundTile_GrassRocket =      $53
+BackgroundTile_GrassShell =       $54
+BackgroundTile_GrassBomb =        $55
+BackgroundTile_GrassPotion =      $56
+BackgroundTile_Grass1UP =         $57
+BackgroundTile_GrassPow =         $58
+BackgroundTile_GrassBobOmb =      $59
+BackgroundTile_GrassInactive =    $5A
+
 ; Palette 2 range 0x80 to 0xC0
 Tile_Background_First_TP =    $80
 Tile_Background_Second_TP =   $81
@@ -443,6 +456,8 @@ Tile_Solid_Fith_TP =          $8C
 Tile_Solid_Sixth_TP =         $8D
 Tile_Solid_Seventh_TP =       $8E
 Tile_Solid_Eighth_TP =        $8F
+
+Tile_Cloud_TP =               $90
 
 ; Palette 2 range 0xC0 to 0xFF
 Tile_Sky_Background =         $C0
@@ -516,17 +531,17 @@ BackgroundTile_Unused3F = $3F
 BackgroundTile_Sky = $40
 BackgroundTile_SubspaceMushroom1 = $41
 BackgroundTile_SubspaceMushroom2 = $42
-BackgroundTile_GrassCoin = $43
-BackgroundTile_GrassLargeVeggie = $44
-BackgroundTile_GrassSmallVeggie = $45
-BackgroundTile_GrassRocket = $46
-BackgroundTile_GrassShell = $47
-BackgroundTile_GrassBomb = $48
-BackgroundTile_GrassPotion = $49
-BackgroundTile_Grass1UP = $4A
-BackgroundTile_GrassPow = $4B
-BackgroundTile_GrassBobOmb = $4C
-BackgroundTile_GrassInactive = $4D
+;BackgroundTile_GrassCoin = $43
+;BackgroundTile_GrassLargeVeggie = $44
+;BackgroundTile_GrassSmallVeggie = $45
+;BackgroundTile_GrassRocket = $46
+;BackgroundTile_GrassShell = $47
+;BackgroundTile_GrassBomb = $48
+;BackgroundTile_GrassPotion = $49
+;BackgroundTile_Grass1UP = $4A
+;BackgroundTile_GrassPow = $4B
+;BackgroundTile_GrassBobOmb = $4C
+;BackgroundTile_GrassInactive = $4D
 BackgroundTile_Cherry = $4E
 BackgroundTile_DoorTop = $4F
 BackgroundTile_DoorBottomLock = $50
@@ -877,6 +892,8 @@ CHRBank_WarioSmall = $09
 CHRBank_WaluigiSmall = $0B
 CHRBank_ToadetteSmall = $0D
 CHRBank_RosalinaSmall = $0F
+
+CHRBank_Global_Sprites = $08
 
 CHRBank_CommonEnemies1 = $08
 CHRBank_CommonEnemies2 = $09

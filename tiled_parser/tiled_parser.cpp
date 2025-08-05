@@ -7,6 +7,8 @@
 #define HEIGHT_LENGTH 12
 #define WIDTH_LENGTH 16
 
+std::string area_name;
+
 void write_value(int prev_value, int prev_value_length, std::ofstream &dst) {
   if (prev_value == -1)
     dst << ".db $FD, $" << std::hex << std::setw(2) << prev_value_length << std::endl;
@@ -36,26 +38,32 @@ void parse_data(std::vector<std::vector<int>> &vector, int index, std::ofstream 
     }
   }
   write_value(prev_value, prev_value_length, dst);
-  dst << ".db $FF" << std::endl;
 }
 
 void iterate_data(std::vector<std::vector<int>> &vector) {
   int screen_size = (vector[0].size() / WIDTH_LENGTH);
-  std::ofstream dst("result");
-
+  std::ofstream dst(area_name);
+  
+  dst << area_name << ":" << std::endl;
+  
   for (int index = 0; index != screen_size; index++) {
+    if (index)
+      dst << ".db $FE" << std::endl;
     parse_data(vector, index, dst);
   }
-  return;
+  dst << ".db $FF" << std::endl;
 }
 
 int main(int argc, char **argv) {
-  if (argc == 1)
+  if (argc < 2){
+    std::cout << argc << std::endl;
     return 1;
+  }
   
   std::ifstream file(argv[1]);
   std::vector<std::vector<int>> vector;
 
+  area_name = argv[2];
   std::string line;
   int index = 0;
   while (std::getline(file, line)) {

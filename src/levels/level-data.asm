@@ -4,21 +4,36 @@ LevelDataAreaHi:
   .db >LevelDataArea0
 
 LevelDataArea0:
-  .db $FD, $35
-  .db $14
-  .db $FD, $03
-  .db $14
-  .db $FD, $1d
-  .db $14
-  .db $FD, $1d
-  .db $14
-  .db $FD, $03
-  .db $14
-  .db $FD, $0C
-  .db $FC, $03, $14
-  .db $FD, $27
-  .db $FC, $10, Tile_Solid_Fith_FP
-  .db $FF
+.db $FD, $71
+.db $40
+.db $FD, $0f
+.db $42
+.db $FD, $05
+.db $40
+.db $FD, $09
+.db $01
+.db $FD, $01
+.db $50
+.db $FD, $01
+.db $00
+.db $FD, $01
+.db $01
+.db $FD, $28
+.db $FE
+.db $FD, $6d
+.db $50
+.db $FD, $0e
+.db $FC, $03, $90
+.db $FD, $14
+.db $0e
+.db $50
+.db $FD, $0e
+.db $0c
+.db $FD, $0f
+.db $0c
+.db $FD, $0c
+.db $FF
+
 
 LevelDataArea1:
   .db $FF

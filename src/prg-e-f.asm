@@ -3614,17 +3614,17 @@ TileCollisionAttributesTable:
 	.db %11111111 ; Tile_Solid_Seventh_SP
 	.db %11111111 ; Tile_Solid_Eighth_SP
 
-	.db %11110000 ; $50
-	.db %11110000 ; $51
-	.db %11110000 ; $52
-	.db %11110000 ; $53
-	.db %11110000 ; $54
-	.db %11110000 ; $55
-	.db %11110000 ; $56
-	.db %11110000 ; $57
-	.db %11110000 ; $58
-	.db %11110000 ; $59
-	.db %11110000 ; $5A
+	.db %00000000 ; BackgroundTile_GrassCoin
+	.db %00000000 ; BackgroundTile_GrassLargeVeggie
+	.db %00000000 ; BackgroundTile_GrassSmallVeggie
+	.db %00000000 ; BackgroundTile_GrassRocket
+	.db %00000000 ; BackgroundTile_GrassShell
+	.db %00000000 ; BackgroundTile_GrassBomb
+	.db %00000000 ; BackgroundTile_GrassPotion
+	.db %00000000 ; BackgroundTile_Grass1UP
+	.db %00000000 ; BackgroundTile_GrassPow
+	.db %00000000 ; BackgroundTile_GrassBobOmb
+	.db %00000000 ; BackgroundTile_GrassInactive
 	.db %11110000 ; $5B
 	.db %11110000 ; $5C
 	.db %11110000 ; $5D
@@ -3683,7 +3683,7 @@ TileCollisionAttributesTable:
 	.db %11111111 ; Tile_Solid_Seventh_TP
 	.db %11111111 ; Tile_Solid_Eighth_TP
 
-	.db %11110000 ; $90
+	.db %00000100 ; Tile_Cloud_TP
 	.db %00000100 ; $91
 	.db %00000100 ; $92
 	.db %00000100 ; $93
@@ -3898,17 +3898,17 @@ TileInteractionAttributesTable:
 	.db %00000000 ; Tile_Solid_Seventh_SP
 	.db %00000000 ; Tile_Solid_Eighth_SP
 
-	.db %00000000 ; $50
-	.db %00000000 ; $51
-	.db %00000000 ; $52
-	.db %00000000 ; $53
-	.db %00000000 ; $54
-	.db %00000000 ; $55
-	.db %00000000 ; $56
-	.db %00000000 ; $57
-	.db %00000000 ; $58
-	.db %00000000 ; $59
-	.db %00000000 ; $5A
+	.db %00000000 ; $ BackgroundTile_GrassCoin
+	.db %00000000 ; $ BackgroundTile_GrassLargeVeggie
+	.db %00000000 ; $ BackgroundTile_GrassSmallVeggie
+	.db %00000000 ; $ BackgroundTile_GrassRocket
+	.db %00000000 ; $ BackgroundTile_GrassShell
+	.db %00000000 ; $ BackgroundTile_GrassBomb
+	.db %00000000 ; $ BackgroundTile_GrassPotion
+	.db %00000000 ; $ BackgroundTile_Grass1UP
+	.db %00000000 ; $ BackgroundTile_GrassPow
+	.db %00000000 ; $ BackgroundTile_GrassBobOmb
+	.db %00000000 ; $ BackgroundTile_GrassInactive
 	.db %00000000 ; $5B
 	.db %00000000 ; $5C
 	.db %00000000 ; $5D
@@ -3967,7 +3967,7 @@ TileInteractionAttributesTable:
 	.db %00000000 ; Tile_Solid_Seventh_TP
 	.db %00000000 ; Tile_Solid_Eighth_TP
 
-	.db %00000000 ; $90
+	.db %00000000 ; Tile_Cloud_TP
 	.db %00000000 ; $91
 	.db %00000000 ; $92
 	.db %00000000 ; $93
@@ -4406,35 +4406,36 @@ IFDEF EXPAND_TABLES
 ENDIF
 
 TileQuads2:
-	.db $10, $12, $11, $13 ; Tile_Background_First_TP
-	.db $14, $16, $15, $17 ; Tile_Background_Second_TP
-	.db $30, $32, $31, $33 ; Tile_Background_Third_TP
-	.db $34, $36, $35, $37 ; Tile_Background_Fourth_TP
-	.db $50, $52, $51, $53 ; Tile_Background_Fith_TP
-	.db $54, $56, $55, $57 ; Tile_Background_Sixth_TP
-	.db $70, $72, $71, $73 ; Tile_Background_Seventh_TP
-	.db $74, $76, $75, $77 ; Tile_Background_Eighth_TP
+	.db $08, $0A, $09, $0B ; Tile_Background_First_TP
+	.db $0C, $0E, $0D, $0F ; Tile_Background_Second_TP
+	.db $28, $2A, $29, $2B ; Tile_Background_Third_TP
+	.db $2C, $2E, $2D, $2F ; Tile_Background_Fourth_TP
+	.db $48, $49, $4A, $4B ; Tile_Background_Fith_TP
+	.db $4C, $4E, $4D, $4F ; Tile_Background_Sixth_TP
+	.db $68, $6A, $69, $6B ; Tile_Background_Seventh_TP
+	.db $6C, $6E, $6D, $6F ; Tile_Background_Eighth_TP
 
-	.db $10, $12, $11, $13 ; Tile_Solid_First_TP
-	.db $14, $16, $15, $17 ; Tile_Solid_Second_TP
-	.db $30, $32, $31, $33 ; Tile_Solid_Third_TP
-	.db $34, $36, $35, $37 ; Tile_Solid_Fourth_TP
-	.db $50, $52, $51, $53 ; Tile_Solid_Fith_TP
-	.db $54, $56, $55, $57 ; Tile_Solid_Sixth_TP
-	.db $70, $72, $71, $73 ; Tile_Solid_Seventh_TP
-	.db $74, $76, $75, $77 ; Tile_Solid_Eighth_TP
+	.db $08, $0A, $09, $0B ; Tile_Solid_First_TP
+	.db $0C, $0E, $0D, $0F ; Tile_Solid_Second_TP
+	.db $28, $2A, $29, $2B ; Tile_Solid_Third_TP
+	.db $2C, $2E, $2D, $2F ; Tile_Solid_Fourth_TP
+	.db $48, $4A, $49, $4B ; Tile_Solid_Fith_TP
+	.db $4C, $4E, $4D, $4F ; Tile_Solid_Sixth_TP
+	.db $68, $6A, $69, $6B ; Tile_Solid_Seventh_TP
+	.db $6C, $6E, $6D, $6F ; Tile_Solid_Eighth_TP
 
-	.db $F4, $86, $F5, $87 ; $40
-	.db $84, $86, $85, $87 ; $44
-	.db $FC, $FC, $FC, $FC ; $48
-	.db $AD, $FB, $AC, $AD ; $4C
-	.db $AC, $AC, $AC, $AC ; $50
-	.db $FB, $3B, $3B, $AC ; $54
-	.db $FC, $FC, $FC, $FC ; $58
-	.db $F4, $86, $F5, $87 ; $5C
-	.db $FB, $49, $49, $FB ; $60
-	.db $FE, $FE, $FE, $FE ; $64
-	.db $FE, $FE, $6D, $FE ; $68
+	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassCoin
+	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassLargeVeggie
+	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassSmallVeggie
+	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassRocket
+	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassShell
+	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassBomb
+	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassPotion
+	.db $FA, $FA, $80, $82 ; BackgroundTile_Grass1UP
+	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassPow
+	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassBobOmb
+	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassInactive
+
 	.db $3C, $3E, $3D, $3F ; $6C
 	.db $58, $FD, $59, $5A ; $70
 	.db $5B, $5A, $FD, $FD ; $74
@@ -4472,25 +4473,26 @@ IFDEF EXPAND_TABLES
 ENDIF
 
 TileQuads3:
-	.db $08, $0A, $09, $0B ; Tile_Background_First_TP
-	.db $0C, $0E, $0D, $0F ; Tile_Background_Second_TP
-	.db $28, $2A, $29, $2B ; Tile_Background_Third_TP
-	.db $2C, $2E, $2D, $2F ; Tile_Background_Fourth_TP
-	.db $48, $49, $4A, $4B ; Tile_Background_Fith_TP
-	.db $4C, $4E, $4D, $4F ; Tile_Background_Sixth_TP
-	.db $68, $6A, $69, $6B ; Tile_Background_Seventh_TP
-	.db $6C, $6E, $6D, $6F ; Tile_Background_Eighth_TP
+	.db $10, $12, $11, $13 ; Tile_Background_First_TP
+	.db $14, $16, $15, $17 ; Tile_Background_Second_TP
+	.db $30, $32, $31, $33 ; Tile_Background_Third_TP
+	.db $34, $36, $35, $37 ; Tile_Background_Fourth_TP
+	.db $50, $52, $51, $53 ; Tile_Background_Fith_TP
+	.db $54, $56, $55, $57 ; Tile_Background_Sixth_TP
+	.db $70, $72, $71, $73 ; Tile_Background_Seventh_TP
+	.db $74, $76, $75, $77 ; Tile_Background_Eighth_TP
 
-	.db $08, $0A, $09, $0B ; Tile_Solid_First_TP
-	.db $0C, $0E, $0D, $0F ; Tile_Solid_Second_TP
-	.db $28, $2A, $29, $2B ; Tile_Solid_Third_TP
-	.db $2C, $2E, $2D, $2F ; Tile_Solid_Fourth_TP
-	.db $48, $49, $4A, $4B ; Tile_Solid_Fith_TP
-	.db $4C, $4E, $4D, $4F ; Tile_Solid_Sixth_TP
-	.db $68, $6A, $69, $6B ; Tile_Solid_Seventh_TP
-	.db $6C, $6E, $6D, $6F ; Tile_Solid_Eighth_TP
+	.db $10, $12, $11, $13 ; Tile_Solid_First_TP
+	.db $14, $16, $15, $17 ; Tile_Solid_Second_TP
+	.db $30, $32, $31, $33 ; Tile_Solid_Third_TP
+	.db $34, $36, $35, $37 ; Tile_Solid_Fourth_TP
+	.db $50, $52, $51, $53 ; Tile_Solid_Fith_TP
+	.db $54, $56, $55, $57 ; Tile_Solid_Sixth_TP
+	.db $70, $72, $71, $73 ; Tile_Solid_Seventh_TP
+	.db $74, $76, $75, $77 ; Tile_Solid_Eighth_TP
 
-	.db $92, $93, $93, $92 ; $40
+	.db $50, $52, $51, $53 ; Tile_Cloud_TP
+
 	.db $AE, $AF, $AE, $AF ; $44
 	.db $78, $7A, $79, $7B ; $48
 	.db $A8, $A8, $AF, $AE ; $4C
