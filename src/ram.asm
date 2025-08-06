@@ -1771,6 +1771,7 @@ SwarmCounter:
 GroundSlipperiness:
 	.dsb 1 ; $0624
 ; FOR RENT
+Timer_60_Sec:
 	.dsb 1 ; $0625
 ; FOR RENT
 CurrentPageCount:

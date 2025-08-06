@@ -450,9 +450,26 @@ HorizontalLevel_ProcessFrame:
 	JSR RunFrame_Horizontal
 
 	LDY GameMode
-	BEQ HorizontalLevel_CheckTransition
+	BEQ CheckTimer
 
 	JMP ResetAreaAndProcessGameMode
+
+CheckTimer:
+  LDA RestrictionType
+  CMP #TimeRestriction
+  BNE HorizontalLevel_CheckTransition
+
+  DEC Timer_60_Sec
+  BNE HorizontalLevel_CheckTransition
+  LDA #$3C
+  STA Timer_60_Sec
+  DEC RestrictionsCount
+  BNE UpdateTimerHud
+
+  JMP PauseRespawn
+
+UpdateTimerHud:
+  JSR UpdateHudRestrictions
 
 HorizontalLevel_CheckTransition:
 	LDA TargetsCount

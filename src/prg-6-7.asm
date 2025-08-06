@@ -118,9 +118,13 @@ LoadCurrentArea:
   LDA RestrictionTypeTable, Y
   STA RestrictionType
 
-	; Determine whether this area is Horizontal or vertical.
+; Determine whether this area is Horizontal or vertical.
   LDA #$01
 	STA IsHorizontalLevel
+
+; Set it up everytime
+  LDA #$3C
+  STA Timer_60_Sec
 
 	; Determine the level length (in pages).
   LDA ScreenCountArea, Y
