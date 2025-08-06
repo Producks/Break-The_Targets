@@ -1547,10 +1547,10 @@ ClimbableTiles:
 ;   C = set if the player is on a climbable tile
 ;
 PlayerTileCollision_CheckClimbable:
+	JSR sub_BANK0_924F ; Bingo
   CLC
   RTS
 
-	JSR sub_BANK0_924F
 
 	LDA byte_RAM_0
 	LDY #$09
@@ -2791,7 +2791,7 @@ PlayerTileCollision_CheckCherryAndClimbable_AfterTick:
 PlayerTileCollision_Cherry:
 	LDA #SoundEffect1_CherryGet
 	STA SoundEffectQueue2
-	LDA #BackgroundTile_Sky
+	LDA #Tile_Sky_Background
 	JMP loc_BANK0_937C
 
 PlayerTileCollision_Climbable:
@@ -2954,27 +2954,27 @@ loc_BANK0_90C5:
 	JMP loc_BANK0_90EA
 
 loc_BANK0_90D5:
-	CMP #Enemy_VegetableLarge
-	BNE loc_BANK0_90EA
+;	CMP #Enemy_VegetableLarge
+;	BNE loc_BANK0_90EA
 
-	LDY BigVeggiesPulled
-	INY
-	CPY #$05
-	BCC loc_BANK0_90E7
+;	LDY BigVeggiesPulled
+;	INY
+;	CPY #$05
+;	BCC loc_BANK0_90E7
 
-	LDA #Enemy_Stopwatch
-	STA ObjectType, X
-	LDY #$00
+;	LDA #Enemy_Stopwatch
+;	STA ObjectType, X
+;	LDY #$00
 
 loc_BANK0_90E7:
-	STY BigVeggiesPulled
+;	STY BigVeggiesPulled
 
 loc_BANK0_90EA:
 	JSR loc_BANK1_B9EB
 
 	LDA #CollisionFlags_Down
 	STA EnemyCollision, X
-	LDA #BackgroundTile_Sky
+	LDA #Tile_Sky_Background
 	JSR ReplaceTile_Bank0
 
 	LDA #$07
@@ -3750,7 +3750,7 @@ AreaTransitionPlacement_Reset_FindStandableTileLoop:
 
 	LDY byte_RAM_E7
 	LDA (byte_RAM_1), Y
-	CMP #BackgroundTile_Sky
+	CMP #Tile_Sky_Background
 	BNE AreaTransitionPlacement_Reset_FindOpenSpaceLoop
 
 	JSR AreaTransitionPlacement_MovePlayerUp1Tile
@@ -3771,7 +3771,7 @@ AreaTransitionPlacement_Reset_FindOpenSpaceLoop:
 
 	LDY byte_RAM_E7
 	LDA (byte_RAM_1), Y
-	CMP #BackgroundTile_Sky
+	CMP #Tile_Sky_Background
 	BEQ AreaTransitionPlacement_MovePlayerUp1Tile
 
 	JSR AreaTransitionPlacement_MovePlayerUp1Tile

@@ -39,12 +39,11 @@ EnemyDataPTRHi:
 EnemyData_Level_1_1_Area0:
 ; Page 0
   distTo + ; $05 (2 enemies)
-	enemy $7, $A, Enemy_Piranha
-	enemy $6, $A, Enemy_Piranha
+;	enemy $7, $A, Enemy_Piranha
+;	enemy $6, $A, Enemy_Piranha
 
 ; Page 1
 +	distTo + ; $01 (0 enemies)
-  enemy $6, $A, Enemy_Piranha
 
 ; Page 2
 +	distTo + ; $01 (0 enemies)

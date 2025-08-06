@@ -3196,6 +3196,7 @@ EnemyArray_46E_Data:
 	.db SpriteFlags46E_DoubleSpeed ; $0D Enemy_NinjiRunning
 	.db SpriteFlags46E_DoubleSpeed ; $0E Enemy_NinjiJumping
 	.db SpriteFlags46E_DoubleSpeed ; $0F Enemy_BeezoDiving
+
 	.db SpriteFlags46E_00 ; $10 Enemy_Goomba
 	.db SpriteFlags46E_00 ; $11 Enemy_BulletBill
 	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable ; $12 Enemy_Spiny

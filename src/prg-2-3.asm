@@ -1456,7 +1456,7 @@ loc_BANK2_86E0:
 
 
 ExplodeNearbyBlocks_DestroyBlock:
-	LDA #BackgroundTile_Sky
+	LDA #Tile_Sky_Background
 	STA (byte_RAM_7), Y
 
 	LDA byte_RAM_D
@@ -3345,23 +3345,24 @@ EnemyInit_Piranha:
   STA ObjectXLo, X
 
   LDA #$50
-  STA ObjectTimer2, X
+  STA ObjectTimer1, X
   RTS
 
 Piranha_Movement_Table:
   .db $00, $F8, $00, $08
 
 Piranha_Timer_Table:
-  .db $50, $2F, $50, $2F
+  .db $50, $5D, $50, $5D
 
+; BUG BUG timer maybe???
 EnemyBehavior_Piranha:
-	JSR EnemyBehavior_CheckDamagedInterrupt
-
 	LDA ObjectAttributes, X
 	ORA #ObjAttrib_BehindBackground
 	STA ObjectAttributes, X
 
-  LDA ObjectTimer2, X ; Check if we are moving
+	JSR EnemyBehavior_CheckDamagedInterrupt
+
+  LDA ObjectTimer1, X ; Check if we are moving
   BNE DecreaseTimer_Piranha
 
   INC EnemyVariable, X
@@ -3373,7 +3374,7 @@ EnemyBehavior_Piranha:
   LDA Piranha_Movement_Table, Y
   STA ObjectYVelocity, X
   LDA Piranha_Timer_Table, Y
-  STA ObjectTimer2, X
+  STA ObjectTimer1, X
   JMP Run_Piranha_Logic
 
 DecreaseTimer_Piranha:
@@ -3384,7 +3385,7 @@ Run_Piranha_Logic:
 	INC ObjectAnimationTimer, X ; Animation timer
 
   JMP RenderSprite
-  RTS
+
 
 
 EnemyBehavior_BulletBill:
@@ -5390,8 +5391,6 @@ EnemyBehavior_CheckDamagedInterrupt_SoundEffect:
 	BNE EnemyBehavior_CheckDamagedInterrupt_BossDeathSound
 
 	; normal enemy hit sound
-	LDA DPCMQueue
-	BNE EnemyBehavior_CheckDamagedInterrupt_CheckPidgit
 
 	LDA #SoundEffect1_EnemyHit
 	STA SoundEffectQueue2
@@ -5459,9 +5458,9 @@ EnemyTilemap1:
 	.db $DC, $DA ; $24
 	.db $DC, $DE ; $26
 	; Small vegetable
-	.db $FD, $FD ; $28
+	.db $BD, $BD ; $28
 	; Large vegetable
-	.db $FD, $FD ; $2A
+	.db $BF, $BF ; $2A
 	; Unused? (Leftover third vegetable?)
 	.db $94, $94 ; $2C
 	; Shell
