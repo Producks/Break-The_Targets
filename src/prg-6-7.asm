@@ -252,7 +252,7 @@ PreCalculatedTableRAM_LevelDataStartHi:
 ; Should 8 x 6 x screen number = total blocks unloaded.
 ; XX   XX
 ; LEN  BloackID
-; $FD inc page
+; $FE inc page
 ; $FF = END
 UnpackBackgroundBlocks:
   LDX CurrentLevelArea
@@ -277,10 +277,12 @@ SetPageRamIndex:
   CLC
   ADC #$10
   STA RamIndexBottomLo
-  BCC SkipAddBottomHi
+  BCC SetYIndexBackground
   INC RamIndexBottomHi
 
-  LDY #$00
+SetYIndexBackground:
+LDY #$00
+
 SkipAddBottomHi:
   LDX #$00 ; cheat way
 

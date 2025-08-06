@@ -77,9 +77,7 @@ BackgroundBlocks_Hi:
   .db >Area16BackgroundBlocks
 
 .include "src/levels/background/Area0BackgroundBlocks"
-
-Area1BackgroundBlocks:
-  .db $FF
+.include "src/levels/background/Area1BackgroundBlocks"
 
 Area2BackgroundBlocks:
   .db $FF

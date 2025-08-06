@@ -10,9 +10,19 @@ ZeroMemoryAfterTitleScreen: ; CREATED MASSIVE BUG IF AUDIO WAS GOING, MADE ME LO
 
   LDY #$00
   LDA #Tile_Empty_Hud
+
+; 6000 + (#$F0 * index) - #$30
+
 DumpTileInWorkRam:
   STA $60C0, Y
   STA $61B0, Y
+  STA $62A0, Y
+  STA $6390, Y
+  STA $6480, Y
+  STA $6570, Y
+  STA $6660, Y
+  STA $6750, Y
+  STA $6840, Y
   INY
   CPY #$30
   BNE DumpTileInWorkRam

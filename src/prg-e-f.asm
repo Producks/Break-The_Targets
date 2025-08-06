@@ -475,9 +475,9 @@ HorizontalLevel_CheckTransition:
 	LDA TargetsCount
 	BNE HorizontalLevel_CheckScroll
 
-  LDA CurrentLevelArea
-  CMP #$00
-  BEQ CallEnding
+;  LDA CurrentLevelArea
+;  CMP #$00
+;  BEQ CallEnding
 
   JSR DoAreaReset
 

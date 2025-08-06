@@ -1,0 +1,9 @@
+LevelDataArea1:
+.db $FD, $78
+.db $FC, $04, $0a
+.db $FD, $44
+.db $FE
+.db $FD, $c0
+.db $FE
+.db $FD, $c0
+.db $FF

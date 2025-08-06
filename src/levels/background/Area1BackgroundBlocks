@@ -1,0 +1,10 @@
+Area1BackgroundBlocks:
+.db $28, $00
+.db $08, $01
+.db $FE
+.db $28, $00
+.db $08, $01
+.db $FE
+.db $28, $00
+.db $08, $01
+.db $FF

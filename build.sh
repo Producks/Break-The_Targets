@@ -19,6 +19,10 @@ cd ./tiled_parser
 ./background Area0_Background.csv "Area0BackgroundBlocks"
 ./sprites  Area0_Sprites.csv "EnemyData_Level_1_1_Area0"
 
+./foreground Area1_Foreground.csv "LevelDataArea1"
+./background Area1_Background.csv "Area1BackgroundBlocks"
+./sprites  Area1_Sprites.csv "EnemyData_Level_1_1_Area1"
+
 cd ..
 
 echo 'Assembling...'

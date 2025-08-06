@@ -2,17 +2,19 @@
 
 ; Targets number, Index by current area
 TargetsCountTable:
-  .db $03, $00, $0F, $0F
+  .db $03, $05, $0F, $0F
 
 ; Restriction table, Index by current area
 RestrictionCountTable:
   .db $0F, $03, $0F, $0F
 
 RestrictionTypeTable:
-  .db TimeRestriction, JumpRestriction, JumpRestriction
+  .db TimeRestriction, ThrowRestriction, JumpRestriction
 
 ScreenCountArea:
-  .db $01, $01, $09
+  .db $01 ; 0
+  .db $02 ; 1
+  .db $09 ; 2
 
 ;
 ; #### Palette pointers
@@ -50,24 +52,26 @@ Area0Palette:
   .db CHRBank_Global_Sprites
 
 Area1Palette:
-; Day
-	.db $01, $30, $12, $0F ; $00
-	.db $01, $30, $16, $0F ; $04
-	.db $01, $27, $17, $0F ; $08
-	.db $01, $29, $1A, $0F ; $0C
-	.db $01, $01, $16, $27 ; Mario
-	.db $01, $30, $16, $0F ; $00
-	.db $01, $38, $10, $0F ; $04
-	.db $01, $30, $25, $1B ; $08
+; Background
+	.db $22, $36, $17, $0F ; $00
+	.db $22, $29, $1A, $0F ; $04
+	.db $22, $30, $21, $0F ; $08
+	.db $22, $00, $0F, $30 ; $0C
+
+; Sprites
+	.db $22, $01, $16, $27 ; Mario
+	.db $22, $30, $16, $27 ; Keep eye in mind for first slot, has to be white
+	.db $22, $0F, $36, $17 ; $ Goombassss
+	.db $22, $1A, $30, $27 ; $08
 
 ; Background chr banks
-  .db CHRBank_BackgroundGrass
+  .db CHRBANK_Mario1_TileSet
   .db CHRBank_Animated1
 ; Sprite chr banks
   .db CHRBank_Mario
-  .db CHRBank_CommonEnemies1
-  .db CHRBank_CommonEnemies2
-  .db CHRBank_EnemiesGrass
+  .db CHRBANK_Mario1_SpriteSet_Top
+  .db CHRBANK_Mario1_SpriteSet_Bottom
+  .db CHRBank_Global_Sprites
 
 Area2Palette:
 ; Day
@@ -84,7 +88,7 @@ Area2Palette:
   .db CHRBank_BackgroundGrass
   .db CHRBank_Animated1
 ; Sprite chr banks
-  .db CHRBank_Luigi
+  .db CHRBank_Mario
   .db CHRBank_CommonEnemies1
   .db CHRBank_CommonEnemies2
-  .db CHRBank_EnemiesDesert
+  .db CHRBank_EnemiesGrass
