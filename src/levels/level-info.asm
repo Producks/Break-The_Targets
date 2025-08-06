@@ -6,7 +6,7 @@ TargetsCountTable:
 
 ; Restriction table, Index by current area
 RestrictionCountTable:
-  .db $13, $03, $0F, $0F
+  .db $0F, $03, $0F, $0F
 
 RestrictionTypeTable:
   .db TimeRestriction, JumpRestriction, JumpRestriction

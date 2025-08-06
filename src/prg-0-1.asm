@@ -4193,11 +4193,11 @@ DumpHudInMemoryLoop:
   RTS
 
 AreaHudRestrictionPTRLo:
-  .db <ThrowsText
+  .db <TimeText
   .db <ThrowsText
   .db <TimeText
 AreaHudRestrictionPTRHi:
-  .db >ThrowsText
+  .db >TimeText
   .db >ThrowsText
   .db >TimeText
 

@@ -10261,10 +10261,17 @@ EnemyEnableCollisionFlagTable:
 	.db CollisionFlags_Right
 
 
+LeaveEarlyCollision:
+  RTS
+
 ;
 ; Collision detection between objects
 ;
 CheckObjectCollision:
+  LDA ObjectType, X
+  CMP #Enemy_Target
+  BEQ LeaveEarlyCollision ; IF COLLISON MESS UP CHECK HERE BUG BUG TODO
+
 	LDA #$00
 	STA ObjectXAcceleration, X
 	LDA EnemyCollision, X
@@ -10285,8 +10292,8 @@ CheckObjectCollision_NotExplosion:
 	CPY #Enemy_Egg
 	BEQ CheckObjectCollision_CheckObjectAlive
 
-	CPY #Enemy_Pokey
-	BEQ CheckObjectCollision_CheckObjectAlive
+;	CPY #Enemy_Pokey
+;	BEQ CheckObjectCollision_CheckObjectAlive
 
 	LDY ObjectProjectileTimer, X
 	BNE CheckObjectCollision_CheckObjectBeingCarried
@@ -10661,12 +10668,6 @@ CheckCollisionWithPlayer:
 CheckCollisionWithPlayer_NotHeart:
   CMP #Enemy_Target
   BEQ CheckCollisionWithPlayer_Exit
-
-	CMP #Enemy_Phanto
-	BNE CheckCollisionWithPlayer_NotPhanto
-
-	LDY PhantoActivateTimer
-	BNE CheckCollisionWithPlayer_Exit
 
 CheckCollisionWithPlayer_NotPhanto:
 	CMP #Enemy_Starman
