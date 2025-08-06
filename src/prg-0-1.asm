@@ -1524,6 +1524,7 @@ PlayerClimbAnimation_Exit:
 	RTS
 
 
+; TODO FIX maybe?
 ClimbableTiles:
 	.db BackgroundTile_Vine
 	.db BackgroundTile_VineStandable
@@ -1546,6 +1547,9 @@ ClimbableTiles:
 ;   C = set if the player is on a climbable tile
 ;
 PlayerTileCollision_CheckClimbable:
+  CLC
+  RTS
+
 	JSR sub_BANK0_924F
 
 	LDA byte_RAM_0
@@ -2865,7 +2869,7 @@ PickUpToEnemyTypeTable:
 	.db Enemy_MushroomBlock ; $01
 	.db Enemy_MushroomBlock ; $02
 	.db Enemy_POWBlock ; $03
-	.db Enemy_Coin ; $04
+	.db Enemy_VegetableLarge ; $04
 	.db Enemy_VegetableLarge ; $05
 	.db Enemy_VegetableSmall ; $06
 	.db Enemy_Rocket ; $07
@@ -4013,94 +4017,6 @@ ENDIF
 
 
 IFDEF ROBUST_TRANSITION_SEARCH
-;
-; Ouput
-;   C = set if a climbable tile was found
-;
-AreaTransitionPlacement_ClimbingCustom:
-	; Target x-position
-	LDA PlayerXLo
-	LSR A
-	LSR A
-	LSR A
-	LSR A
-	STA byte_RAM_E5
-
-	; Target y-position
-	LDA PlayerYLo
-	EOR #$10
-	CLC
-	ADC #$10
-	CMP #$F0
-	BNE AreaTransitionPlacement_ClimbingCustom_AfterNudge
-	SEC
-	SBC #$10
-AreaTransitionPlacement_ClimbingCustom_AfterNudge:
-	STA byte_RAM_E6
-
-	; Read the target tile
-	LDA CurrentLevelEntryPage
-	STA byte_RAM_E8
-	JSR SetTileOffsetAndAreaPageAddr_Bank1
-	LDY byte_RAM_E7
-	LDA (byte_RAM_1), Y
-
-	; Check if the target tile is climbable
-	LDY #$09
-AreaTransitionPlacement_ClimbingCustom_CheckLoop:
-	CMP ClimbableTiles, Y
-	BNE AreaTransitionPlacement_ClimbingCustom_LoopNext
-
-	RTS
-
-AreaTransitionPlacement_ClimbingCustom_LoopNext:
-	DEY
-	BPL AreaTransitionPlacement_ClimbingCustom_CheckLoop
-
-	; Target tile is not climbable; start at the right and work backwards
-	LDA byte_RAM_E7
-	AND #$F0
-	STA byte_RAM_E6
-
-	LDA #$0F
-	STA byte_RAM_3
-	CLC
-	ADC byte_RAM_E6
-	STA byte_RAM_E7
-
-AreaTransitionPlacement_ClimbingCustom_Loop:
-	; Read the target tile
-	LDY byte_RAM_E7
-	LDA (byte_RAM_1), Y
-	LDY #$09
-
-AreaTransitionPlacement_ClimbingCustom_InnerLoop:
-	CMP ClimbableTiles, Y
-	BEQ AreaTransitionPlacement_ClimbingCustom_SetXPosition
-	DEY
-	BPL AreaTransitionPlacement_ClimbingCustom_InnerLoop
-
-	; No matches on this tile, check the next one or give up
-	DEC byte_RAM_E7
-	DEC byte_RAM_3
-	BMI AreaTransitionPlacement_ClimbingCustom_NotFound
-
-	JMP AreaTransitionPlacement_ClimbingCustom_Loop
-
-AreaTransitionPlacement_ClimbingCustom_SetXPosition:
-	LDA byte_RAM_3
-	ASL A
-	ASL A
-	ASL A
-	ASL A
-	STA PlayerXLo
-
-	SEC
-	RTS
-
-AreaTransitionPlacement_ClimbingCustom_NotFound:
-	CLC
-	RTS
 ENDIF
 
 

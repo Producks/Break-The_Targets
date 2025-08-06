@@ -3095,7 +3095,7 @@ SpriteFlickerDMAOffset:
 
 ; Sprite display configuration
 ObjectAttributeTable:
-	.db ObjAttrib_Palette1 ; $00 Enemy_Heart
+	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $00 Eneny_Target
 	.db ObjAttrib_Palette1 ; $01 Enemy_ShyguyRed
 	.db ObjAttrib_Palette1 ; $02 Enemy_Tweeter
 	.db ObjAttrib_Palette3 ; $03 Enemy_ShyguyPink
@@ -3111,10 +3111,10 @@ ObjectAttributeTable:
 	.db ObjAttrib_Palette1 ; $0D Enemy_NinjiRunning
 	.db ObjAttrib_Palette1 ; $0E Enemy_NinjiJumping
 	.db ObjAttrib_Palette1 ; $0F Enemy_BeezoDiving
-	.db ObjAttrib_Palette2 ; $10 Enemy_BeezoStraight
-	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $11 Enemy_WartBubble
-	.db ObjAttrib_Palette1 | ObjAttrib_Horizontal | ObjAttrib_FrontFacing ; $12 Enemy_Pidgit
-	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $13 Enemy_Trouter
+	.db ObjAttrib_Palette2 ; $10 Enemy_Goomba
+	.db ObjAttrib_Palette2 ; $11 Enemy_BulletBill
+	.db ObjAttrib_Palette1 ; $12 Enemy_Spiny
+	.db ObjAttrib_Palette3 | ObjAttrib_16x32 ; $13 Enemy_Piranha
 	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $14 Enemy_Hoopstar
 	.db ObjAttrib_Palette0 ; $15 Enemy_JarGeneratorShyguy
 	.db ObjAttrib_Palette0 ; $16 Enemy_JarGeneratorBobOmb
@@ -3180,7 +3180,7 @@ ObjectAttributeTable:
 ;   bit 1 ($02) - unliftable
 ;   bit 0 ($01) - hurts when touched from above
 EnemyArray_46E_Data:
-	.db SpriteFlags46E_NoEnemyCollision ; $00 Enemy_Heart
+	.db SpriteFlags46E_00 | SpriteFlags46E_Unliftable ; $00 Eneny_Target
 	.db SpriteFlags46E_00 ; $01 Enemy_ShyguyRed
 	.db SpriteFlags46E_00 ; $02 Enemy_Tweeter
 	.db SpriteFlags46E_00 ; $03 Enemy_ShyguyPink
@@ -3196,10 +3196,11 @@ EnemyArray_46E_Data:
 	.db SpriteFlags46E_DoubleSpeed ; $0D Enemy_NinjiRunning
 	.db SpriteFlags46E_DoubleSpeed ; $0E Enemy_NinjiJumping
 	.db SpriteFlags46E_DoubleSpeed ; $0F Enemy_BeezoDiving
-	.db SpriteFlags46E_DoubleSpeed ; $10 Enemy_BeezoStraight
-	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_Tilemap2 ; $11 Enemy_WartBubble
-	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_DoubleSpeed | SpriteFlags46E_MirrorAnimation ; $12 Enemy_Pidgit
-	.db SpriteFlags46E_MirrorAnimation ; $13 Enemy_Trouter
+	.db SpriteFlags46E_00 ; $10 Enemy_Goomba
+	.db SpriteFlags46E_00 ; $11 Enemy_BulletBill
+	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable ; $12 Enemy_Spiny
+	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_Damage | SpriteFlags46E_Unliftable ; $13 Enemy_Piranha
+
 	.db SpriteFlags46E_00 ; $14 Enemy_Hoopstar
 	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $15 Enemy_JarGeneratorShyguy
 	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $16 Enemy_JarGeneratorBobOmb
@@ -3256,7 +3257,7 @@ EnemyArray_46E_Data:
 ; Index for tile collision bounding box table
 ;
 EnemyArray_492_Data:
-	.db $00 ; $00 Enemy_Heart
+	.db $05 ; $00 Eneny_Target
 	.db $05 ; $01 Enemy_ShyguyRed
 	.db $05 ; $02 Enemy_Tweeter
 	.db $05 ; $03 Enemy_ShyguyPink
@@ -3272,10 +3273,12 @@ EnemyArray_492_Data:
 	.db $05 ; $0D Enemy_NinjiRunning
 	.db $05 ; $0E Enemy_NinjiJumping
 	.db $05 ; $0F Enemy_BeezoDiving
-	.db $05 ; $10 Enemy_BeezoStraight
-	.db $05 ; $11 Enemy_WartBubble
-	.db $05 ; $12 Enemy_Pidgit
-	.db $05 ; $13 Enemy_Trouter
+
+	.db $05 ; $10 Enemy_Goomba
+	.db $05 ; $11 Enemy_BulletBill
+	.db $05 ; $12 Enemy_Spiny
+	.db $0C ; $13 Enemy_Piranha
+
 	.db $05 ; $14 Enemy_Hoopstar
 	.db $0D ; $15 Enemy_JarGeneratorShyguy
 	.db $0D ; $16 Enemy_JarGeneratorBobOmb
@@ -3332,7 +3335,7 @@ EnemyArray_492_Data:
 ; Index for object collision bounding box table
 ;
 ObjectHitbox_Data:
-	.db $08 ; $00 Enemy_Heart
+	.db $02 ; $00 Eneny_Target
 	.db $02 ; $01 Enemy_ShyguyRed
 	.db $02 ; $02 Enemy_Tweeter
 	.db $02 ; $03 Enemy_ShyguyPink
@@ -3348,10 +3351,12 @@ ObjectHitbox_Data:
 	.db $02 ; $0D Enemy_NinjiRunning
 	.db $02 ; $0E Enemy_NinjiJumping
 	.db $02 ; $0F Enemy_BeezoDiving
-	.db $02 ; $10 Enemy_BeezoStraight
-	.db $02 ; $11 Enemy_WartBubble
-	.db $02 ; $12 Enemy_Pidgit
-	.db $02 ; $13 Enemy_Trouter
+
+	.db $02 ; $10 Enemy_Goomba
+	.db $02 ; $11 Enemy_BulletBill
+	.db $02 ; $12 Enemy_Spiny
+	.db $04 ; $13 Enemy_Piranha
+
 	.db $02 ; $14 Enemy_Hoopstar
 	.db $08 ; $15 Enemy_JarGeneratorShyguy
 	.db $08 ; $16 Enemy_JarGeneratorBobOmb
@@ -3406,7 +3411,7 @@ ObjectHitbox_Data:
 
 ; More collision (post-throw)
 EnemyPlayerCollisionTable:
-	.db $00 ; $00 Enemy_Heart
+	.db $00 ; $00 Eneny_Target
 	.db $00 ; $01 Enemy_ShyguyRed
 	.db $00 ; $02 Enemy_Tweeter
 	.db $00 ; $03 Enemy_ShyguyPink
@@ -3422,10 +3427,12 @@ EnemyPlayerCollisionTable:
 	.db $00 ; $0D Enemy_NinjiRunning
 	.db $00 ; $0E Enemy_NinjiJumping
 	.db $00 ; $0F Enemy_BeezoDiving
-	.db $00 ; $10 Enemy_BeezoStraight
-	.db $00 ; $11 Enemy_WartBubble
-	.db $00 ; $12 Enemy_Pidgit
-	.db $00 ; $13 Enemy_Trouter
+
+	.db $00 ; $10 Enemy_Goomba
+	.db $00 ; $11 Enemy_BulletBill
+	.db $00 ; $12 Enemy_Spiny
+	.db $00 ; $13 Enemy_Piranha
+
 	.db $00 ; $14 Enemy_Hoopstar
 	.db $00 ; $15 Enemy_JarGeneratorShyguy
 	.db $00 ; $16 Enemy_JarGeneratorBobOmb
@@ -4933,7 +4940,6 @@ RespawnPlayer_AfterMusic:
 	LDA #SpriteAnimation_Standing
 	STA PlayerAnimationFrame
 	RTS
-
 
 ResetSubAreaJarLayout:
 	RTS

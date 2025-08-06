@@ -722,30 +722,37 @@ BackgroundTile_UnusedFE = $FE
 BackgroundTile_UnusedFF = $FF
 
 ; enum EnemyIds
-;Enemy_Heart = $00
+;Enemy_Heart = $00 ; Free
+Enemy_Target = $00
+
 Enemy_ShyguyRed = $01
-Enemy_Tweeter = $02
-Enemy_ShyguyPink = $03
-Enemy_Porcupo = $04
+Enemy_Tweeter = $02 ; Modify it to reuse
+Enemy_ShyguyPink = $03 ;
+Enemy_Porcupo = $04 ; Free
 Enemy_SnifitRed = $05
 Enemy_SnifitGray = $06
 Enemy_SnifitPink = $07
-Enemy_Ostro = $08
-Enemy_BobOmb = $09
-Enemy_AlbatossCarryingBobOmb = $0A
-Enemy_AlbatossStartRight = $0B
-Enemy_AlbatossStartLeft = $0C
+Enemy_Ostro = $08 ; Free
+Enemy_BobOmb = $09 ; Re used for smb3 bomb?
+Enemy_AlbatossCarryingBobOmb = $0A ; Free cleanup done
+Enemy_AlbatossStartRight = $0B ; Free cleanup done
+Enemy_AlbatossStartLeft = $0C ; Free cleanup done
 Enemy_NinjiRunning = $0D
 Enemy_NinjiJumping = $0E
 Enemy_BeezoDiving = $0F
-Enemy_BeezoStraight = $10
-Enemy_WartBubble = $11
-Enemy_Pidgit = $12
-Enemy_Trouter = $13
-Enemy_Hoopstar = $14
+
+Enemy_Goomba = $10
+
+Enemy_BulletBill = $11
+
+Enemy_Spiny = $12 ;
+
+Enemy_Piranha = $13
+
+Enemy_Hoopstar = $14 ; useless? probably free
 Enemy_JarGeneratorShyguy = $15
 Enemy_JarGeneratorBobOmb = $16
-Enemy_Phanto = $17
+Enemy_Phanto = $17 ; bye free
 Enemy_CobratJar = $18
 Enemy_CobratSand = $19
 Enemy_Pokey = $1A

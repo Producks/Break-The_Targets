@@ -789,8 +789,9 @@ CheckObjectSpawnBoundaries_InitializePage_SetObjectType:
 InitializeEnemy:
 	JSR JumpToTableAfterJump
 
+; INIT HERE
 EnemyInitializationTable:
-	.dw EnemyInit_Basic ; Heart
+	.dw EnemyInit_Target ; Target
 	.dw EnemyInit_Basic ; ShyguyRed
 	.dw EnemyInit_Basic ; Tweeter
 	.dw EnemyInit_Basic ; ShyguyPink
@@ -805,11 +806,13 @@ EnemyInitializationTable:
 	.dw EnemyInit_AlbatossStartLeft ; AlbatossStartLeft
 	.dw EnemyInit_Basic ; NinjiRunning
 	.dw EnemyInit_Stationary ; NinjiJumping
-	.dw EnemyInit_BeezoDiving ; BeezoDiving
-	.dw EnemyInit_Basic ; BeezoStraight
+
+	.dw EnemyInit_Basic ; Enemy_Goomba
+	.dw EnemyInit_Basic ; Bullet bill
 	.dw EnemyInit_Basic ; WartBubble
-	.dw EnemyInit_Basic ; Pidgit
-	.dw EnemyInit_Trouter ; Trouter
+	.dw EnemyInit_Basic ; Spiny
+	.dw EnemyInit_Piranha ; Piranha
+
 	.dw EnemyInit_Basic ; Hoopstar
 	.dw EnemyInit_JarGenerators ; JarGeneratorShyguy
 	.dw EnemyInit_JarGenerators ; JarGeneratorBobOmb
@@ -1682,7 +1685,7 @@ DrawEndOfLevelDoorTiles:
 HandleEnemyState_PuffOfSmoke_CheckDestroy:
 	; Fryguy flames are extinguished in a puff of smoke
 	LDA ObjectType, X
-	CMP #Enemy_Porcupo
+	CMP #Enemy_Target
 	BNE HandleEnemyState_PuffOfSmoke_Destroy
 
 	LDA #EnemyState_Inactive
@@ -1756,17 +1759,6 @@ ScreenSpriteClipping_Horizontal:
 	BNE ScreenSpriteClipping_Horizontal_WideSprite
 
 	LDA ObjectType, X
-	CMP #Enemy_Pokey
-	BEQ ScreenSpriteClipping_Horizontal_WideSprite
-
-	CMP #Enemy_Ostro
-	BEQ ScreenSpriteClipping_Horizontal_WideSprite
-
-	CMP #Enemy_HawkmouthBoss
-	BEQ ScreenSpriteClipping_Horizontal_WideSprite
-
-	CMP #Enemy_Clawgrip
-	BEQ ScreenSpriteClipping_Horizontal_WideSprite
 
 	LDA EnemyArray_46E, X
 	AND #SpriteFlags46E_WideSprite
@@ -2120,8 +2112,9 @@ RunEnemyBehavior:
 	JSR JumpToTableAfterJump
 
 
+; BEHAVE HERE
 EnemyBehaviorPointerTable:
-	.dw EnemyBehavior_00 ; $00
+	.dw EnemyBehavior_Target ; $00 Target
 	.dw EnemyBehavior_BasicWalker ; $01
 	.dw EnemyBehavior_BasicWalker ; $02
 	.dw EnemyBehavior_BasicWalker ; $03
@@ -2129,18 +2122,20 @@ EnemyBehaviorPointerTable:
 	.dw EnemyBehavior_BasicWalker ; $05
 	.dw EnemyBehavior_BasicWalker ; $06
 	.dw EnemyBehavior_BasicWalker ; $07
-	.dw EnemyBehavior_Ostro ; $08
+	.dw EnemyBehavior_00 ; $08 FREE
 	.dw EnemyBehavior_BobOmb ; $09
-	.dw EnemyBehavior_Albatoss ; $0A
-	.dw EnemyBehavior_Albatoss ; $0B
-	.dw EnemyBehavior_Albatoss ; $0C
+	.dw EnemyBehavior_00 ; $0A FREE
+	.dw EnemyBehavior_00 ; $0B FREE
+	.dw EnemyBehavior_00 ; $0C FREE
 	.dw EnemyBehavior_NinjiRunning ; $0D
 	.dw EnemyBehavior_NinjiJumping ; $0E
 	.dw EnemyBehavior_Beezo ; $0F
-	.dw EnemyBehavior_Beezo ; $10
-	.dw EnemyBehavior_WartBubble ; $11
-	.dw EnemyBehavior_Pidgit ; $12
-	.dw EnemyBehavior_Trouter ; $13
+
+	.dw EnemyBehavior_Goomba ; Enemy_Goomba
+	.dw EnemyBehavior_BulletBill ; $11 Bullet bill
+	.dw EnemyBehavior_BasicWalker ; $12 Spiny
+	.dw EnemyBehavior_Piranha ; Enemy_Piranha
+
 	.dw EnemyBehavior_Hoopstar ; $14
 	.dw EnemyBehavior_JarGenerators ; $15
 	.dw EnemyBehavior_JarGenerators ; $16
@@ -2318,26 +2313,6 @@ AlbatossSwarmStartXHi:
 
 
 Swarm_AlbatossCarryingBobOmb:
-	JSR Swarm_CreateEnemy
-
-	ADC AlbatossSwarmStartXLo, Y
-	STA ObjectXLo, X
-	LDA ScreenBoundaryLeftHi
-	ADC AlbatossSwarmStartXHi, Y
-	STA ObjectXHi, X
-	STY byte_RAM_1
-	LDA #Enemy_AlbatossCarryingBobOmb
-	STA ObjectType, X
-	JSR SetEnemyAttributes
-
-	LDA PseudoRNGValue
-	AND #$1F
-	ADC #$20
-	STA ObjectYLo, X
-	LDY byte_RAM_1
-	JSR EnemyInit_BasicMovement
-
-	ASL ObjectXVelocity, X
 	RTS
 
 
@@ -3357,28 +3332,93 @@ EnemyBehavior_Mushroom_StayMaterial:
 	JMP EnemyBehavior_Bomb
 
 EnemyBehavior_Mushroom_PickUp:
-	JSR CarryObject
-
-	LDA #$00
-	STA HoldingItem
-	STA ObjectBeingCarriedTimer, X
-	JSR TurnIntoPuffOfSmoke
-
-	LDA ObjectType, X
-	CMP #Enemy_CrystalBall
-	BNE EnemyBehavior_PickUpNotCrystalBall
-
-	LDA CrystalAndHawkmouthOpenSize
-	BNE EnemyBehavior_CrystalBall_Exit
-
-	LDA #Music2_CrystalGetFanfare
-	STA MusicQueue2
-	LDA #$60
-	STA HawkmouthOpenTimer
-	INC CrystalAndHawkmouthOpenSize
 
 EnemyBehavior_CrystalBall_Exit:
 	RTS
+
+EnemyInit_Piranha:
+	JSR EnemyInit_Basic
+
+  LDA ObjectXLo, X
+  CLC
+  ADC #$08
+  STA ObjectXLo, X
+
+  LDA #$50
+  STA ObjectTimer2, X
+  RTS
+
+Piranha_Movement_Table:
+  .db $00, $F8, $00, $08
+
+Piranha_Timer_Table:
+  .db $50, $2F, $50, $2F
+
+EnemyBehavior_Piranha:
+	JSR EnemyBehavior_CheckDamagedInterrupt
+
+	LDA ObjectAttributes, X
+	ORA #ObjAttrib_BehindBackground
+	STA ObjectAttributes, X
+
+  LDA ObjectTimer2, X ; Check if we are moving
+  BNE DecreaseTimer_Piranha
+
+  INC EnemyVariable, X
+  LDA EnemyVariable, X
+  AND #$03
+  STA EnemyVariable, X
+
+  TAY
+  LDA Piranha_Movement_Table, Y
+  STA ObjectYVelocity, X
+  LDA Piranha_Timer_Table, Y
+  STA ObjectTimer2, X
+  JMP Run_Piranha_Logic
+
+DecreaseTimer_Piranha:
+  DEC ObjectTimer1, X ; Decrease moving timer
+
+Run_Piranha_Logic:
+	JSR ApplyObjectPhysicsY
+	INC ObjectAnimationTimer, X ; Animation timer
+
+  JMP RenderSprite
+  RTS
+
+
+EnemyBehavior_BulletBill:
+  LDA EnemyCollision, X
+  AND #CollisionFlags_PlayerOnTop
+  BEQ LeaveBulletBillBehavior
+
+  JSR StompEnemy
+
+LeaveBulletBillBehavior:
+  JMP EnemyBehavior_Beezo
+
+; X = Enemy index
+StompEnemy:
+  LDA #EnemyState_Dead
+	STA EnemyState, X
+  LDA #$00
+  STA ObjectXVelocity, X
+	LDA #SoundEffect1_EnemyHit
+	STA SoundEffectQueue2 ;Check later why no sound effect are playing
+  INC PlayerInAir
+	LDA #$A8
+	STA PlayerYVelocity
+  RTS
+
+EnemyBehavior_Goomba
+  LDA EnemyCollision, X
+  AND #CollisionFlags_PlayerOnTop
+  BEQ EnemyBehavior_GoombaLeave
+
+  JSR StompEnemy
+
+EnemyBehavior_GoombaLeave:
+  JMP EnemyBehavior_BasicWalker
 
 EnemyBehavior_Target:
 	LDA EnemyCollision, X
@@ -3728,43 +3768,6 @@ loc_BANK2_9228:
 	RTS
 
 ; ---------------------------------------------------------------------------
-
-EnemyBehavior_Albatoss:
-	JSR RenderSprite_Albatoss
-
-	INC ObjectAnimationTimer, X
-	LDA EnemyArray_B1, X
-	BNE loc_BANK2_9271
-
-	LDA EnemyCollision, X
-	AND #CollisionFlags_Damage
-	BNE loc_BANK2_9256
-
-	JSR EnemyFindWhichSidePlayerIsOn
-
-	LDA byte_RAM_F
-	ADC #$30
-	CMP #$60
-	BCS loc_BANK2_926E
-
-loc_BANK2_9256:
-	JSR CreateEnemy
-
-	BMI loc_BANK2_926E
-
-	LDX byte_RAM_0
-	LDA #Enemy_BobOmb
-	STA ObjectType, X
-	LDA ObjectYLo, X
-	ADC #$10
-	STA ObjectYLo, X
-	JSR EnemyInit_Bobomb
-
-	LDX byte_RAM_12
-	INC EnemyArray_B1, X
-
-loc_BANK2_926E:
-	JMP loc_BANK2_9274
 
 ; ---------------------------------------------------------------------------
 
@@ -5404,13 +5407,13 @@ ENDIF
 
 EnemyBehavior_CheckDamagedInterrupt_CheckPidgit:
 	; killing pidgit leaves a flying carpet behind
-	CPY #Enemy_Pidgit
-	BNE EnemyBehavior_CheckDamagedInterrupt_SetDead
-
-	LDA ObjectProjectileTimer, X
-	BNE EnemyBehavior_CheckDamagedInterrupt_SetDead
-
-	JSR CreateFlyingCarpet
+;	CPY #Enemy_Pidgit
+;	BNE EnemyBehavior_CheckDamagedInterrupt_SetDead
+;
+;	LDA ObjectProjectileTimer, X
+;	BNE EnemyBehavior_CheckDamagedInterrupt_SetDead
+;
+;	JSR CreateFlyingCarpet
 
 EnemyBehavior_CheckDamagedInterrupt_SetDead:
 	LDA #EnemyState_Dead
@@ -5432,15 +5435,15 @@ EnemyTilemap1:
 	.db $F9, $F9 ; $04
 	; Wart vegetable (tomato)
 	.db $FB, $FB ; $06
-	; Tweeter
-	.db $CD, $CF ; $08
-	.db $CD, $CF ; $0A
-	; Porcupo
-	.db $C9, $CB ; $0C
-	.db $C9, $CB ; $0E
-	; Snifit
-	.db $71, $73 ; $10
-	.db $75, $77 ; $12
+	; Spiny
+	.db $69, $6B ; $08
+	.db $6D, $6F ; $0A
+	; Target
+	.db $C1, $C3 ; $0C
+	.db $C1, $C3 ; $0E
+	; Bullet bill
+	.db $49, $4B ; $10
+	.db $49, $4B ; $12
 	; BobOmb
 	.db $C1, $C3 ; $14
 	.db $C5, $C7 ; $16
@@ -5449,9 +5452,9 @@ EnemyTilemap1:
 	.db $E5, $E7 ; $1A
 	.db $E1 ,$E3 ; $1C
 	.db $E5 ,$E7 ; $1E
-	; Ninji
-	.db $78, $7A ; $20
-	.db $7C, $7E ; $22
+	; Goomba
+	.db $41, $43 ; $20
+	.db $45, $47 ; $22
 	; Beezo
 	.db $DC, $DA ; $24
 	.db $DC, $DE ; $26
@@ -5482,14 +5485,14 @@ EnemyTilemap1:
 	.db $6B, $6D ; $42
 	.db $6D, $6F ; $44
 	; Puff of smoke, which can be two sprites tall for doors!
-	.db $3A, $3A ; $46
-	.db $3A, $3A ; $48
-	.db $38, $38 ; $4A
-	.db $38, $38 ; $4C
-	.db $36, $36 ; $4E
-	.db $36, $36 ; $50
-	.db $34, $34 ; $52
-	.db $34, $34 ; $54
+	.db $35, $35 ; $46
+	.db $35, $35 ; $48
+	.db $37, $37 ; $4A
+	.db $37, $37 ; $4C
+	.db $39, $39 ; $4E
+	.db $39, $39 ; $50
+	.db $3B, $3B ; $52
+	.db $3B, $3B ; $54
 	; Bullet
 	.db $AE, $FB ; $56
 	.db $AE, $FB ; $58
@@ -5586,7 +5589,7 @@ ENDIF
 ; $FF is used to make an enemy invisible
 ;
 EnemyAnimationTable:
-	.db $00 ; $00 Enemy_Heart
+	.db $0C ; $00 Eneny_Target
 	.db $00 ; $01 Enemy_ShyguyRed
 	.db $08 ; $02 Enemy_Tweeter
 	.db $00 ; $03 Enemy_ShyguyPink
@@ -5602,10 +5605,12 @@ EnemyAnimationTable:
 	.db $20 ; $0D Enemy_NinjiRunning
 	.db $20 ; $0E Enemy_NinjiJumping
 	.db $24 ; $0F Enemy_BeezoDiving
-	.db $24 ; $10 Enemy_BeezoStraight
-	.db $BE ; $11 Enemy_WartBubble
-	.db $00 ; $12 Enemy_Pidgit
-	.db $86 ; $13 Enemy_Trouter
+
+	.db $20 ; $10 Enemy_Goomba
+	.db $10 ; $11 Enemy_BulletBill
+	.db $08 ; $12 Enemy_Spiny
+	.db $5C ; $13 Enemy_Piranha
+
 	.db $88 ; $14 Enemy_Hoopstar
 	.db $FF ; $15 Enemy_JarGeneratorShyguy
 	.db $FF ; $16 Enemy_JarGeneratorBobOmb
@@ -5748,6 +5753,9 @@ RenderSprite_Albatoss:
 
 ; =============== S U B R O U T I N E =======================================
 
+RenderSprite_Invisible:
+	RTS
+
 ;
 ; Renders a sprite for an object based on the enemy animation table lookup
 ;
@@ -5762,127 +5770,14 @@ RenderSprite:
 	CMP #$FF
 	BEQ RenderSprite_Invisible
 
-	CPY #Enemy_Mouser
-	BNE RenderSprite_NotMouser
-
-	JMP RenderSprite_Mouser
-
-RenderSprite_NotMouser:
-	CPY #Enemy_Clawgrip
-	BNE RenderSprite_NotClawgrip
-
-	JMP RenderSprite_Clawgrip
-
-RenderSprite_NotClawgrip:
-	CPY #Enemy_ClawgripRock
-	BNE RenderSprite_NotClawgripRock
-
-	JMP RenderSprite_ClawgripRock
-
-RenderSprite_NotClawgripRock:
-	CPY #Enemy_HawkmouthBoss
-	BNE RenderSprite_NotHawkmouthBoss
-
-	JMP RenderSprite_HawkmouthBoss
-
-RenderSprite_Invisible:
-	RTS
-
-RenderSprite_NotHawkmouthBoss:
-	CPY #Enemy_Pidgit
-	BNE RenderSprite_NotPidgit
-
-	JMP RenderSprite_Pidgit
-
-RenderSprite_NotPidgit:
-	CPY #Enemy_Porcupo
-	BNE RenderSprite_NotPorcupo
-
-;	JMP RenderSprite_Porcupo TODO OPTIZE HERE LATER
-
 RenderSprite_NotPorcupo:
 	CPY #Enemy_VegetableLarge
-	BNE RenderSprite_NotVegetableLarge
+	BNE RenderSprite_NotAlbatoss
 
 	JMP RenderSprite_VegetableLarge
 
-RenderSprite_NotVegetableLarge:
-	CPY #Enemy_Autobomb
-	BNE RenderSprite_NotAutobomb
-
-	JMP RenderSprite_Autobomb
-
-RenderSprite_NotAutobomb:
-	CPY #Enemy_Fryguy
-	BNE RenderSprite_NotFryguy
-
-	JMP RenderSprite_Fryguy
-
-RenderSprite_NotFryguy:
-	CPY #Enemy_HawkmouthLeft
-	BNE RenderSprite_NotHawkmouthLeft
-
-	JMP RenderSprite_HawkmouthLeft
-
-RenderSprite_NotHawkmouthLeft:
-	CPY #Enemy_Wart
-	BNE RenderSprite_NotWart
-
-	JMP RenderSprite_Wart
-
-RenderSprite_NotWart:
-	CPY #Enemy_WhaleSpout
-	BNE RenderSprite_NotWhaleSpout
-
-	JMP RenderSprite_WhaleSpout
-
-RenderSprite_NotWhaleSpout:
-	CPY #Enemy_Pokey
-	BNE RenderSprite_NotPokey
-
-	JMP RenderSprite_Pokey
-
-RenderSprite_NotPokey:
-;	CPY #Enemy_Heart
-;	BNE RenderSprite_NotHeart
-
-	; This jump appears to never be taken;
-	; I don't think this code even runs with an enemy ID of 0 (heart)
-;	JMP RenderSprite_Heart
-
-RenderSprite_NotHeart:
-	CPY #Enemy_Ostro
-	BNE RenderSprite_NotOstro
-
-	JMP RenderSprite_Ostro
-
-RenderSprite_NotOstro:
-	CPY #Enemy_Tryclyde
-	BNE RenderSprite_NotTryclyde
-
-	JMP RenderSprite_Tryclyde
-
-RenderSprite_NotTryclyde:
-	CPY #Enemy_Birdo
-	BNE RenderSprite_NotBirdo
-
-	JMP RenderSprite_Birdo
-
-RenderSprite_NotBirdo:
-	CPY #Enemy_AlbatossCarryingBobOmb
-	BCC RenderSprite_NotAlbatoss
-
-	CPY #Enemy_NinjiRunning
-	BCS RenderSprite_NotAlbatoss
-
-	JMP RenderSprite_Albatoss
-
 RenderSprite_NotAlbatoss:
 	LDY ObjectType, X
-	CPY #Enemy_Rocket
-	BNE RenderSprite_NotRocket
-
-	JMP RenderSprite_Rocket
 
 RenderSprite_NotRocket:
 	LDA EnemyAnimationTable, Y
@@ -6447,8 +6342,8 @@ ApplyObjectPhysics_HorizontalSpecialCases:
 	CMP #Enemy_BeezoDiving
 	BEQ ApplyObjectPhysics_PositionHi
 
-	CMP #Enemy_BeezoStraight
-	BEQ ApplyObjectPhysics_PositionHi
+;	CMP #Enemy_BeezoStraight
+;	BEQ ApplyObjectPhysics_PositionHi
 
 	LDY IsHorizontalLevel
 	BEQ ApplyObjectPhysics_Exit
@@ -6605,11 +6500,11 @@ EnemyTilemap2:
 	.db $01, $03 ; $58
 	; Tryclyde head (spit)
 	.db $05, $07 ; $5A
-	; Cobrat
-	.db $55, $59 ; $5C
-	.db $5B, $5D ; $5E
-	.db $F0, $F2 ; $60
-	.db $F4, $F6 ; $62
+	; Piranha
+	.db $81, $83 ; $5C
+	.db $A1, $A3 ; $5E
+	.db $85, $87 ; $60
+	.db $A5, $A7 ; $62
 	; Cobrat (spit)
 	.db $45, $59 ; $64
 	.db $5B, $5D ; $66
@@ -7753,73 +7648,8 @@ byte_BANK3_A652:
 	.db $05
 ; ---------------------------------------------------------------------------
 
-RenderSprite_Ostro:
-	JSR RenderSprite_NotRocket
-
-	LDA byte_RAM_EE
-	AND #$0E
-	ORA byte_RAM_EF
-	ORA EnemyArray_B1, X
-	BNE locret_BANK3_A67C
-
-	LDA ObjectYLo, X
-	SEC
-	SBC #$02
-	STA byte_RAM_0
-	LDY EnemyMovementDirection, X
-	LDA byte_RAM_1
-	CLC
-	ADC byte_BANK3_A652 - 1, Y
-	STA byte_RAM_1
-	JSR FindSpriteSlot
-
-	LDX #$3C
-	JSR SetSpriteTiles
-
-	LDX byte_RAM_12
-
-locret_BANK3_A67C:
-	RTS
 
 ; ---------------------------------------------------------------------------
-
-EnemyBehavior_Ostro:
-	LDA EnemyArray_B1, X
-	BNE loc_BANK3_A6DB
-
-	LDA ObjectBeingCarriedTimer, X
-	BEQ loc_BANK3_A6BD
-
-	LDA #Enemy_ShyguyRed
-	STA ObjectType, X
-	JSR SetEnemyAttributes
-
-	JSR CreateEnemy
-
-	BMI locret_BANK3_A6BC
-
-	LDY byte_RAM_0
-	LDA #Enemy_Ostro
-	STA ObjectType, Y
-	STA EnemyArray_B1, Y
-	LDA ObjectXLo, X
-	STA ObjectXLo, Y
-	LDA ObjectXHi, X
-	STA ObjectXHi, Y
-	LDA EnemyRawDataOffset, X
-	STA EnemyRawDataOffset, Y
-	LDA #$FF
-	STA EnemyRawDataOffset, X
-	LDA ObjectXVelocity, X
-	STA ObjectXVelocity, Y
-	TYA
-	TAX
-	JSR SetEnemyAttributes
-
-	LDX byte_RAM_12
-
-locret_BANK3_A6BC:
-	RTS
 
 ; ---------------------------------------------------------------------------
 
@@ -8250,7 +8080,6 @@ EnemyInit_Cobrats:
 	STA EnemyVariable, X
 	RTS
 
-
 ;
 ; Cobrat (Ground)
 ; ===============
@@ -8498,103 +8327,8 @@ PokeyHitbox:
 
 
 EnemyBehavior_Pokey:
-	LDA EnemyVariable, X
-	BNE loc_BANK3_AA2D
-
-	JSR EnemyBehavior_CheckDamagedInterrupt
-
-	JSR EnemyBehavior_CheckBeingCarriedTimerInterrupt
-
-	JSR EnemyBehavior_Check42FPhysicsInterrupt
-
-loc_BANK3_AA2D:
-	LDA EnemyCollision, X
-	AND #$10
-	BEQ loc_BANK3_AA3A
-
-	JSR sub_BANK3_AA3E
-
-	INC ObjectProjectileTimer, X
-	RTS
-
-; ---------------------------------------------------------------------------
-
-loc_BANK3_AA3A:
-	LDA ObjectBeingCarriedTimer, X
-	BEQ loc_BANK3_AA99
-
-; =============== S U B R O U T I N E =======================================
-
-sub_BANK3_AA3E:
-	LDA EnemyVariable, X
-	BEQ loc_BANK3_AA99
-
-	STA EnemyArray_477, X
-	LDA #$00
-	STA EnemyVariable, X
-	LDA #$02
-	STA ObjectHitbox, X
-	LDA EnemyRawDataOffset, X
-	STA byte_RAM_6
-	LDA #$FF
-	STA EnemyRawDataOffset, X
-	JSR CreateEnemy
-
-	BMI loc_BANK3_AA99
-
-	LDY byte_RAM_0
-	LDA #Enemy_Pokey
-	STA ObjectType, Y
-	JSR RenderSprite_Tryclyde_ResetAttributes
-
-	LDY byte_RAM_0
-	LDA byte_RAM_6
-	STA EnemyRawDataOffset, Y
-	LDA EnemyArray_477, X
-	SEC
-	SBC #$01
-	STA EnemyVariable, Y
-	TAY
-
-	LDA PokeyHitbox, Y
-	LDY byte_RAM_0
-	STA ObjectHitbox, Y
-	LDA ObjectXLo, X
-	STA ObjectXLo, Y
-	LDA ObjectXHi, X
-	STA ObjectXHi, Y
-	LDA ObjectYLo, X
-	CLC
-	ADC #$10
-	STA ObjectYLo, Y
-	LDA ObjectYHi, X
-	ADC #$00
-	STA ObjectYHi, Y
-
-loc_BANK3_AA99:
-	INC ObjectAnimationTimer, X
-	LDA ObjectAnimationTimer, X
-	AND #$3F
-	BNE loc_BANK3_AAA4
-
-	JSR EnemyInit_BasicMovementTowardPlayer
-
-loc_BANK3_AAA4:
-	JSR ApplyObjectPhysicsX
-
-	JMP RenderSprite
-
-; End of function sub_BANK3_AA3E
-
 
 PokeyWiggleOffset:
-	.db $00
-	.db $01
-	.db $00
-	.db $FF
-	.db $00
-	.db $01
-	.db $00
 
 
 RenderSprite_Pokey:
@@ -8796,32 +8530,6 @@ EnemyBehavior_Rocket_Carry:
 	JSR CarryObject
 
 RenderSprite_Rocket:
-	LDA SpriteTempScreenY
-	STA byte_RAM_0
-	LDA SpriteTempScreenX
-	SEC
-	SBC #$08
-	STA byte_RAM_1
-	LDA #$02
-	STA byte_RAM_2
-	STA byte_RAM_5
-	STA byte_RAM_C
-	LDA ObjectAttributes, X
-	AND #$23
-	STA byte_RAM_3
-	LDY #$00
-	LDX #$96
-	JSR loc_BANK2_9C53
-
-	LDA byte_RAM_1
-	CLC
-	ADC #$10
-	STA byte_RAM_1
-	DEC byte_RAM_2
-	LDA SpriteTempScreenY
-	STA byte_RAM_0
-	LDY #$10
-	LDX #$96
 	JMP loc_BANK2_9C53
 
 
@@ -10022,7 +9730,7 @@ EnemyBehavior_Wart_PhysicsX:
 	STA ObjectXVelocity, X
 	LDA WartBubbleYVelocity, Y
 	STA ObjectYVelocity, X
-	LDA #Enemy_WartBubble
+	LDA #Enemy_BulletBill
 	STA ObjectType, X
 	LDA ObjectYLo, X
 	ADC #$08
@@ -10950,26 +10658,9 @@ CheckCollisionWithPlayer:
 
 	; check if it's a heart
 	LDA ObjectType, Y
-	BNE CheckCollisionWithPlayer_NotHeart
-
-	; accept the heart into your life
-	STA EnemyState, Y
-	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue2
-	LDY PlayerMaxHealth
-	LDA PlayerHealth
-	CLC
-	ADC #$10
-	STA PlayerHealth
-	CMP PlayerHealthValueByHeartCount, Y
-	BCC CheckCollisionWithPlayer_Exit
-
-	JMP RestorePlayerToFullHealth
-
-; ---------------------------------------------------------------------------
 
 CheckCollisionWithPlayer_NotHeart:
-  CMP #Enemy_Porcupo
+  CMP #Enemy_Target
   BEQ CheckCollisionWithPlayer_Exit
 
 	CMP #Enemy_Phanto
@@ -11116,10 +10807,10 @@ CheckCollisionWithPlayer_StandingOnHead:
 
 	; leave a flying carpet behind if we're picking up pidgit
 	LDA ObjectType, X
-	CMP #Enemy_Pidgit
-	BNE CheckCollisionWithPlayer_NoLift
-
-	JSR CreateFlyingCarpet
+;	CMP #Enemy_Pidgit
+;	BNE CheckCollisionWithPlayer_NoLift
+;
+;	JSR CreateFlyingCarpet
 
 CheckCollisionWithPlayer_NoLift:
 	LDX byte_RAM_ED
