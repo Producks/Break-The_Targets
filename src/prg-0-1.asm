@@ -1926,7 +1926,8 @@ PlayerStartJump_CheckXSpeed:
 	BCC PlayerStartJump_SetYVelocity
 
 	; Clear Player1JoypadHeld for a crouch jump
-	LDA #$00
+	LDA Player1JoypadHeld ; TODO check overhead later!
+  AND #ControllerInput_B
 	STA Player1JoypadHeld
 
 PlayerStartJump_SetYVelocity:
@@ -2279,6 +2280,16 @@ locret_BANK0_8E41:
 ; ---------------------------------------------------------------------------
 
 loc_BANK0_8E42:
+  LDA RestrictionType
+  CMP #ThrowRestriction
+  BNE Throwww
+
+  LDA RestrictionsCount
+  BEQ locret_BANK0_8E41
+  DEC RestrictionsCount
+  JSR UpdateHudRestrictions
+
+Throwww:
 	LDA #SpriteAnimation_Throwing
 	STA PlayerAnimationFrame
 	LDA #$02
@@ -4182,11 +4193,11 @@ DumpHudInMemoryLoop:
   RTS
 
 AreaHudRestrictionPTRLo:
-  .db <JumpText
+  .db <ThrowsText
   .db <ThrowsText
   .db <TimeText
 AreaHudRestrictionPTRHi:
-  .db >JumpText
+  .db >ThrowsText
   .db >ThrowsText
   .db >TimeText
 
@@ -4203,6 +4214,9 @@ ThrowsText:
 
 TimeText:
   .db $7C, $1A, $17, $19, $18, $7C ; Time
+
+NoneText:
+  .db $7C, $1B, $1D, $1B, $18, $7C ; None
 
 Area0LevelName:
   .db $7D, $33, $60, $71, $66, $64, $73, $7D

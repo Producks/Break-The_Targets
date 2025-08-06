@@ -288,6 +288,8 @@ PlayerHealth_4_HP = $3F
 ; Restriction type
 NoRestriction = $00
 JumpRestriction = $01
+ThrowRestriction = $02
+TimeRestriction = $03
 
 
 ; enum PPUMaskBitmask (bitfield) (width 1 byte)

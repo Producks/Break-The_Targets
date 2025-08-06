@@ -9,7 +9,7 @@ RestrictionCountTable:
   .db $02, $03, $0F, $0F
 
 RestrictionTypeTable:
-  .db NoRestriction, JumpRestriction, JumpRestriction
+  .db TimeRestriction, JumpRestriction, JumpRestriction
 
 ScreenCountArea:
   .db $01, $01, $09
