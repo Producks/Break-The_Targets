@@ -1,0 +1,11 @@
+Test:
+distTo +
+enemy $6, $6, $00
+enemy $c, $6, $10
++	distTo + 
+enemy $8, $3, $00
+enemy $d, $9, $12
+enemy $0, $a, $00
+enemy $6, $a, $13
++ distTo +
++

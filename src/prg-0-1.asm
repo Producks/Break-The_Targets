@@ -1551,7 +1551,6 @@ PlayerTileCollision_CheckClimbable:
   CLC
   RTS
 
-
 	LDA byte_RAM_0
 	LDY #$09
 

@@ -37,19 +37,19 @@ EnemyDataPTRHi:
   .db >EnemyData_Level_1_1_Area16
 
 EnemyData_Level_1_1_Area0:
-; Page 0
-  distTo + ; $05 (2 enemies)
-;	enemy $7, $A, Enemy_Piranha
-;	enemy $6, $A, Enemy_Piranha
 
-; Page 1
-+	distTo + ; $01 (0 enemies)
-
-; Page 2
-+	distTo + ; $01 (0 enemies)
-
-; End of enemy data
+distTo +
+enemy $6, $6, $00
+enemy $c, $6, $10
++	distTo + 
+enemy $8, $3, $00
+enemy $d, $9, $12
+enemy $0, $a, $00
+enemy $6, $a, $13
++ distTo +
 +
+
+
 
 EnemyData_Level_1_1_Area1:
 EnemyData_Level_1_1_Area2:
