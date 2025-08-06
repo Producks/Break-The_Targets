@@ -2,7 +2,7 @@
 
 ; Targets number, Index by current area
 TargetsCountTable:
-  .db $02, $00, $0F, $0F
+  .db $03, $00, $0F, $0F
 
 ; Restriction table, Index by current area
 RestrictionCountTable:

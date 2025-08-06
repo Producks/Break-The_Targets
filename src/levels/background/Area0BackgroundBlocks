@@ -1,4 +1,4 @@
-BackgroundArea0:
+Area0BackgroundBlocks:
 .db $09, $00
 .db $01, $04
 .db $14, $00

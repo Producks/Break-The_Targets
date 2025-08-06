@@ -36,19 +36,8 @@ EnemyDataPTRHi:
   .db >EnemyData_Level_1_1_Area15
   .db >EnemyData_Level_1_1_Area16
 
-EnemyData_Level_1_1_Area0:
 
-distTo +
-enemy $6, $6, $00
-enemy $c, $6, $10
-+	distTo + 
-enemy $8, $3, $00
-enemy $d, $9, $12
-enemy $0, $a, $00
-enemy $6, $a, $13
-+ distTo +
-+
-
+.include "src/levels/sprites/EnemyData_Level_1_1_Area0"
 
 
 EnemyData_Level_1_1_Area1:

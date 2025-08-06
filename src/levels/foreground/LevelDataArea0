@@ -1,4 +1,4 @@
-Area0:
+LevelDataArea0:
 .db $FD, $71
 .db $40
 .db $FD, $0f
@@ -14,15 +14,17 @@ Area0:
 .db $FD, $01
 .db $01
 .db $FD, $28
-.db $FF
-.db $FD, $6d
+.db $FE
+.db $FD, $5d
 .db $50
 .db $FD, $0e
 .db $FC, $03, $90
-.db $FD, $14
+.db $FD, $24
 .db $0e
 .db $50
-.db $FD, $0e
+.db $FD, $05
+.db $FC, $03, $00
+.db $FD, $06
 .db $0c
 .db $FD, $0f
 .db $0c

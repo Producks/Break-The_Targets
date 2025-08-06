@@ -23,8 +23,8 @@ void parse_data(std::vector<std::vector<int>> &vector, int index, std::ofstream 
 
 void iterate_data(std::vector<std::vector<int>> &vector) {
   int screen_size = (vector[0].size() / WIDTH_LENGTH);
-  std::ofstream dst(area_name);
-  
+  std::ofstream dst("../src/levels/sprites/" + area_name);
+
   dst << area_name << ":" << std::endl;
   dst << "distTo +" << std::endl;
 

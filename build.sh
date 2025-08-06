@@ -13,54 +13,13 @@ build() {
 	tools/asm6f smb2.asm -n -c -L bin/smb2.nes bin/smb2.lst "$@" > bin/assembler.log
 }
 
+cd ./tiled_parser
 
+./foreground Area0_Foreground.csv "LevelDataArea0"
+./background Area0_Background.csv "Area0BackgroundBlocks"
+./sprites  Area0_Sprites.csv "EnemyData_Level_1_1_Area0"
 
-if [ "$1" = "test" ] ; then
-
-	buildErr=0
-
-	build
-
-	if [ $? -ne 0 ] ; then
-		echo 'Failed building PRG0!'
-		buildErr=1
-
-	elif ! compareHash $PRG0 'bin/smb2.nes' ; then
-		echo 'PRG0 build did not match PRG0!'
-		buildErr=1
-	fi
-
-	build -dREV_A
-
-	if [ $? -ne 0 ] ; then
-		echo 'Failed building PRG1!'
-		buildErr=1
-
-	elif ! compareHash $PRG1 'bin/smb2.nes' ; then
-		echo 'PRG1 build did not match PRG1!'
-		buildErr=1
-	fi
-
-	build -dSM_USA
-
-	if [ $? -ne 0 ] ; then
-		echo 'Failed building SM_USA!'
-		buildErr=1
-
-	elif ! compareHash $SM_USA 'bin/smb2.nes' ; then
-		echo 'SM_USA build did not match SM_USA!'
-		buildErr=1
-	fi
-
-	if [ $buildErr -ne 0 ] ; then
-		echo 'Test failed'
-		exit $buildErr
-	else
-		echo 'Test passed: PRG0 and PRG1 built and matched original ROMs'
-		exit $buildErr
-	fi
-
-fi
+cd ..
 
 echo 'Assembling...'
 build $@
@@ -72,16 +31,4 @@ fi
 
 echo 'Build succeeded.'
 
-if compareHash $PRG0 'bin/smb2.nes' -eq 0 ; then
-	echo 'Matched PRG0 ROM'
-	exit 0
-elif compareHash $PRG1 'bin/smb2.nes' -eq 0 ; then
-	echo 'Matched PRG1 ROM'
-	exit 0
-else
-	echo 'Did not match either ROM'
-	exit -1
-fi
-
-
-
+cmd.exe /c start C:/Users/davet/Desktop/Mesen.exe //wsl.localhost/Ubuntu/home/dave/Double-Trouble/bin/smb2.nes > /dev/null 2>&1

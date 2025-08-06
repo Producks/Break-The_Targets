@@ -76,27 +76,7 @@ BackgroundBlocks_Hi:
   .db >Area15BackgroundBlocks
   .db >Area16BackgroundBlocks
 
-Area0BackgroundBlocks:
-.db $09, $00
-.db $01, $04
-.db $14, $00
-.db $01, $06
-.db $06, $00
-.db $01, $06
-.db $01, $05
-.db $01, $00
-.db $07, $01
-.db $01, $00
-.db $FE
-.db $0e, $00
-.db $01, $04
-.db $02, $00
-.db $01, $04
-.db $18, $00
-.db $01, $01
-.db $01, $02
-.db $04, $01
-.db $FF
+.include "src/levels/background/Area0BackgroundBlocks"
 
 Area1BackgroundBlocks:
   .db $FF
