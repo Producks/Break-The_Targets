@@ -69,6 +69,27 @@ MusicCredit:
 AttributeEndScreen:
 	.db $00
 
+Ditto:
+	.db $B9, $41, $33, $1A
+	.db $B9, $43, $33, $22
+	.db $B9, $45, $33, $2A
+	.db $B9, $47, $33, $32
+
+	.db $C9, $61, $33, $1A
+	.db $C9, $63, $33, $22
+	.db $C9, $65, $33, $2A
+	.db $C9, $67, $33, $32
+
+	.db $B9, $41, $33, $CA
+	.db $B9, $43, $33, $D2
+	.db $B9, $45, $33, $DA
+	.db $B9, $47, $33, $E2
+
+	.db $C9, $61, $33, $CA
+	.db $C9, $63, $33, $D2
+	.db $C9, $65, $33, $DA
+	.db $C9, $67, $33, $E2
+
 ; End
 
 ShowEndScreen:
@@ -89,6 +110,8 @@ ShowEndScreen:
   STA ScreenUpdateIndex
   LDA #CHRBank_Ending
   STA BackgroundCHR1
+  LDA #CHRBank_InfoScreen_Sprites2
+  STA SpriteCHR2
 
 	LDA PPUSTATUS
 	LDA #$3F
@@ -103,8 +126,17 @@ PaletteLoopEndScreen:
 	CPY #$20
 	BCC PaletteLoopEndScreen
 
+  LDY #$00
+DumpSpritesCreditLoop:
+  LDA Ditto, Y
+  STA SpriteDMAArea, Y
+  INY
+  CPY #$40
+  BNE DumpSpritesCreditLoop
+
   JSR EnableNMI
 
+  JSR WaitForNMI
 	JSR WaitForNMI_TurnOnPPU
 
   LDA #<music_data_pictionary_
@@ -115,7 +147,59 @@ PaletteLoopEndScreen:
   STA CurrentMusicBank
   INC MusicUpdate
 
+DancinDittoAnimationCredit:
+  INC DittoDanceCounter
+  LDA DittoDanceCounter
+  CMP #$08
+  BNE InfiniteEndingLoop
+  LDA #$00
+  STA DittoDanceCounter ; reset counter
+
+  LDA SpriteDMAArea + 1
+  CMP #$59
+  BNE UpdateDittoSpriteCredit
+
+ResetDanceCredit:
+  LDY #$01
+  LDX #$00
+ResetDanceLoopCredit:
+  LDA SpriteDMAArea, Y
+  SEC
+  SBC #$18
+  STA SpriteDMAArea, Y
+  LDA SpriteDMAArea + 32, Y 
+  SEC
+  SBC #$18
+  STA SpriteDMAArea + 32, Y
+  INY
+  INY
+  INY
+  INY
+  INX
+  CPX #$08
+  BNE ResetDanceLoopCredit
+  JMP InfiniteEndingLoop
+
+UpdateDittoSpriteCredit:
+  LDX #$00 ; Index
+  LDY #$01
+UpdateDittoSpriteCreditLoop:
+  LDA SpriteDMAArea, Y
+  CLC
+  ADC #$08
+  STA SpriteDMAArea, Y
+  LDA SpriteDMAArea + 32, Y 
+  CLC
+  ADC #$08
+  STA SpriteDMAArea + 32, Y
+  INY
+  INY
+  INY
+  INY
+  INX
+  CPX #$08
+  BNE UpdateDittoSpriteCreditLoop
+
 InfiniteEndingLoop:
   JSR WaitForNMI
-  JMP InfiniteEndingLoop
-  
+  JMP DancinDittoAnimationCredit

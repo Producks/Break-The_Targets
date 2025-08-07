@@ -1984,12 +1984,12 @@ CurrentSongArea:
   .db $03
 
 MusicTracksAreaLo:
-  .db <together_we_ride
+  .db <song_of_storm
   .db <music_data_duck_tales
   .db <music_data_treasure_master
 
 MusicTracksAreaHi:
-  .db >together_we_ride
+  .db >song_of_storm
   .db >music_data_duck_tales
   .db >music_data_treasure_master
 
