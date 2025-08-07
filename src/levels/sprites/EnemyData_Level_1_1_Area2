@@ -1,0 +1,15 @@
+EnemyData_Level_1_1_Area2:
+distTo +
+enemy $d, $a, $12
++	distTo + 
++	distTo + 
+enemy $9, $5, $12
+enemy $e, $8, $00
+enemy $0, $9, $10
++	distTo + 
+enemy $9, $3, $00
++	distTo + 
++	distTo + 
+enemy $9, $6, $00
++ distTo +
++

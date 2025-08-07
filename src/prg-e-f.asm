@@ -539,15 +539,16 @@ RestrictionsCountUnderTen:
   RTS
 
 AreaXSpawnPosition:
-  .db $21, $20
+  .db $21, $20, $68
 
 AreaYSpawnPosition:
-  .db $81, $20
+  .db $81, $20, $92
 
 AreaPlayerDirection:
-  .db $01, $01
+  .db $01, $01, $01
 
 ; Areas don't always spawn you in the same place, this take care of putting you in the right position. :)
+; POSITION SPAWN
 SetCharacterPositionTransition:
   LDY CurrentLevelArea
   LDA AreaXSpawnPosition, Y
@@ -3568,11 +3569,12 @@ TileCollisionAttributesTable:
 	.db %11111111 ; Tile_Solid_Seventh_FP
 	.db %11111111 ; Tile_Solid_Eighth_FP
 
-	.db %11110000 ; $10
-	.db %11110000 ; $11
-	.db %00000100 ; $12
-	.db %00000100 ; $13
-	.db %00000100 ; $14
+	.db %11111111 ; Solid_Block_Animated_Mario3
+	.db %00000000 ; Tile_Coin_Animated_Mario3
+	.db %11111111 ; Tile_Plant_Animated_Mario3
+	.db %11111111 ; Tile_Spike_Mario3
+
+	.db %11111111 ; Tile_Spike_Mario3_d
 	.db %00000100 ; $15
 	.db %00000100 ; $16
 	.db %00000100 ; $17
@@ -3759,10 +3761,11 @@ TileCollisionAttributesTable:
 ;
 	.db %00000000 ; Tile_Sky_Background
 	.db %00000000 ; Tile_Empty_Hud
-	.db %11110000 ; $C2
-	.db %11110000 ; $C3
-	.db %11110000 ; $C4
-	.db %11110000 ; $C5
+	.db %00000000 ; Tile_Mario3_Cutoff
+	.db %00000000 ; Tile_Mario3_Pyramid_left
+	.db %00000000 ; Tile_Mario3_Pyramid_righ
+	.db %00000000 ; Tile_SolidBlack_Sky
+
 	.db %11110000 ; $C6
 	.db %11110000 ; $C7
 	.db %11110000 ; $C8
@@ -3852,11 +3855,13 @@ TileInteractionAttributesTable:
 	.db %00000000 ; Tile_Solid_Seventh_FP
 	.db %00000000 ; Tile_Solid_Eighth_FP
 
-	.db %00000000 ; $10
-	.db %00000000 ; $11
-	.db %00000000 ; $12
-	.db %00000000 ; $13
-	.db %00000000 ; $14
+	.db %00000000 ; Solid_Block_Animated_Mario3
+	.db %00000000 ; Tile_Coin_Animated_Mario3
+	.db %00000000 ; Tile_Plant_Animated_Mario3
+	.db %00000001 ; Tile_Spike_Mario3
+
+	.db %00000001 ; Tile_Spike_Mario3_d
+
 	.db %00000000 ; $15
 	.db %00000100 ; $16
 	.db %00000000 ; $17
@@ -4043,10 +4048,10 @@ TileInteractionAttributesTable:
 ;
 	.db %00000000 ; Tile_Sky_Background
 	.db %00000000 ; Tile_Empty_Hud
-	.db %00000000 ; $C2
-	.db %00000000 ; $C3
-	.db %00000000 ; $C4
-	.db %00000000 ; $C5
+	.db %00000000 ; Tile_Mario3_Cutoff
+	.db %00000000 ; Tile_Mario3_Pyramid_left
+	.db %00000000 ; Tile_Mario3_Pyramid_righ
+	.db %00000000 ; Tile_SolidBlack_Sky
 	.db %00000000 ; $C6
 	.db %00000000 ; $C7
 	.db %00000000 ; $C8
@@ -4405,11 +4410,14 @@ TileQuads1:
 	.db $60, $62, $61, $63 ; Tile_Solid_Seventh_FP
 	.db $64, $66, $65, $67 ; Tile_Solid_Eighth_FP
 
-	.db $33, $33, $33, $33 ; $40
-	.db $E8, $EB, $A9, $A9 ; $44
-	.db $74, $76, $75, $77 ; $48
-	.db $98, $9A, $99, $9B ; $4C
-	.db $9C, $9A, $9D, $9B ; $50
+	.db $84, $86, $85, $87 ; Solid_Block_Animated_Mario3
+	.db $88, $8A, $89, $8B ; Tile_Coin_Animated_Mario3
+	.db $8C, $8E, $8D, $8F ; Tile_Plant_Animated_Mario3
+	.db $24, $26, $25, $27 ; Tile_Spike_Mario3
+
+	.db $44, $46, $45, $47 ; Tile_Spike_Mario3_d
+
+
 	.db $9C, $9E, $9B, $9F ; $54
 	.db $58, $5A, $59, $5B ; $58
 	.db $5E, $5F, $5E, $5F ; $5C
@@ -4551,10 +4559,11 @@ TileQuads4:
 
 	.db $7D, $7D, $7D, $7D ; Tile_Empty_Hud
 
-	.db $BA, $BC, $BB, $BD ; $08
-	.db $BA, $BC, $90, $91 ; $0C
-	.db $FA, $FA, $FA, $FA ; $10
-	.db $FA, $FA, $FA, $FA ; $14
+	.db $18, $1A, $19, $1B ; Tile_Mario3_Cutoff
+	.db $38, $3A, $39, $3B ; Tile_Mario3_Pyramid_left
+	.db $3C, $3E, $3D, $3F ; Tile_Mario3_Pyramid_righ
+	.db $FD, $FD, $FD, $FD ; Tile_SolidBlack_Sky
+
 	.db $FD, $FD, $FD, $FD ; $18
 	.db $61, $63, $61, $63 ; $1C
 	.db $65, $63, $65, $63 ; $20

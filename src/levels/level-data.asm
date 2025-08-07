@@ -1,17 +1,19 @@
 LevelDataAreaLo:
   .db <LevelDataArea0
   .db <LevelDataArea1
+  .db <LevelDataArea2
 
 LevelDataAreaHi:
   .db >LevelDataArea0
   .db >LevelDataArea1
+  .db >LevelDataArea2
 
 .include "src/levels/foreground/LevelDataArea0"
 
 .include "src/levels/foreground/LevelDataArea1"
 
-LevelDataArea2:
-  .db $FF
+.include "src/levels/foreground/LevelDataArea2"
+
 
 LevelDataArea3:
   .db $FF

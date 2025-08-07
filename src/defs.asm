@@ -407,6 +407,11 @@ Tile_Solid_Sixth_FP =         $0D
 Tile_Solid_Seventh_FP =       $0E
 Tile_Solid_Eighth_FP =        $0F
 
+Solid_Block_Animated_Mario3 = $10
+Tile_Coin_Animated_Mario3 =   $11
+Tile_Plant_Animated_Mario3 =  $12
+Tile_Spike_Mario3          =  $13
+Tile_Spike_Mario3_d          =$14
 
 ; Palette 1 range 0x40 to 0x80
 Tile_Background_First_SP =    $40
@@ -465,7 +470,24 @@ Tile_Cloud_TP =               $90
 Tile_Sky_Background =         $C0
 Tile_Empty_Hud      =         $C1
 
-; enum BackgroundTileIds
+Tile_Mario3_Cutoff  =         $C2
+Tile_Mario3_Pyramid_left =    $C3
+Tile_Mario3_Pyramid_righ  =   $C4
+Tile_SolidBlack_Sky       =   $C5
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;;;;;;dTileIds
 BackgroundTile_Black = $00
 BackgroundTile_BgCloudLeft = $01
 BackgroundTile_BgCloudRight = $02
@@ -946,6 +968,10 @@ CHRBank_Hud = $32
 CHRBANK_Mario1_TileSet = $34
 CHRBANK_Mario1_SpriteSet_Top = $36
 CHRBANK_Mario1_SpriteSet_Bottom = $37
+
+CHRBank_Mario3_TileSet = $38
+CHRBank_Mario3_SpriteTopSet = $3A
+CHRBank_Mario3_SpriteBottomSet = $3B
 
 CHRBank_ChanceBG1 = $34
 CHRBank_ChanceBG2 = $36

@@ -2879,7 +2879,7 @@ PickUpToEnemyTypeTable:
 	.db Enemy_MushroomBlock ; $01
 	.db Enemy_MushroomBlock ; $02
 	.db Enemy_POWBlock ; $03
-	.db Enemy_VegetableLarge ; $04
+	.db Enemy_VegetableSmall ; $04
 	.db Enemy_VegetableLarge ; $05
 	.db Enemy_VegetableSmall ; $06
 	.db Enemy_Rocket ; $07
@@ -4195,16 +4195,21 @@ DumpHudInMemoryLoop:
 AreaHudRestrictionPTRLo:
   .db <TimeText
   .db <ThrowsText
-  .db <TimeText
+  .db <NoneText
 AreaHudRestrictionPTRHi:
   .db >TimeText
   .db >ThrowsText
-  .db >TimeText
+  .db >NoneText
 
 LevelNameHudPTRLo:
-  .db <Area0LevelName, <Area1LevelName
+  .db <Area0LevelName
+  .db <Area1LevelName
+  .db <Area2LevelName
+
 LevelNameHudPTRHi:
-  .db >Area0LevelName, >Area1LevelName
+  .db >Area0LevelName
+  .db >Area1LevelName
+  .db >Area2LevelName
 
 JumpText:
   .db $0C, $0E, $19, $0F, $1C, $0D ; Jumps!
@@ -4229,8 +4234,8 @@ Area1LevelName:
   .db $31, $64, $60, $62, $73, $68, $6E, $6D ; Reaction
 
 Area2LevelName:
-  .db $01, $01, $01, $01, $01, $01, $01, $01
-  .db $01, $01, $01, $01, $01, $01, $01, $01
+  .db $7D, $32, $6F, $68, $6A, $64, $78, $7D ; Spikey
+  .db $7D, $23, $64, $72, $64, $71, $73, $7D ; Desert
 
 Area3LevelName:
   .db $01, $01, $01, $01, $01, $01, $01, $01

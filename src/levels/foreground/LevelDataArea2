@@ -1,0 +1,127 @@
+LevelDataArea2:
+.db $FD, $9e
+.db $40
+.db $41
+.db $FD, $02
+.db $42
+.db $43
+.db $FD, $01
+.db $45
+.db $FD, $02
+.db $45
+.db $FD, $01
+.db $42
+.db $43
+.db $FD, $02
+.db $42
+.db $43
+.db $FD, $10
+.db $FE
+.db $FD, $0a
+.db $FC, $06, $0a
+.db $FD, $0a
+.db $FC, $05, $14
+.db $0a
+.db $FD, $76
+.db $50
+.db $FD, $02
+.db $0a
+.db $FD, $08
+.db $45
+.db $FD, $03
+.db $10
+.db $FD, $02
+.db $0a
+.db $FC, $06, $13
+.db $FD, $09
+.db $0c
+.db $FD, $06
+.db $FE
+.db $FC, $12, $0a
+.db $FC, $05, $14
+.db $0a
+.db $FC, $08, $14
+.db $FD, $37
+.db $51
+.db $FD, $0d
+.db $FC, $05, $10
+.db $FD, $04
+.db $13
+.db $FD, $0e
+.db $FC, $03, $10
+.db $FD, $20
+.db $FC, $10, $13
+.db $FD, $10
+.db $FE
+.db $FC, $10, $0a
+.db $FC, $10, $14
+.db $FD, $28
+.db $FC, $03, $13
+.db $FD, $0d
+.db $FC, $03, $0a
+.db $FD, $0d
+.db $FC, $03, $14
+.db $FD, $2a
+.db $10
+.db $FD, $01
+.db $10
+.db $FD, $01
+.db $10
+.db $FD, $01
+.db $10
+.db $FD, $01
+.db $10
+.db $FD, $02
+.db $FC, $10, $13
+.db $FD, $10
+.db $FE
+.db $FC, $0a, $0a
+.db $FD, $06
+.db $FC, $04, $0a
+.db $FC, $06, $14
+.db $FD, $06
+.db $FC, $03, $0a
+.db $FD, $0d
+.db $FC, $03, $14
+.db $FD, $2d
+.db $FC, $03, $13
+.db $FD, $0d
+.db $FC, $03, $0a
+.db $FD, $0d
+.db $FC, $03, $14
+.db $FD, $03
+.db $50
+.db $FD, $0e
+.db $FC, $03, $10
+.db $FD, $08
+.db $FC, $0a, $13
+.db $FD, $02
+.db $42
+.db $43
+.db $FD, $01
+.db $45
+.db $FD, $10
+.db $FE
+.db $FD, $84
+.db $c3
+.db $c4
+.db $FD, $0d
+.db $c3
+.db $FD, $02
+.db $c4
+.db $FD, $05
+.db $c3
+.db $c4
+.db $FD, $02
+.db $c2
+.db $c5
+.db $c3
+.db $FC, $04, $c5
+.db $c4
+.db $FC, $03, $c5
+.db $c3
+.db $FC, $02, $c5
+.db $c4
+.db $c5
+.db $FD, $10
+.db $FF
