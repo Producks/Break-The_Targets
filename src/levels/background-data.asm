@@ -18,6 +18,13 @@ TableTopLeftBackGroundBlock:
   .db Tile_Mario3_Cutoff       ; Cutoff mario 3
   .db Tile_SolidBlack_Sky       ; BLACK
 
+  .db Tile_Solid_Seventh_SP     ; Pipe stuff gl
+  .db Backgroundtile_Solid_Pipe_09 ; LOL
+  .db Backgroundtile_Solid_Pipe_10 ; LOL
+  .db Backgroundtile_Solid_Pipe_05 ; this sucks
+  .db Backgroundtile_Solid_Pipe_06 ; LOLOOL
+  .db Backgroundtile_Solid_Pipe_06
+
 TableTopRightBackgroundBlock:
   .db Tile_Sky_Background
   .db Tile_Solid_Fith_FP
@@ -33,6 +40,12 @@ TableTopRightBackgroundBlock:
   .db Tile_Background_Second_SP
   .db Tile_SolidBlack_Sky
   .db Tile_SolidBlack_Sky
+  .db Tile_Solid_Eighth_SP
+  .db Backgroundtile_Solid_Pipe_09
+  .db Backgroundtile_Solid_Pipe_10
+  .db Backgroundtile_Solid_Pipe_06
+  .db Backgroundtile_Solid_Pipe_06
+  .db Backgroundtile_Solid_Pipe_01
 
 TableBottomLeftBackGroundBlock:
   .db Tile_Sky_Background
@@ -49,6 +62,12 @@ TableBottomLeftBackGroundBlock:
   .db Tile_Background_Third_SP
   .db Tile_Mario3_Cutoff
   .db Tile_SolidBlack_Sky
+  .db Tile_Solid_First_SP
+  .db Backgroundtile_Solid_Pipe_09
+  .db Backgroundtile_Solid_Pipe_10
+  .db Backgroundtile_Solid_Pipe_07
+  .db Backgroundtile_Solid_Pipe_08
+  .db Backgroundtile_Solid_Pipe_08
 
 TableBottomRightBackgroundBlock:
   .db Tile_Sky_Background
@@ -65,6 +84,12 @@ TableBottomRightBackgroundBlock:
   .db Tile_Background_Fourth_SP
   .db Tile_SolidBlack_Sky
   .db Tile_SolidBlack_Sky
+  .db Tile_Solid_Second_SP
+  .db Backgroundtile_Solid_Pipe_09
+  .db Backgroundtile_Solid_Pipe_10
+  .db Backgroundtile_Solid_Pipe_08
+  .db Backgroundtile_Solid_Pipe_08
+  .db Backgroundtile_Solid_Pipe_03
 
 BackgroundBlocks_Lo:
   .db <Area0BackgroundBlocks
@@ -107,10 +132,7 @@ BackgroundBlocks_Hi:
 .include "src/levels/background/Area0BackgroundBlocks"
 .include "src/levels/background/Area1BackgroundBlocks"
 .include "src/levels/background/Area2BackgroundBlocks"
-
-
-Area3BackgroundBlocks:
-  .db $FF
+.include "src/levels/background/Area3BackgroundBlocks"
 
 Area4BackgroundBlocks:
   .db $FF

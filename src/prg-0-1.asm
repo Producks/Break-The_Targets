@@ -4196,20 +4196,24 @@ AreaHudRestrictionPTRLo:
   .db <TimeText
   .db <ThrowsText
   .db <NoneText
+  .db <TimeText
 AreaHudRestrictionPTRHi:
   .db >TimeText
   .db >ThrowsText
   .db >NoneText
+  .db >TimeText
 
 LevelNameHudPTRLo:
   .db <Area0LevelName
   .db <Area1LevelName
   .db <Area2LevelName
+  .db <Area3LevelName
 
 LevelNameHudPTRHi:
   .db >Area0LevelName
   .db >Area1LevelName
   .db >Area2LevelName
+  .db >Area3LevelName
 
 JumpText:
   .db $0C, $0E, $19, $0F, $1C, $0D ; Jumps!
@@ -4238,7 +4242,8 @@ Area2LevelName:
   .db $7D, $23, $64, $72, $64, $71, $73, $7D ; Desert
 
 Area3LevelName:
-  .db $01, $01, $01, $01, $01, $01, $01, $01
+  .db $33, $68, $6C, $64, $7D, $68, $72, $7D ; Time is
+  .db $7D, $2C, $6E, $6D, $64, $78, $7D, $7D ; money
 
 
 Area4LevelName:

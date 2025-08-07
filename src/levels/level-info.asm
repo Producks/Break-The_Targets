@@ -2,21 +2,23 @@
 
 ; Targets number, Index by current area
 TargetsCountTable:
-  .db $03, $04, $03, $0F
+  .db $03, $04, $03, $03
 
 ; Restriction table, Index by current area
 RestrictionCountTable:
-  .db $0F, $02, $00, $0F
+  .db $0F, $02, $00, $03
 
 RestrictionTypeTable:
   .db TimeRestriction
   .db ThrowRestriction
   .db NoRestriction
+  .db TimeRestriction
 
 ScreenCountArea:
   .db $01 ; 0
   .db $02 ; 1
   .db $05 ; 2
+  .db $04 ; 3
 
 ;
 ; #### Palette pointers
@@ -25,11 +27,13 @@ PalettePTRLo:
 	.db <Area0Palette
   .db <Area1Palette
   .db <Area2Palette
+  .db <Area3Palette
 
 PalettePTRHi:
 	.db >Area0Palette
   .db >Area1Palette
   .db >Area2Palette
+  .db >Area3Palette
 
 Area0Palette:
 ; Background
@@ -92,6 +96,27 @@ Area2Palette:
   .db CHRBank_Animated1
 ; Sprite chr banks
   .db CHRBank_Luigi
+  .db CHRBank_Mario3_SpriteTopSet
+  .db CHRBank_Mario3_SpriteBottomSet
+  .db CHRBank_Global_Sprites
+
+Area3Palette:
+; Day
+	.db $37, $0F, $36, $27 ; $04
+	.db $37, $0F, $2A, $1B ; $08
+	.db $37, $0F, $30, $3C ; $00
+	.db $37, $00, $0F, $30 ; $0C
+
+	.db $37, $01, $2A, $36 ; Luigi
+	.db $37, $30, $16, $0F ; $00
+	.db $37, $0F, $30, $2A ; $08
+	.db $37, $0F, $30, $2A ; $04
+
+; Background chr banks
+  .db CHRBank_Mario3_TileSet_Pipe
+  .db CHRBank_Animated1
+; Sprite chr banks
+  .db CHRBank_Toad
   .db CHRBank_Mario3_SpriteTopSet
   .db CHRBank_Mario3_SpriteBottomSet
   .db CHRBank_Global_Sprites

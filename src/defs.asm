@@ -445,6 +445,19 @@ BackgroundTile_GrassPow =         $58
 BackgroundTile_GrassBobOmb =      $59
 BackgroundTile_GrassInactive =    $5A
 
+Backgroundtile_Solid_Pipe_01 =    $5B
+Backgroundtile_Solid_Pipe_02 =    $5C
+Backgroundtile_Solid_Pipe_03 =    $5D
+Backgroundtile_Solid_Pipe_04 =    $5E
+
+Backgroundtile_Solid_Pipe_05 =    $5F
+Backgroundtile_Solid_Pipe_06 =    $60
+Backgroundtile_Solid_Pipe_07 =    $61
+Backgroundtile_Solid_Pipe_08 =    $62
+
+Backgroundtile_Solid_Pipe_09 =    $63
+Backgroundtile_Solid_Pipe_10 =    $64
+
 ; Palette 2 range 0x80 to 0xC0
 Tile_Background_First_TP =    $80
 Tile_Background_Second_TP =   $81
@@ -465,6 +478,7 @@ Tile_Solid_Seventh_TP =       $8E
 Tile_Solid_Eighth_TP =        $8F
 
 Tile_Cloud_TP =               $90
+Tile_Upsidedown_Cloud_TP =    $91
 
 ; Palette 2 range 0xC0 to 0xFF
 Tile_Sky_Background =         $C0
@@ -972,6 +986,8 @@ CHRBANK_Mario1_SpriteSet_Bottom = $37
 CHRBank_Mario3_TileSet = $38
 CHRBank_Mario3_SpriteTopSet = $3A
 CHRBank_Mario3_SpriteBottomSet = $3B
+
+CHRBank_Mario3_TileSet_Pipe = $3C
 
 CHRBank_ChanceBG1 = $34
 CHRBank_ChanceBG2 = $36

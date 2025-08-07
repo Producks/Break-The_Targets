@@ -395,7 +395,7 @@ RosalinaPalette:
   .db $0F, $08, $2C, $36
 
 CurrentCharacterTable:
-  .db Character_Mario, Character_Mario, Character_Luigi
+  .db Character_Mario, Character_Mario, Character_Luigi, Character_Toad
 
 LoadCurrentAreaCharacter:
   LDY CurrentLevelArea

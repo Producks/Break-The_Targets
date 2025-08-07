@@ -1,0 +1,38 @@
+LevelDataArea3:
+.db $FD, $76
+.db $11
+.db $FD, $49
+.db $FE
+.db $FD, $29
+.db $11
+.db $FD, $2f
+.db $5c
+.db $FD, $06
+.db $11
+.db $FD, $06
+.db $5c
+.db $12
+.db $63
+.db $12
+.db $FC, $02, $5c
+.db $12
+.db $FD, $02
+.db $11
+.db $FD, $05
+.db $5c
+.db $63
+.db $5c
+.db $63
+.db $5c
+.db $FC, $02, $63
+.db $5c
+.db $FD, $03
+.db $11
+.db $FD, $0f
+.db $11
+.db $FD, $2e
+.db $FE
+.db $FD, $c0
+.db $FE
+.db $FD, $c0
+.db $FF

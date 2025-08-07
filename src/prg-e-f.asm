@@ -475,9 +475,9 @@ HorizontalLevel_CheckTransition:
 	LDA TargetsCount
 	BNE HorizontalLevel_CheckScroll
 
-  LDA CurrentLevelArea
-  CMP #$00
-  BEQ CallEnding
+;  LDA CurrentLevelArea
+;  CMP #$00
+;  BEQ CallEnding
 
   JSR DoAreaReset
 
@@ -539,13 +539,13 @@ RestrictionsCountUnderTen:
   RTS
 
 AreaXSpawnPosition:
-  .db $21, $20, $68
+  .db $21, $20, $68, $21
 
 AreaYSpawnPosition:
-  .db $81, $20, $92
+  .db $81, $20, $92, $81
 
 AreaPlayerDirection:
-  .db $01, $01, $01
+  .db $01, $01, $01, $01
 
 ; Areas don't always spawn you in the same place, this take care of putting you in the right position. :)
 ; POSITION SPAWN
@@ -1980,23 +1980,32 @@ ResetScrollNMI:
 
 CurrentSongArea:
   .db $01
+  .db $01
   .db $02
   .db $03
+  .db $04
+  .db $05
 
 MusicTracksAreaLo:
-  .db <song_of_storm
-  .db <music_data_duck_tales
-  .db <music_data_treasure_master
+  .db <music_data_coffin_dance    ; For Area 0 & 1
+  .db <music_data_treasure_master ; For area 2
+  .db <music_data_castlevania     ; For area 3
+  .db <song_of_storm              ; For area 4
+  .db <together_we_ride           ; For area 5
 
 MusicTracksAreaHi:
-  .db >song_of_storm
-  .db >music_data_duck_tales
+  .db >music_data_coffin_dance
   .db >music_data_treasure_master
+  .db >music_data_castlevania
+  .db >song_of_storm
+  .db >together_we_ride
 
 MusicTrackAreaBank:
-  .db $0C
-  .db $09
+  .db $05
   .db $0A
+  .db $05
+  .db $0C
+  .db $0C
 
 PlayAreaSong:
   LDY CurrentLevelArea
@@ -3654,16 +3663,18 @@ TileCollisionAttributesTable:
 	.db %00000000 ; BackgroundTile_GrassPow
 	.db %00000000 ; BackgroundTile_GrassBobOmb
 	.db %00000000 ; BackgroundTile_GrassInactive
-	.db %11110000 ; $5B
-	.db %11110000 ; $5C
-	.db %11110000 ; $5D
-	.db %11110000 ; $5E
-	.db %11110000 ; $5F
-	.db %00000100 ; $60
-	.db %00000100 ; $61
-	.db %00000100 ; $62
-	.db %00000100 ; $63
-	.db %00000100 ; $64
+
+	.db %11111111 ; Backgroundtile_Solid_Pipe_01
+	.db %11111111 ; Backgroundtile_Solid_Pipe_02
+	.db %11111111 ; Backgroundtile_Solid_Pipe_03
+	.db %11111111 ; Backgroundtile_Solid_Pipe_04
+	.db %11111111 ; Backgroundtile_Solid_Pipe_05
+	.db %11111111 ; Backgroundtile_Solid_Pipe_06
+	.db %11111111 ; Backgroundtile_Solid_Pipe_07
+	.db %11111111 ; Backgroundtile_Solid_Pipe_08
+	.db %11111111 ; Backgroundtile_Solid_Pipe_09
+	.db %11111111 ; Backgroundtile_Solid_Pipe_10
+
 	.db %00000100 ; $65
 	.db %00000100 ; $66
 	.db %00000100 ; $67
@@ -3713,7 +3724,8 @@ TileCollisionAttributesTable:
 	.db %11111111 ; Tile_Solid_Eighth_TP
 
 	.db %00000100 ; Tile_Cloud_TP
-	.db %00000100 ; $91
+	.db %00001000 ; Tile_Upsidedown_Cloud_TP
+
 	.db %00000100 ; $92
 	.db %00000100 ; $93
 	.db %00000100 ; $94
@@ -3941,16 +3953,18 @@ TileInteractionAttributesTable:
 	.db %00000000 ; $ BackgroundTile_GrassPow
 	.db %00000000 ; $ BackgroundTile_GrassBobOmb
 	.db %00000000 ; $ BackgroundTile_GrassInactive
-	.db %00000000 ; $5B
-	.db %00000000 ; $5C
-	.db %00000000 ; $5D
-	.db %00000000 ; $5E
-	.db %00000000 ; $5F
-	.db %00000000 ; $60
-	.db %00000000 ; $61
-	.db %00000000 ; $62
-	.db %00000000 ; $63
-	.db %00000000 ; $64
+
+	.db %00000000 ; Backgroundtile_Solid_Pipe_01
+	.db %00000000 ; Backgroundtile_Solid_Pipe_02
+	.db %00000000 ; Backgroundtile_Solid_Pipe_03
+	.db %00000000 ; Backgroundtile_Solid_Pipe_04
+	.db %00000000 ; Backgroundtile_Solid_Pipe_05
+	.db %00000000 ; Backgroundtile_Solid_Pipe_06
+	.db %00000000 ; Backgroundtile_Solid_Pipe_07
+	.db %00000000 ; Backgroundtile_Solid_Pipe_08
+	.db %00000000 ; Backgroundtile_Solid_Pipe_09
+	.db %00000000 ; Backgroundtile_Solid_Pipe_10
+
 	.db %00000000 ; $65
 	.db %00000000 ; $66
 	.db %00001100 ; $67
@@ -4000,7 +4014,8 @@ TileInteractionAttributesTable:
 	.db %00000000 ; Tile_Solid_Eighth_TP
 
 	.db %00000000 ; Tile_Cloud_TP
-	.db %00000000 ; $91
+	.db %00000000 ; Tile_Upsidedown_Cloud_TP
+
 	.db %00000000 ; $92
 	.db %00000000 ; $93
 	.db %00000000 ; $94
@@ -4471,16 +4486,21 @@ TileQuads2:
 	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassBobOmb
 	.db $FA, $FA, $80, $82 ; BackgroundTile_GrassInactive
 
-	.db $3C, $3E, $3D, $3F ; $6C
-	.db $58, $FD, $59, $5A ; $70
-	.db $5B, $5A, $FD, $FD ; $74
-	.db $5B, $5C, $FD, $5D ; $78
-	.db $FD, $FD, $5B, $5A ; $7C
-	.db $6C, $FE, $FE, $FE ; $80
-	.db $FE, $FE, $FE, $FE ; $84
-	.db $FE, $6E, $FE, $6F ; $88
-	.db $20, $22, $21, $23 ; $8C
-	.db $6E, $6F, $70, $71 ; $90
+	.db $00, $02, $01, $03 ; Backgroundtile_Solid_Pipe_01
+	.db $04, $06, $05, $07 ; Backgroundtile_Solid_Pipe_02
+
+	.db $20, $22, $21, $23 ; Backgroundtile_Solid_Pipe_03
+	.db $24, $26, $25, $27 ; Backgroundtile_Solid_Pipe_04
+
+	.db $40, $42, $41, $43 ; Backgroundtile_Solid_Pipe_05
+	.db $44, $46, $45, $47 ; Backgroundtile_Solid_Pipe_06
+
+	.db $60, $62, $61, $63 ; Backgroundtile_Solid_Pipe_07
+	.db $64, $66, $65, $67 ; Backgroundtile_Solid_Pipe_08
+
+	.db $70, $72, $71, $73 ; Backgroundtile_Solid_Pipe_09
+	.db $74, $76, $75, $77 ; Backgroundtile_Solid_Pipe_10
+
 	.db $57, $57, $FB, $FB ; $94
 	.db $57, $57, $FE, $FE ; $98
 	.db $D3, $D3, $FB, $FB ; $9C
@@ -4527,8 +4547,8 @@ TileQuads3:
 	.db $74, $76, $75, $77 ; Tile_Solid_Eighth_TP
 
 	.db $50, $52, $51, $53 ; Tile_Cloud_TP
+	.db $54, $56, $55, $57 ; Tile_Upsidedown_Cloud_TP
 
-	.db $AE, $AF, $AE, $AF ; $44
 	.db $78, $7A, $79, $7B ; $48
 	.db $A8, $A8, $AF, $AE ; $4C
 	.db $94, $95, $94, $95 ; $50
