@@ -1035,4 +1035,20 @@ CHRStartOption = $82
 CHRStartOptionAnimation = $88
 
 
+; DEfine music
+
+DancingTrack = $01
+TreasureTrack = $02
+ChildTrack = $03
+StormTrack = $04
+TogetherTrack = $05
+
+
+PRG_BANK_Dancing = $05
+PRG_BANK_Treasure = $0A
+PRG_BANK_Child = $05
+
+PRG_BANK_Storm = $0C
+PRG_BANK_Together = $0C
+
 .endinl

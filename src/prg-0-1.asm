@@ -2787,16 +2787,13 @@ PlayerTileCollision_CheckCherryAndClimbable_AfterTick:
 	BCS PlayerTileCollision_Climbable
 
 	LDA byte_RAM_0
-	CMP #BackgroundTile_Cherry
+	CMP #Tile_Coin_Animated_Mario3
 	BNE PlayerTileCollision_Climbable_Exit
 
-	INC CherryCount
-	LDA CherryCount
-	SBC #$05
-	BNE PlayerTileCollision_Cherry
-
-	STA CherryCount
-	JSR CreateStarman
+	INC RestrictionsCount
+  LDA #$60
+  STA Timer_60_Sec
+  JSR UpdateHudRestrictions
 
 PlayerTileCollision_Cherry:
 	LDA #SoundEffect1_CherryGet

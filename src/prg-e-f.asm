@@ -1979,33 +1979,40 @@ ResetScrollNMI:
   RTS
 
 CurrentSongArea:
-  .db $01
-  .db $01
-  .db $02
-  .db $03
-  .db $04
-  .db $05
+  .db DancingTrack
+  .db DancingTrack
+  .db TreasureTrack
+  .db ChildTrack
+  .db StormTrack
+  .db TogetherTrack
 
 MusicTracksAreaLo:
-  .db <music_data_coffin_dance    ; For Area 0 & 1
+  .db <music_data_coffin_dance    ; For Area 0 
+  .db <music_data_coffin_dance    ; For Area 1
+
   .db <music_data_treasure_master ; For area 2
+
   .db <music_data_castlevania     ; For area 3
   .db <song_of_storm              ; For area 4
   .db <together_we_ride           ; For area 5
 
 MusicTracksAreaHi:
   .db >music_data_coffin_dance
+  .db >music_data_coffin_dance
+
   .db >music_data_treasure_master
+
   .db >music_data_castlevania
   .db >song_of_storm
   .db >together_we_ride
 
 MusicTrackAreaBank:
-  .db $05
-  .db $0A
-  .db $05
-  .db $0C
-  .db $0C
+  .db PRG_BANK_Dancing
+  .db PRG_BANK_Dancing
+  .db PRG_BANK_Treasure
+  .db PRG_BANK_Child
+  .db PRG_BANK_Storm
+  .db PRG_BANK_Together
 
 PlayAreaSong:
   LDY CurrentLevelArea
