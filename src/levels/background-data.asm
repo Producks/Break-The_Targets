@@ -9,7 +9,10 @@ TableTopLeftBackGroundBlock:
   .db Tile_Solid_Seventh_SP     ; bottom of the pipe
   .db Tile_Background_First_TP  ; Cloud 4x4 third palette background
   .db Tile_Solid_Seventh_FP     ; Solid one tile block 4x4
-  .db Tile_Sky_Background       ; Top left sky, 3 solid one block tile 
+  .db Tile_Sky_Background       ; Top left sky, 3 solid one block tile
+  .db Tile_Background_Sixth_TP   ; Water...
+  .db Tile_Solid_Third_FP       ; 2 Solid block left and 2 sky right
+  .db Tile_Solid_Third_FP       ; 4 x4 solid
 
 TableTopRightBackgroundBlock:
   .db Tile_Sky_Background
@@ -19,6 +22,9 @@ TableTopRightBackgroundBlock:
   .db Tile_Background_Second_TP
   .db Tile_Solid_Seventh_FP
   .db Tile_Solid_Seventh_FP
+  .db Tile_Background_Sixth_TP 
+  .db Tile_Sky_Background
+  .db Tile_Solid_Third_FP
 
 TableBottomLeftBackGroundBlock:
   .db Tile_Sky_Background
@@ -28,6 +34,9 @@ TableBottomLeftBackGroundBlock:
   .db Tile_Background_Third_TP
   .db Tile_Solid_Seventh_FP
   .db Tile_Solid_Seventh_FP
+  .db Tile_Background_Eighth_TP 
+  .db Tile_Solid_Third_FP
+  .db Tile_Solid_Third_FP
 
 TableBottomRightBackgroundBlock:
   .db Tile_Sky_Background
@@ -37,6 +46,9 @@ TableBottomRightBackgroundBlock:
   .db Tile_Background_Fourth_TP
   .db Tile_Solid_Seventh_FP
   .db Tile_Solid_Seventh_FP
+  .db Tile_Background_Eighth_TP
+  .db Tile_Sky_Background
+  .db Tile_Solid_Third_FP
 
 BackgroundBlocks_Lo:
   .db <Area0BackgroundBlocks

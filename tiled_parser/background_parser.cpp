@@ -22,11 +22,10 @@ void parse_data(std::vector<std::vector<int>> &vector, int index, std::ofstream 
   int prev_value = 0xFF;
   int prev_value_length = 1;
 
-  for (int height = 0; height != HEIGHT_LENGTH; height++) {
-    for (int width = 0; width != WIDTH_LENGTH; width++) {
+  for (int height = 1; height != HEIGHT_LENGTH + 1; height += 2) {
+    for (int width = 0; width != WIDTH_LENGTH ; width += 2) {
       int value = vector[height][width + starting_index];
-      if (value == -1)
-        continue;
+      std::cout << value << std::endl;
       if (value == prev_value)
         prev_value_length++;
       else {

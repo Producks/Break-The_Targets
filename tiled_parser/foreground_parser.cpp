@@ -11,7 +11,7 @@ std::string area_name;
 
 void write_value(int prev_value, int prev_value_length, std::ofstream &dst) {
   if (prev_value == -1)
-    dst << ".db $FD, $" << std::hex << std::setw(2) << prev_value_length << std::endl;
+    dst << ".db $FD, $" << std::hex << std::setw(2) << std::setfill('0') << prev_value_length << std::endl;
   else if (prev_value_length == 1)
     dst << ".db $" << std::hex << std::setw(2) << std::setfill('0') << prev_value << std::endl;
   else

@@ -4218,13 +4218,15 @@ TimeText:
 NoneText:
   .db $7C, $1B, $1D, $1B, $18, $7C ; None
 
+; Target Practice
 Area0LevelName:
-  .db $7D, $33, $60, $71, $66, $64, $73, $7D
-  .db $2F, $71, $60, $62, $73, $68, $62, $64
+  .db $7D, $33, $60, $71, $66, $64, $73, $7D ; Target
+  .db $2F, $71, $60, $62, $73, $68, $62, $64 ; Practice
 
+; Chain Reaction
 Area1LevelName:
-  .db $03, $03, $03, $03, $03, $03, $03, $03
-  .db $03, $03, $03, $03, $03, $03, $03, $03
+  .db $7D, $22, $67, $60, $68, $6D, $7D, $7D ;  Chain  
+  .db $31, $64, $60, $62, $73, $68, $6E, $6D ; Reaction
 
 Area2LevelName:
   .db $01, $01, $01, $01, $01, $01, $01, $01

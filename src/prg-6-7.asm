@@ -281,7 +281,7 @@ SetPageRamIndex:
   INC RamIndexBottomHi
 
 SetYIndexBackground:
-LDY #$00
+  LDY #$00
 
 SkipAddBottomHi:
   LDX #$00 ; cheat way

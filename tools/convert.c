@@ -40,7 +40,7 @@ const static char magic_table[] = {
     0x00,
     0x00,
     0x00, 
-    0x7C, // Space 
+    0x7D, // Space 
     0x40, // !
     0x00,
     0x00,

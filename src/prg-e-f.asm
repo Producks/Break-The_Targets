@@ -539,7 +539,7 @@ RestrictionsCountUnderTen:
   RTS
 
 AreaXSpawnPosition:
-  .db $21, $10
+  .db $21, $20
 
 AreaYSpawnPosition:
   .db $81, $20
@@ -3373,7 +3373,7 @@ ObjectHitbox_Data:
 	.db $02 ; $10 Enemy_Goomba
 	.db $02 ; $11 Enemy_BulletBill
 	.db $02 ; $12 Enemy_Spiny
-	.db $04 ; $13 Enemy_Piranha
+	.db $01 ; $13 Enemy_Piranha
 
 	.db $02 ; $14 Enemy_Hoopstar
 	.db $08 ; $15 Enemy_JarGeneratorShyguy
