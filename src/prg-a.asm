@@ -1,0 +1,1 @@
+.include "src/music/treasure_master_stage1.asm"

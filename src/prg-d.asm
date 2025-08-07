@@ -1,12 +1,3 @@
-;
-; Bank C & Bank D
-; ===============
-;
-; What's inside:
-;
-;   - The ending sequence with Mario sleeping and the cast roll
-;
-
 EndScreenPalettes:
 	.db $0F, $30, $02, $02
 	.db $0F, $30, $26, $0F
@@ -127,7 +118,4 @@ PaletteLoopEndScreen:
 InfiniteEndingLoop:
   JSR WaitForNMI
   JMP InfiniteEndingLoop
-
-.pad $A000, $ff
-.include "src/music/together_we_ride.asm"
-.include "src/music/song_of_storm.asm"
+  

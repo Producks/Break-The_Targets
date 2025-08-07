@@ -131,16 +131,24 @@ ENDIF
 ; Banks A and B. Mostly bonus chance,
 ; character stats, and some PPU commands.
 ; Lots of empty space here too
-.base $8000
-.include "src/prg-a-b.asm"
+.base $A000
+.include "src/prg-a.asm"
+.pad $c000, $ff
+
+.base $A000
+.include "src/prg-b.asm"
 .pad $c000, $ff
 
 ; ----------------------------------------
 ; Banks C and D. The first half is
 ; a lot of data for the credits.
 ; The second half is totally empty.
-.base $8000
-.include "src/prg-c-d.asm"
+.base $A000
+.include "src/prg-c.asm"
+.pad $c000, $ff
+
+.base $A000
+.include "src/prg-d.asm"
 .pad $c000, $ff
 
 ; ----------------------------------------

@@ -770,6 +770,3 @@ IFDEF DEBUG
 ENDIF
 
 .include "src/music/silver_surfer_stage2.asm"
-
-.pad $A000, $ff
-.include "src/music/treasure_master_stage1.asm"

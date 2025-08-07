@@ -475,9 +475,9 @@ HorizontalLevel_CheckTransition:
 	LDA TargetsCount
 	BNE HorizontalLevel_CheckScroll
 
-;  LDA CurrentLevelArea
-;  CMP #$00
-;  BEQ CallEnding
+  LDA CurrentLevelArea
+  CMP #$00
+  BEQ CallEnding
 
   JSR DoAreaReset
 
@@ -1984,19 +1984,19 @@ CurrentSongArea:
   .db $03
 
 MusicTracksAreaLo:
-  .db <music_data_super_bell_hill
+  .db <together_we_ride
   .db <music_data_duck_tales
   .db <music_data_treasure_master
 
 MusicTracksAreaHi:
-  .db >music_data_super_bell_hill
+  .db >together_we_ride
   .db >music_data_duck_tales
   .db >music_data_treasure_master
 
 MusicTrackAreaBank:
-  .db $08
+  .db $0C
   .db $09
-  .db $0B
+  .db $0A
 
 PlayAreaSong:
   LDY CurrentLevelArea
