@@ -6,7 +6,7 @@ TargetsCountTable:
 
 ; Restriction table, Index by current area
 RestrictionCountTable:
-  .db $0F, $02, $00, $03
+  .db $0F, $02, $00, $02
 
 RestrictionTypeTable:
   .db TimeRestriction
@@ -18,7 +18,7 @@ ScreenCountArea:
   .db $01 ; 0
   .db $02 ; 1
   .db $05 ; 2
-  .db $04 ; 3
+  .db $03 ; 3
 
 ;
 ; #### Palette pointers
@@ -107,7 +107,7 @@ Area3Palette:
 	.db $37, $0F, $30, $3C ; $00
 	.db $37, $00, $0F, $30 ; $0C
 
-	.db $37, $01, $2A, $36 ; Luigi
+	.db $37, $01, $30, $27 ; Toad
 	.db $37, $30, $16, $0F ; $00
 	.db $37, $0F, $30, $2A ; $08
 	.db $37, $0F, $30, $2A ; $04

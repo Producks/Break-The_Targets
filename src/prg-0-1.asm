@@ -2794,10 +2794,10 @@ PlayerTileCollision_CheckCherryAndClimbable_AfterTick:
   LDA #$60
   STA Timer_60_Sec
   JSR UpdateHudRestrictions
+  LDA #SoundEffect2_CoinGet
+  STA SoundEffectQueue2
 
 PlayerTileCollision_Cherry:
-	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue2
 	LDA #Tile_Sky_Background
 	JMP loc_BANK0_937C
 

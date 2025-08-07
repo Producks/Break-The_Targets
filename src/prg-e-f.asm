@@ -3155,7 +3155,7 @@ ObjectAttributeTable:
 	.db ObjAttrib_Palette3 | ObjAttrib_16x32 ; $13 Enemy_Piranha
 	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $14 Enemy_Hoopstar
 	.db ObjAttrib_Palette0 ; $15 Enemy_JarGeneratorShyguy
-	.db ObjAttrib_Palette0 ; $16 Enemy_JarGeneratorBobOmb
+	.db ObjAttrib_Palette1 ; $16 Enemy_Falling_Platform
 	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $17 Enemy_Phanto
 	.db ObjAttrib_Palette1 | ObjAttrib_16x32 | ObjAttrib_UpsideDown ; $18 Enemy_CobratJar
 	.db ObjAttrib_Palette1 | ObjAttrib_16x32 ; $19 Enemy_CobratSand
@@ -3242,7 +3242,7 @@ EnemyArray_46E_Data:
 
 	.db SpriteFlags46E_00 ; $14 Enemy_Hoopstar
 	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $15 Enemy_JarGeneratorShyguy
-	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $16 Enemy_JarGeneratorBobOmb
+	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $16 Enemy_Falling_Platform
 	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $17 Enemy_Phanto
 	.db SpriteFlags46E_Tilemap2 ; $18 Enemy_CobratJar
 	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_DoubleSpeed ; $19 Enemy_CobratSand
@@ -3320,7 +3320,8 @@ EnemyArray_492_Data:
 
 	.db $05 ; $14 Enemy_Hoopstar
 	.db $0D ; $15 Enemy_JarGeneratorShyguy
-	.db $0D ; $16 Enemy_JarGeneratorBobOmb
+	.db $0D ; $16 Enemy_Falling_Platform
+
 	.db $05 ; $17 Enemy_Phanto
 	.db $0C ; $18 Enemy_CobratJar
 	.db $0C ; $19 Enemy_CobratSand
@@ -3398,7 +3399,8 @@ ObjectHitbox_Data:
 
 	.db $02 ; $14 Enemy_Hoopstar
 	.db $08 ; $15 Enemy_JarGeneratorShyguy
-	.db $08 ; $16 Enemy_JarGeneratorBobOmb
+	.db $02 ; $16 Enemy_Falling_Platform
+
 	.db $02 ; $17 Enemy_Phanto
 	.db $04 ; $18 Enemy_CobratJar
 	.db $04 ; $19 Enemy_CobratSand
@@ -3474,7 +3476,8 @@ EnemyPlayerCollisionTable:
 
 	.db $00 ; $14 Enemy_Hoopstar
 	.db $00 ; $15 Enemy_JarGeneratorShyguy
-	.db $00 ; $16 Enemy_JarGeneratorBobOmb
+	.db $00 ; $16 Enemy_Falling_Platform
+
 	.db $00 ; $17 Enemy_Phanto
 	.db $00 ; $18 Enemy_CobratJar
 	.db $00 ; $19 Enemy_CobratSand
@@ -3880,7 +3883,7 @@ TileInteractionAttributesTable:
 
 	.db %00000000 ; Solid_Block_Animated_Mario3
 	.db %00000000 ; Tile_Coin_Animated_Mario3
-	.db %00000000 ; Tile_Plant_Animated_Mario3
+	.db %00000001 ; Tile_Plant_Animated_Mario3
 	.db %00000001 ; Tile_Spike_Mario3
 
 	.db %00000001 ; Tile_Spike_Mario3_d

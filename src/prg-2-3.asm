@@ -815,7 +815,8 @@ EnemyInitializationTable:
 
 	.dw EnemyInit_Basic ; Hoopstar
 	.dw EnemyInit_JarGenerators ; JarGeneratorShyguy
-	.dw EnemyInit_JarGenerators ; JarGeneratorBobOmb
+	.dw EnemyInit_Basic ; Enemy_Falling_Platform
+
 	.dw EnemyInit_Phanto ; Phanto
 	.dw EnemyInit_Cobrats ; CobratJar
 	.dw EnemyInit_Cobrats ; CobratSand
@@ -2138,7 +2139,8 @@ EnemyBehaviorPointerTable:
 
 	.dw EnemyBehavior_Hoopstar ; $14
 	.dw EnemyBehavior_JarGenerators ; $15
-	.dw EnemyBehavior_JarGenerators ; $16
+	.dw EnemyBehavior_FallingPlatform ; Enemy_Falling_Platform
+  
 	.dw EnemyBehavior_Phanto ; $17
 	.dw EnemyBehavior_CobratJar ; $18
 	.dw EnemyBehavior_CobratGround ; $19
@@ -2662,8 +2664,8 @@ EnemyBehavior_JarGenerators_Active:
 	LDA #$F8
 	STA ObjectYVelocity, Y
 	LDA ObjectType, X
-	CMP #Enemy_JarGeneratorBobOmb
-	BNE locret_BANK2_8D5E
+;	CMP #Enemy_JarGeneratorBobOmb
+;	BNE locret_BANK2_8D5E
 
 	LDA #Enemy_BobOmb
 	STA ObjectType, Y
@@ -3421,6 +3423,24 @@ EnemyBehavior_Goomba
 EnemyBehavior_GoombaLeave:
   JMP EnemyBehavior_BasicWalker
 
+EnemyBehavior_FallingPlatform:
+  LDA EnemyVariable, X
+  BEQ CheckForCollisonPlatform
+
+  JSR ApplyObjectPhysicsY
+  JMP RenderSprite
+
+CheckForCollisonPlatform:
+  LDA EnemyCollision, X
+  AND #CollisionFlags_PlayerOnTop
+  BEQ RenderPlatform
+  LDA #$10
+  STA ObjectYVelocity, X
+  INC EnemyVariable, X
+
+RenderPlatform:
+  JMP RenderSprite
+
 EnemyBehavior_Target:
 	LDA EnemyCollision, X
 	AND #CollisionFlags_Damage
@@ -3435,8 +3455,7 @@ EnemyBehavior_Target:
 	JMP TurnIntoPuffOfSmoke
 
 TargetAlive:
-	JSR RenderSprite
-  RTS
+	JMP RenderSprite
 
 EnemyBehavior_PickUpNotCrystalBall:
 	CMP #Enemy_Mushroom1up
@@ -5471,8 +5490,8 @@ EnemyTilemap1:
 	; Bomb
 	.db $DB, $DD ; $34
 	.db $DB, $DD ; $36
-	; Mushroom block
-	.db $7D, $7F ; $38
+	; Enemy_Falling_Platform
+	.db $B1, $B3 ; $38
 	; POW block
 	.db $C1, $C3 ; $3A
 	; Block fizzle
@@ -5612,7 +5631,8 @@ EnemyAnimationTable:
 
 	.db $88 ; $14 Enemy_Hoopstar
 	.db $FF ; $15 Enemy_JarGeneratorShyguy
-	.db $FF ; $16 Enemy_JarGeneratorBobOmb
+	.db $38 ; $16 Enemy_Falling_Platform
+
 	.db $8C ; $17 Enemy_Phanto
 	.db $5C ; $18 Enemy_CobratJar
 	.db $5C ; $19 Enemy_CobratSand

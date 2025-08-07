@@ -789,7 +789,11 @@ Enemy_Piranha = $13
 
 Enemy_Hoopstar = $14 ; useless? probably free
 Enemy_JarGeneratorShyguy = $15
+
+Enemy_Falling_Platform =  $16
+
 Enemy_JarGeneratorBobOmb = $16
+
 Enemy_Phanto = $17 ; bye free
 Enemy_CobratJar = $18
 Enemy_CobratSand = $19

@@ -3,6 +3,13 @@ distTo +
 enemy $e, $6, $13
 +	distTo + 
 +	distTo + 
+enemy $6, $4, $16
+enemy $2, $6, $16
+enemy $c, $8, $00
+enemy $5, $9, $00
 +	distTo + 
+enemy $f, $1, $00
+enemy $a, $2, $13
+enemy $6, $6, $16
 + distTo +
 +

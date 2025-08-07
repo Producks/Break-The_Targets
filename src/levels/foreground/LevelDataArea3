@@ -1,24 +1,33 @@
 LevelDataArea3:
-.db $FD, $76
+.db $FD, $7a
+.db $12
 .db $11
-.db $FD, $49
+.db $FD, $44
 .db $FE
 .db $FD, $29
 .db $11
-.db $FD, $2f
+.db $FD, $1f
+.db $50
+.db $FD, $0d
+.db $12
+.db $FD, $01
 .db $5c
-.db $FD, $06
+.db $FD, $01
+.db $12
+.db $FD, $04
 .db $11
-.db $FD, $06
+.db $FD, $01
+.db $48
+.db $49
+.db $FD, $02
+.db $11
 .db $5c
 .db $12
 .db $63
 .db $12
 .db $FC, $02, $5c
 .db $12
-.db $FD, $02
-.db $11
-.db $FD, $05
+.db $FD, $08
 .db $5c
 .db $63
 .db $5c
@@ -26,13 +35,55 @@ LevelDataArea3:
 .db $5c
 .db $FC, $02, $63
 .db $5c
-.db $FD, $03
+.db $FD, $42
+.db $FE
+.db $FD, $2c
 .db $11
+.db $FD, $21
+.db $51
+.db $50
+.db $FD, $0c
+.db $12
+.db $4a
+.db $FC, $02, $64
+.db $FD, $60
+.db $FE
+.db $FD, $2c
+.db $91
+.db $90
+.db $91
+.db $5c
 .db $FD, $0f
+.db $63
+.db $FD, $0f
+.db $63
+.db $4b
+.db $12
+.db $FD, $0d
+.db $63
+.db $FD, $0a
+.db $48
+.db $49
+.db $90
+.db $91
+.db $90
+.db $63
+.db $FD, $0f
+.db $63
+.db $FD, $06
 .db $11
-.db $FD, $2e
-.db $FE
-.db $FD, $c0
-.db $FE
-.db $FD, $c0
+.db $FD, $08
+.db $63
+.db $FD, $06
+.db $11
+.db $FD, $07
+.db $90
+.db $63
+.db $FD, $0f
+.db $63
+.db $FD, $0a
+.db $4a
+.db $FC, $03, $64
+.db $4b
+.db $63
 .db $FF
