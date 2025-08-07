@@ -1326,6 +1326,8 @@ CopyUnusedCoinSpriteToSpriteArea_Loop:
 	RTS
 ENDIF
 
+.pad $DAC8, $FF
+
 ;
 ; NMI logic for during a transition
 ;
@@ -1977,21 +1979,23 @@ ResetScrollNMI:
   RTS
 
 CurrentSongArea:
-  .db $01, $01, $02
+  .db $01
+  .db $02
+  .db $03
 
 MusicTracksAreaLo:
-  .db <music_data_super_mario_bros_3
-  .db <music_data_super_mario_bros_3
+  .db <music_data_super_bell_hill
+  .db <music_data_duck_tales
   .db <music_data_treasure_master
 
 MusicTracksAreaHi:
-  .db >music_data_super_mario_bros_3
-  .db >music_data_super_mario_bros_3
+  .db >music_data_super_bell_hill
+  .db >music_data_duck_tales
   .db >music_data_treasure_master
 
 MusicTrackAreaBank:
-  .db $05
-  .db $05
+  .db $08
+  .db $09
   .db $0B
 
 PlayAreaSong:

@@ -1,0 +1,1 @@
+.include "src/music/3d_world.asm"

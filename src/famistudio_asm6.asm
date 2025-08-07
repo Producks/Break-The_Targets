@@ -7552,7 +7552,5 @@ UpdateAudio:
 .include "src/music/sfx.asm"
 
 .pad $A000, $ff
-;.include "src/music/title_screen_song.asm"
-
-.include "src/music/merio3.asm"
-.include "src/music/moon.asm"
+.include "src/music/dance.asm"
+.include "src/music/wicked_child.asm"

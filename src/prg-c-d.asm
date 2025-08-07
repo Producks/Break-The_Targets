@@ -129,4 +129,5 @@ InfiniteEndingLoop:
   JMP InfiniteEndingLoop
 
 .pad $A000, $ff
-;.include "src/music/silver_surfer_stage1.asm"
+.include "src/music/together_we_ride.asm"
+.include "src/music/song_of_storm.asm"

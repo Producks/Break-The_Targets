@@ -118,9 +118,14 @@ ENDIF
 ; ----------------------------------------
 ; Bank 8 and 9. Entirely level data.
 ; Some more unused space as usual.
-.base $8000
-.include "src/prg-8-9.asm"
+.base $A000
+.include "src/prg-8.asm"
 .pad $c000, $ff
+
+.base $A000
+.include "src/prg-9.asm"
+.pad $c000, $ff
+
 
 ; ----------------------------------------
 ; Banks A and B. Mostly bonus chance,

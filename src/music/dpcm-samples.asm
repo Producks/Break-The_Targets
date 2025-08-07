@@ -3,7 +3,6 @@
 ; @todo reformat to be less ugly
 ;
 
-.incbin "src/music/ninja3.dmc"
-.incbin "src/music/merio3.dmc"
+.incbin "src/music/3d_world.dmc"
 
 DPCMSampleData:
