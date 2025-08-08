@@ -396,7 +396,8 @@ RosalinaPalette:
 
 CurrentCharacterTable:
   .db Character_Mario, Character_Mario, Character_Luigi, Character_Toad
-  .db Character_Princess, Character_Princess, Character_Princess
+  .db Character_Princess, Character_Princess
+  .db Character_Wario
 
 LoadCurrentAreaCharacter:
   LDY CurrentLevelArea

@@ -27,6 +27,12 @@ TableTopLeftBackGroundBlock:
 
   .db Tile_Background_First_SP     ; Zelda 2 background
   .db Tile_Background_Sixth_SP      ; Lava
+  .db Tile_Gimmick_Star_Top_Left    ; star block
+  .db Animated_WaterFall_Top_Left   ; waterfalll
+  .db Tile_Gimmick_Top_Solid        ; generic gimmick tiles
+
+  .db Tile_Background_Fith_SP       ; Left towa
+  .db Tile_Background_Sixth_SP
 
 TableTopRightBackgroundBlock:
   .db Tile_Sky_Background
@@ -51,6 +57,13 @@ TableTopRightBackgroundBlock:
   .db Backgroundtile_Solid_Pipe_01
   .db Tile_Background_First_SP
   .db Tile_Background_Sixth_SP
+  .db Tile_Gimmick_Star_Top_Right
+  .db Animated_WaterFall_Top_Right
+  .db Tile_Gimmick_Top_Solid
+
+  .db Tile_Background_Seventh_SP
+
+  .db Animated_WaterFall_Top_Right
 
 TableBottomLeftBackGroundBlock:
   .db Tile_Sky_Background
@@ -75,6 +88,12 @@ TableBottomLeftBackGroundBlock:
   .db Backgroundtile_Solid_Pipe_08
   .db Tile_Background_First_SP
   .db Tile_Background_Eighth_SP
+  .db Tile_Gimmick_Star_Bottom_Left
+  .db Animated_WaterFall_Bottom_Left
+  .db Tile_Gimmick_Bottom_Solid
+
+  .db Tile_Background_Fith_SP
+  .db Tile_Background_Sixth_SP
 
 TableBottomRightBackgroundBlock:
   .db Tile_Sky_Background
@@ -99,6 +118,13 @@ TableBottomRightBackgroundBlock:
   .db Backgroundtile_Solid_Pipe_03
   .db Tile_Background_First_SP
   .db Tile_Background_Eighth_SP
+  .db Tile_Gimmick_Star_Bottom_Right
+  .db Animated_WaterFall_Bottom_Right
+  .db Tile_Gimmick_Bottom_Solid
+
+  .db Tile_Background_Seventh_SP
+
+  .db Animated_WaterFall_Bottom_Right
 
 BackgroundBlocks_Lo:
   .db <Area0BackgroundBlocks
@@ -144,10 +170,7 @@ BackgroundBlocks_Hi:
 .include "src/levels/background/Area3BackgroundBlocks"
 .include "src/levels/background/Area4BackgroundBlocks"
 .include "src/levels/background/Area5BackgroundBlocks"
-
-
-Area6BackgroundBlocks:
-  .db $FF
+.include "src/levels/background/Area6BackgroundBlocks"
 
 Area7BackgroundBlocks:
   .db $FF

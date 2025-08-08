@@ -43,9 +43,9 @@ EnemyDataPTRHi:
 .include "src/levels/sprites/EnemyData_Level_1_1_Area3"
 .include "src/levels/sprites/EnemyData_Level_1_1_Area4"
 .include "src/levels/sprites/EnemyData_Level_1_1_Area5"
+.include "src/levels/sprites/EnemyData_Level_1_1_Area6"
 
 
-EnemyData_Level_1_1_Area6:
 EnemyData_Level_1_1_Area7:
 EnemyData_Level_1_1_Area8:
 EnemyData_Level_1_1_Area9:

@@ -1,0 +1,17 @@
+LevelDataArea6:
+.db $FD, $4b
+.db $65
+.db $FD, $0e
+.db $47
+.db $80
+.db $66
+.db $FD, $63
+.db $FE
+.db $FD, $a8
+.db $8e
+.db $FD, $03
+.db $8e
+.db $FD, $13
+.db $FE
+.db $FD, $c0
+.db $FF

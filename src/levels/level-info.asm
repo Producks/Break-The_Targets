@@ -4,13 +4,17 @@
 TargetsCountTable:
   .db $03, $04, $03, $03
 
-  .db $05, $01, $03
+  .db $05, $01
+
+  .db $03
 
 ; Restriction table, Index by current area
 RestrictionCountTable:
   .db $0F, $02, $00, $02
 
-  .db $01, $10, $01
+  .db $01, $10
+
+  .db $10
 
 RestrictionTypeTable:
   .db TimeRestriction
@@ -20,6 +24,7 @@ RestrictionTypeTable:
 
   .db JumpRestriction
   .db TimeRestriction
+
   .db JumpRestriction
 
 ScreenCountArea:
@@ -30,7 +35,8 @@ ScreenCountArea:
 
   .db $00 ; Multiroom peach
   .db $00 ; Multiroom peach
-  .db $00 ; Multiroom peach
+
+  .db $02 ; gimmick
 
 ;
 ; #### Palette pointers
@@ -43,7 +49,8 @@ PalettePTRLo:
 
   .db <Area4Palette
   .db <Area5Palette
-  .db <Area4Palette
+
+  .db <Area6Palette
 
 PalettePTRHi:
 	.db >Area0Palette
@@ -53,7 +60,8 @@ PalettePTRHi:
 
   .db >Area4Palette
   .db >Area5Palette
-  .db >Area4Palette
+
+  .db >Area6Palette
 
 
 Area0Palette:
@@ -184,4 +192,25 @@ Area5Palette:
   .db CHRBank_MarioSleepingBackground12
   .db CHRBank_MarioSleepingBackground12
   .db CHRBank_MarioSleepingBackground12
+  .db CHRBank_Global_Sprites
+
+Area6Palette:
+; Day
+	.db $0F, $2C, $37, $30 ; $04
+	.db $0F, $00, $10, $30 ; $08
+	.db $0F, $31, $21, $30 ; $00
+	.db $0F, $00, $0F, $30 ; $0C
+
+	.db $0F, $05, $27, $36 ; Warrio
+	.db $0F, $30, $16, $06 ; $08
+	.db $0F, $06, $26, $30 ; $00
+	.db $0F, $02, $21, $30 ; $04
+
+; Background chr banks
+  .db CHRBank_Gimmick_TileSet
+  .db CHRBank_Animated1
+; Sprite chr banks
+  .db CHRBank_Wario
+  .db CHRBank_Gimmick_SpriteTop
+  .db CHRBank_Gimmick_SpriteBottom
   .db CHRBank_Global_Sprites

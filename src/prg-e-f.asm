@@ -1987,6 +1987,10 @@ CurrentSongArea:
   .db TreasureTrack
   .db ChildTrack
   .db StormTrack
+  .db StormTrack
+
+  .db ThreeDTrack
+
   .db TogetherTrack
 
 MusicTracksAreaLo:
@@ -1997,7 +2001,10 @@ MusicTracksAreaLo:
 
   .db <music_data_castlevania     ; For area 3
   .db <song_of_storm              ; For area 4
-  .db <together_we_ride           ; For area 5
+
+  .db <music_data_super_bell_hill ; For area 5
+
+  .db <together_we_ride           ; For area 6
 
 MusicTracksAreaHi:
   .db >music_data_coffin_dance
@@ -2007,6 +2014,9 @@ MusicTracksAreaHi:
 
   .db >music_data_castlevania
   .db >song_of_storm
+
+  .db >music_data_super_bell_hill
+
   .db >together_we_ride
 
 MusicTrackAreaBank:
@@ -2014,7 +2024,12 @@ MusicTrackAreaBank:
   .db PRG_BANK_Dancing
   .db PRG_BANK_Treasure
   .db PRG_BANK_Child
+
   .db PRG_BANK_Storm
+  .db PRG_BANK_Storm
+
+  .db PRG_Bank_ThreeD
+
   .db PRG_BANK_Together
 
 PlayAreaSong:
@@ -3601,12 +3616,14 @@ TileCollisionAttributesTable:
 	.db %11111111 ; Tile_Spike_Mario3
 
 	.db %11111111 ; Tile_Spike_Mario3_d
-	.db %00000100 ; $15
-	.db %00000100 ; $16
-	.db %00000100 ; $17
-	.db %00001111 ; $18
-	.db %00001111 ; $19
-	.db %10001111 ; $1A
+
+	.db %11111111 ; Tile_Gimmick_Bottom_Solid
+	.db %11111111 ; Tile_Gimmick_Top_Solid
+	.db %11111111 ; Tile_Gimmick_Star_Top_Left
+	.db %11111111 ; Tile_Gimmick_Star_Top_Right
+	.db %11111111 ; Tile_Gimmick_Star_Bottom_Left
+	.db %11111111 ; Tile_Gimmick_Star_Bottom_Right
+
 	.db %00001111 ; $1B
 	.db %00001111 ; $1C
 	.db %00001111 ; $1D
@@ -3688,8 +3705,9 @@ TileCollisionAttributesTable:
 	.db %11111111 ; Backgroundtile_Solid_Pipe_09
 	.db %11111111 ; Backgroundtile_Solid_Pipe_10
 
-	.db %00000100 ; $65
-	.db %00000100 ; $66
+	.db %00000000 ; Tower_Gimmick_Middle
+	.db %00000000 ; Tower_Gimmick_Right
+
 	.db %00000100 ; $67
 	.db %00000100 ; $68
 	.db %00001111 ; $69
@@ -3739,10 +3757,11 @@ TileCollisionAttributesTable:
 	.db %00000100 ; Tile_Cloud_TP
 	.db %00001000 ; Tile_Upsidedown_Cloud_TP
 
-	.db %00000100 ; $92
-	.db %00000100 ; $93
-	.db %00000100 ; $94
-	.db %00000100 ; $95
+	.db %00000000 ; Animated_WaterFall_Top_Left
+	.db %00000000 ; Animated_WaterFall_Top_Right
+	.db %00000000 ; Animated_WaterFall_Bottom_Left
+	.db %00000000 ; Animated_WaterFall_Bottom_Right
+
 	.db %00000100 ; $96
 	.db %00000100 ; $97
 	.db %00001111 ; $98
@@ -3891,12 +3910,13 @@ TileInteractionAttributesTable:
 
 	.db %00000001 ; Tile_Spike_Mario3_d
 
-	.db %00000000 ; $15
-	.db %00000100 ; $16
-	.db %00000000 ; $17
-	.db %00000000 ; $18
-	.db %00000000 ; $19
-	.db %00000001 ; $1A
+	.db %00000000 ; Tile_Gimmick_Bottom_Solid
+	.db %00000000 ; Tile_Gimmick_Top_Solid
+	.db %00000000 ; Tile_Gimmick_Star_Top_Left
+	.db %00000000 ; Tile_Gimmick_Star_Top_Right
+	.db %00000000 ; Tile_Gimmick_Star_Bottom_Left
+	.db %00000000 ; Tile_Gimmick_Star_Bottom_Right
+
 	.db %00000000 ; $1B
 	.db %00000000 ; $1C
 	.db %00000000 ; $1D
@@ -3978,8 +3998,9 @@ TileInteractionAttributesTable:
 	.db %00000000 ; Backgroundtile_Solid_Pipe_09
 	.db %00000000 ; Backgroundtile_Solid_Pipe_10
 
-	.db %00000000 ; $65
-	.db %00000000 ; $66
+	.db %00000000 ; Tower_Gimmick_Middle
+	.db %00000000 ; Tower_Gimmick_Right
+
 	.db %00001100 ; $67
 	.db %00001100 ; $68
 	.db %00000000 ; $69
@@ -4029,10 +4050,11 @@ TileInteractionAttributesTable:
 	.db %00000000 ; Tile_Cloud_TP
 	.db %00000000 ; Tile_Upsidedown_Cloud_TP
 
-	.db %00000000 ; $92
-	.db %00000000 ; $93
-	.db %00000000 ; $94
-	.db %00000000 ; $95
+	.db %00000000 ; Animated_WaterFall_Top_Left
+	.db %00000000 ; Animated_WaterFall_Top_Right
+	.db %00000000 ; Animated_WaterFall_Bottom_Left
+	.db %00000000 ; Animated_WaterFall_Bottom_Right
+
 	.db %00000000 ; $96
 	.db %00000000 ; $97
 	.db %00000000 ; $98
@@ -4450,12 +4472,14 @@ TileQuads1:
 	.db $44, $46, $45, $47 ; Tile_Spike_Mario3_d
 
 
-	.db $9C, $9E, $9B, $9F ; $54
-	.db $58, $5A, $59, $5B ; $58
-	.db $5E, $5F, $5E, $5F ; $5C
-	.db $8E, $8F, $8F, $8E ; $60
-	.db $72, $73, $73, $72 ; $64
-	.db $A6, $A6, $A7, $A7 ; $68
+	.db $02, $04, $03, $05 ; Tile_Gimmick_Bottom_Solid
+	.db $22, $24, $23, $25 ; Tile_Gimmick_Top_Solid
+
+	.db $58, $5A, $59, $5B ; Tile_Gimmick_Star_Top_Left
+	.db $5C, $5E, $5D, $5F ; Tile_Gimmick_Star_Top_Right
+	.db $78, $7A, $79, $7B ; Tile_Gimmick_Star_Bottom_Left
+	.db $7C, $7E, $7D, $7F ; Tile_Gimmick_Star_Bottom_Right
+
 	.db $92, $93, $93, $92 ; $6C
 	.db $74, $76, $75, $77 ; $70
 	.db $70, $72, $71, $73 ; $74
@@ -4473,7 +4497,7 @@ TileQuads2:
 	.db $0C, $0E, $0D, $0F ; Tile_Background_Second_TP
 	.db $28, $2A, $29, $2B ; Tile_Background_Third_TP
 	.db $2C, $2E, $2D, $2F ; Tile_Background_Fourth_TP
-	.db $48, $49, $4A, $4B ; Tile_Background_Fith_TP
+	.db $48, $4A, $49, $4B ; Tile_Background_Fith_TP
 	.db $4C, $4E, $4D, $4F ; Tile_Background_Sixth_TP
 	.db $68, $6A, $69, $6B ; Tile_Background_Seventh_TP
 	.db $6C, $6E, $6D, $6F ; Tile_Background_Eighth_TP
@@ -4514,8 +4538,9 @@ TileQuads2:
 	.db $70, $72, $71, $73 ; Backgroundtile_Solid_Pipe_09
 	.db $74, $76, $75, $77 ; Backgroundtile_Solid_Pipe_10
 
-	.db $57, $57, $FB, $FB ; $94
-	.db $57, $57, $FE, $FE ; $98
+	.db $18, $1A, $19, $1B ; Tower_Gimmick_Middle
+	.db $1C, $1E, $1D, $1F ; Tower_Gimmick_Right
+
 	.db $D3, $D3, $FB, $FB ; $9C
 	.db $D2, $D2, $FB, $FB ; $A0
 	.db $7C, $7E, $7D, $7F ; $A4
@@ -4562,10 +4587,11 @@ TileQuads3:
 	.db $50, $52, $51, $53 ; Tile_Cloud_TP
 	.db $54, $56, $55, $57 ; Tile_Upsidedown_Cloud_TP
 
-	.db $78, $7A, $79, $7B ; $48
-	.db $A8, $A8, $AF, $AE ; $4C
-	.db $94, $95, $94, $95 ; $50
-	.db $96, $97, $96, $97 ; $54
+	.db $98, $9A, $99, $9B ; Animated_WaterFall_Top_Left
+	.db $9C, $9E, $9D, $9F ; Animated_WaterFall_Top_Right
+	.db $B8, $BA, $B9, $BB ; Animated_WaterFall_Bottom_Left
+	.db $BC, $BE, $BD, $BF ; Animated_WaterFall_Bottom_Right
+
 	.db $22, $24, $23, $25 ; $58
 	.db $92, $93, $93, $92 ; $5C
 	.db $50, $51, $50, $51 ; $60

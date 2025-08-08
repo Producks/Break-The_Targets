@@ -411,7 +411,15 @@ Solid_Block_Animated_Mario3 = $10
 Tile_Coin_Animated_Mario3 =   $11
 Tile_Plant_Animated_Mario3 =  $12
 Tile_Spike_Mario3          =  $13
-Tile_Spike_Mario3_d          =$14
+Tile_Spike_Mario3_d        =  $14
+
+Tile_Gimmick_Bottom_Solid  =  $15
+Tile_Gimmick_Top_Solid  =     $16
+Tile_Gimmick_Star_Top_Left =  $17
+Tile_Gimmick_Star_Top_Right  =  $18
+Tile_Gimmick_Star_Bottom_Left  =  $19
+Tile_Gimmick_Star_Bottom_Right  =  $1A
+
 
 ; Palette 1 range 0x40 to 0x80
 Tile_Background_First_SP =    $40
@@ -458,6 +466,9 @@ Backgroundtile_Solid_Pipe_08 =    $62
 Backgroundtile_Solid_Pipe_09 =    $63
 Backgroundtile_Solid_Pipe_10 =    $64
 
+Tower_Gimmick_Middle =            $65
+Tower_Gimmick_Right         =     $66
+
 ; Palette 2 range 0x80 to 0xC0
 Tile_Background_First_TP =    $80
 Tile_Background_Second_TP =   $81
@@ -479,6 +490,11 @@ Tile_Solid_Eighth_TP =        $8F
 
 Tile_Cloud_TP =               $90
 Tile_Upsidedown_Cloud_TP =    $91
+
+Animated_WaterFall_Top_Left = $92
+Animated_WaterFall_Top_Right = $93
+Animated_WaterFall_Bottom_Left = $94
+Animated_WaterFall_Bottom_Right = $95
 
 ; Palette 2 range 0xC0 to 0xFF
 Tile_Sky_Background =         $C0
@@ -998,6 +1014,10 @@ CHRBank_Zelda2_TileSet = $40
 CHRBank_Zelda2_SpriteTop = $42
 CHRBank_Zelda2_SpriteBottom = $43
 
+CHRBank_Gimmick_TileSet = $48
+CHRBank_Gimmick_SpriteTop = $4A
+CHRBank_Gimmick_SpriteBottom = $4B
+
 
 CHRBank_ChanceBG1 = $34
 CHRBank_ChanceBG2 = $36
@@ -1051,7 +1071,8 @@ DancingTrack = $01
 TreasureTrack = $02
 ChildTrack = $03
 StormTrack = $04
-TogetherTrack = $05
+ThreeDTrack = $05
+TogetherTrack = $06
 
 
 PRG_BANK_Dancing = $05
@@ -1060,5 +1081,7 @@ PRG_BANK_Child = $05
 
 PRG_BANK_Storm = $0C
 PRG_BANK_Together = $0C
+
+PRG_Bank_ThreeD = $08
 
 .endinl
