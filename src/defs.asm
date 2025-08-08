@@ -1020,6 +1020,9 @@ CHRBank_Gimmick_TileSet = $48
 CHRBank_Gimmick_SpriteTop = $4A
 CHRBank_Gimmick_SpriteBottom = $4B
 
+CHRBank_Metroid_TileSet = $4C
+CHRBank_Metroid_Sprites_Top = $4E
+CHRBank_Metroid_Sprites_Bottom = $4F
 
 CHRBank_ChanceBG1 = $34
 CHRBank_ChanceBG2 = $36

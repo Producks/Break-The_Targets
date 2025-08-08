@@ -4200,6 +4200,8 @@ AreaHudRestrictionPTRLo:
   .db <JumpText
   .db <TimeText
 
+  .db <NoneText
+
 AreaHudRestrictionPTRHi:
   .db >TimeText
   .db >ThrowsText
@@ -4208,6 +4210,7 @@ AreaHudRestrictionPTRHi:
 
   .db >JumpText
   .db >TimeText
+  .db >NoneText
 
 LevelNameHudPTRLo:
   .db <Area0LevelName
@@ -4216,6 +4219,8 @@ LevelNameHudPTRLo:
   .db <Area3LevelName
   .db <Area4LevelName
   .db <Area5LevelName
+  .db <Area6LevelName
+  .db <Area7LevelName
 
 LevelNameHudPTRHi:
   .db >Area0LevelName
@@ -4224,6 +4229,8 @@ LevelNameHudPTRHi:
   .db >Area3LevelName
   .db >Area4LevelName
   .db >Area5LevelName
+  .db >Area6LevelName
+  .db >Area7LevelName
 
 JumpText:
   .db $0C, $0E, $19, $0F, $1C, $0D ; Jumps!
@@ -4262,6 +4269,14 @@ Area4LevelName:
 Area5LevelName:
   .db $7D, $32, $67, $60, $63, $6E, $76, $7D ;  Shadow
   .db $2F, $71, $68, $6D, $62, $64, $72, $72 ; Princess
+
+Area6LevelName:
+  .db $7D, $7D, $21, $6E, $6C, $61, $7D, $7D ; Bomb
+  .db $7D, $7D, $29, $74, $6C, $6F, $7D, $7D ; Jump
+
+Area7LevelName:
+  .db $7D, $7D, $21, $6E, $6C, $61, $7D, $7D ; Bomb
+  .db $7D, $7D, $29, $74, $6C, $6F, $7D, $7D ; Jump
 
 
 LoadCurrentAreaHud:

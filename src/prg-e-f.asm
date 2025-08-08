@@ -4313,6 +4313,7 @@ DoAreaReset:
 	STA ObjectCarriedOver
 	STA SubspaceTimer
 	STA SubspaceDoorTimer
+  STA PlayerState ; TODO CHECK IF EXTRA BUGGY
 IFDEF CONTROLLER_2_DEBUG
 	STA ChangeCharacterPoofTimer
 ENDIF
