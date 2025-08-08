@@ -4,9 +4,13 @@
 TargetsCountTable:
   .db $03, $04, $03, $03
 
+  .db $05, $01, $03
+
 ; Restriction table, Index by current area
 RestrictionCountTable:
   .db $0F, $02, $00, $02
+
+  .db $01, $10, $01
 
 RestrictionTypeTable:
   .db TimeRestriction
@@ -14,11 +18,19 @@ RestrictionTypeTable:
   .db NoRestriction
   .db TimeRestriction
 
+  .db JumpRestriction
+  .db TimeRestriction
+  .db JumpRestriction
+
 ScreenCountArea:
   .db $01 ; 0
   .db $02 ; 1
   .db $05 ; 2
   .db $03 ; 3
+
+  .db $00 ; Multiroom peach
+  .db $00 ; Multiroom peach
+  .db $00 ; Multiroom peach
 
 ;
 ; #### Palette pointers
@@ -29,11 +41,20 @@ PalettePTRLo:
   .db <Area2Palette
   .db <Area3Palette
 
+  .db <Area4Palette
+  .db <Area5Palette
+  .db <Area4Palette
+
 PalettePTRHi:
 	.db >Area0Palette
   .db >Area1Palette
   .db >Area2Palette
   .db >Area3Palette
+
+  .db >Area4Palette
+  .db >Area5Palette
+  .db >Area4Palette
+
 
 Area0Palette:
 ; Background
@@ -119,4 +140,48 @@ Area3Palette:
   .db CHRBank_Toad
   .db CHRBank_Mario3_SpriteTopSet
   .db CHRBank_Mario3_SpriteBottomSet
+  .db CHRBank_Global_Sprites
+
+
+
+Area4Palette:
+; Day
+	.db $0F, $07, $27, $37 ; $04
+	.db $0F, $30, $16, $07 ; $08
+	.db $0F, $3C, $10, $0C ; $00
+	.db $0F, $00, $0F, $30 ; $0C
+
+	.db $0F, $06, $25, $36 ; Peach
+	.db $0F, $30, $16, $06 ; $08
+	.db $0F, $06, $26, $30 ; $00
+	.db $0F, $02, $21, $30 ; $04
+
+; Background chr banks
+  .db CHRBank_Zelda2_TileSet
+  .db CHRBank_Animated1
+; Sprite chr banks
+  .db CHRBank_Princess
+  .db CHRBank_Zelda2_SpriteTop
+  .db CHRBank_Zelda2_SpriteBottom
+  .db CHRBank_Global_Sprites
+
+Area5Palette:
+; Day
+	.db $0F, $07, $27, $37 ; $04
+	.db $0F, $30, $16, $07 ; $08
+	.db $0F, $3C, $10, $0C ; $00
+	.db $0F, $00, $0F, $30 ; $0C
+
+	.db $0F, $0F, $0F, $0F ; Peach
+	.db $0F, $30, $16, $06 ; $08
+	.db $0F, $06, $26, $30 ; $00
+	.db $0F, $02, $21, $30 ; $04
+
+; Background chr banks
+  .db CHRBank_Zelda2_TileSet
+  .db CHRBank_Animated1
+; Sprite chr banks
+  .db CHRBank_MarioSleepingBackground12
+  .db CHRBank_MarioSleepingBackground12
+  .db CHRBank_MarioSleepingBackground12
   .db CHRBank_Global_Sprites

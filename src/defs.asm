@@ -993,6 +993,12 @@ CHRBank_Mario3_SpriteBottomSet = $3B
 
 CHRBank_Mario3_TileSet_Pipe = $3C
 
+
+CHRBank_Zelda2_TileSet = $40
+CHRBank_Zelda2_SpriteTop = $42
+CHRBank_Zelda2_SpriteBottom = $43
+
+
 CHRBank_ChanceBG1 = $34
 CHRBank_ChanceBG2 = $36
 

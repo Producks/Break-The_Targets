@@ -4194,10 +4194,17 @@ AreaHudRestrictionPTRLo:
   .db <ThrowsText
   .db <NoneText
   .db <TimeText
+
+  .db <JumpText
+  .db <TimeText
+
 AreaHudRestrictionPTRHi:
   .db >TimeText
   .db >ThrowsText
   .db >NoneText
+  .db >TimeText
+
+  .db >JumpText
   .db >TimeText
 
 LevelNameHudPTRLo:
@@ -4205,12 +4212,16 @@ LevelNameHudPTRLo:
   .db <Area1LevelName
   .db <Area2LevelName
   .db <Area3LevelName
+  .db <Area4LevelName
+  .db <Area5LevelName
 
 LevelNameHudPTRHi:
   .db >Area0LevelName
   .db >Area1LevelName
   .db >Area2LevelName
   .db >Area3LevelName
+  .db >Area4LevelName
+  .db >Area5LevelName
 
 JumpText:
   .db $0C, $0E, $19, $0F, $1C, $0D ; Jumps!
@@ -4242,9 +4253,13 @@ Area3LevelName:
   .db $33, $68, $6C, $64, $7D, $68, $72, $7D ; Time is
   .db $7D, $2C, $6E, $6D, $64, $78, $7D, $7D ; money
 
-
 Area4LevelName:
-  .db $01, $01, $01, $01, $01, $01, $01, $01
+  .db $21, $71, $6E, $6A, $64, $7D, $68, $73 ; Broke it
+  .db $7D, $33, $76, $68, $62, $64, $7D, $7D ; Twice
+
+Area5LevelName:
+  .db $7D, $32, $67, $60, $63, $6E, $76, $7D ;  Shadow
+  .db $2F, $71, $68, $6D, $62, $64, $72, $72 ; Princess
 
 
 LoadCurrentAreaHud:

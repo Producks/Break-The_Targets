@@ -540,12 +540,15 @@ RestrictionsCountUnderTen:
 
 AreaXSpawnPosition:
   .db $21, $20, $68, $21
+  .db $E1, $11
 
 AreaYSpawnPosition:
   .db $81, $20, $92, $81
+  .db $21, $81
 
 AreaPlayerDirection:
   .db $01, $01, $01, $01
+  .db $00, $01
 
 ; Areas don't always spawn you in the same place, this take care of putting you in the right position. :)
 ; POSITION SPAWN

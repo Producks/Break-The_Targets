@@ -1,0 +1,46 @@
+LevelDataArea5:
+.db $FC, $11, $0c
+.db $FD, $0c
+.db $0d
+.db $FD, $01
+.db $FC, $02, $0c
+.db $03
+.db $FD, $0b
+.db $0f
+.db $FD, $01
+.db $FC, $02, $0c
+.db $FD, $02
+.db $FC, $05, $0c
+.db $FD, $01
+.db $FC, $08, $0c
+.db $FD, $03
+.db $41
+.db $FD, $06
+.db $41
+.db $FD, $04
+.db $0c
+.db $FD, $03
+.db $43
+.db $FD, $06
+.db $43
+.db $FD, $04
+.db $FC, $04, $0c
+.db $FD, $02
+.db $FC, $04, $0c
+.db $FD, $02
+.db $FC, $02, $0c
+.db $FD, $02
+.db $00
+.db $FD, $0f
+.db $02
+.db $FD, $0f
+.db $02
+.db $51
+.db $FD, $0d
+.db $0e
+.db $FD, $07
+.db $FC, $03, $0c
+.db $FD, $0d
+.db $FC, $03, $0c
+.db $FD, $06
+.db $FF

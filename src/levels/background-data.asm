@@ -25,6 +25,9 @@ TableTopLeftBackGroundBlock:
   .db Backgroundtile_Solid_Pipe_06 ; LOLOOL
   .db Backgroundtile_Solid_Pipe_06
 
+  .db Tile_Background_First_SP     ; Zelda 2 background
+  .db Tile_Background_Sixth_SP      ; Lava
+
 TableTopRightBackgroundBlock:
   .db Tile_Sky_Background
   .db Tile_Solid_Fith_FP
@@ -46,6 +49,8 @@ TableTopRightBackgroundBlock:
   .db Backgroundtile_Solid_Pipe_06
   .db Backgroundtile_Solid_Pipe_06
   .db Backgroundtile_Solid_Pipe_01
+  .db Tile_Background_First_SP
+  .db Tile_Background_Sixth_SP
 
 TableBottomLeftBackGroundBlock:
   .db Tile_Sky_Background
@@ -68,6 +73,8 @@ TableBottomLeftBackGroundBlock:
   .db Backgroundtile_Solid_Pipe_07
   .db Backgroundtile_Solid_Pipe_08
   .db Backgroundtile_Solid_Pipe_08
+  .db Tile_Background_First_SP
+  .db Tile_Background_Eighth_SP
 
 TableBottomRightBackgroundBlock:
   .db Tile_Sky_Background
@@ -90,6 +97,8 @@ TableBottomRightBackgroundBlock:
   .db Backgroundtile_Solid_Pipe_08
   .db Backgroundtile_Solid_Pipe_08
   .db Backgroundtile_Solid_Pipe_03
+  .db Tile_Background_First_SP
+  .db Tile_Background_Eighth_SP
 
 BackgroundBlocks_Lo:
   .db <Area0BackgroundBlocks
@@ -133,12 +142,9 @@ BackgroundBlocks_Hi:
 .include "src/levels/background/Area1BackgroundBlocks"
 .include "src/levels/background/Area2BackgroundBlocks"
 .include "src/levels/background/Area3BackgroundBlocks"
+.include "src/levels/background/Area4BackgroundBlocks"
+.include "src/levels/background/Area5BackgroundBlocks"
 
-Area4BackgroundBlocks:
-  .db $FF
-
-Area5BackgroundBlocks:
-  .db $FF
 
 Area6BackgroundBlocks:
   .db $FF

@@ -1,0 +1,5 @@
+Area5BackgroundBlocks:
+.db $28, $14
+.db $01, $01
+.db $07, $15
+.db $FF
