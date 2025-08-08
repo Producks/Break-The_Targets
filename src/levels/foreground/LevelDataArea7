@@ -1,0 +1,52 @@
+LevelDataArea7:
+.db $0c
+.db $08
+.db $0c
+.db $0a
+.db $FC, $02, $08
+.db $09
+.db $0c
+.db $08
+.db $0c
+.db $0b
+.db $0a
+.db $08
+.db $0c
+.db $08
+.db $0c
+.db $0a
+.db $0c
+.db $0b
+.db $08
+.db $FC, $02, $0c
+.db $0a
+.db $FC, $02, $08
+.db $0a
+.db $FC, $02, $0c
+.db $08
+.db $0b
+.db $0c
+.db $0a
+.db $FD, $01
+.db $05
+.db $FD, $03
+.db $05
+.db $FD, $03
+.db $06
+.db $FD, $02
+.db $05
+.db $FD, $01
+.db $07
+.db $FD, $0a
+.db $07
+.db $FD, $47
+.db $50
+.db $FD, $0e
+.db $FC, $03, $08
+.db $FD, $0d
+.db $07
+.db $06
+.db $FD, $0f
+.db $07
+.db $FD, $0e
+.db $FF

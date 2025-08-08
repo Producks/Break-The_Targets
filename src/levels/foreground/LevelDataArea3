@@ -39,7 +39,8 @@ LevelDataArea3:
 .db $FE
 .db $FD, $2c
 .db $11
-.db $FD, $21
+.db $FD, $20
+.db $11
 .db $51
 .db $50
 .db $FD, $0c

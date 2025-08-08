@@ -135,15 +135,6 @@ BackgroundBlocks_Lo:
   .db <Area5BackgroundBlocks
   .db <Area6BackgroundBlocks
   .db <Area7BackgroundBlocks
-  .db <Area8BackgroundBlocks
-  .db <Area9BackgroundBlocks
-  .db <Area10BackgroundBlocks
-  .db <Area11BackgroundBlocks
-  .db <Area12BackgroundBlocks
-  .db <Area13BackgroundBlocks
-  .db <Area14BackgroundBlocks
-  .db <Area15BackgroundBlocks
-  .db <Area16BackgroundBlocks
 
 BackgroundBlocks_Hi:
   .db >Area0BackgroundBlocks
@@ -154,15 +145,6 @@ BackgroundBlocks_Hi:
   .db >Area5BackgroundBlocks
   .db >Area6BackgroundBlocks
   .db >Area7BackgroundBlocks
-  .db >Area8BackgroundBlocks
-  .db >Area9BackgroundBlocks
-  .db >Area10BackgroundBlocks
-  .db >Area11BackgroundBlocks
-  .db >Area12BackgroundBlocks
-  .db >Area13BackgroundBlocks
-  .db >Area14BackgroundBlocks
-  .db >Area15BackgroundBlocks
-  .db >Area16BackgroundBlocks
 
 .include "src/levels/background/Area0BackgroundBlocks"
 .include "src/levels/background/Area1BackgroundBlocks"
@@ -171,33 +153,4 @@ BackgroundBlocks_Hi:
 .include "src/levels/background/Area4BackgroundBlocks"
 .include "src/levels/background/Area5BackgroundBlocks"
 .include "src/levels/background/Area6BackgroundBlocks"
-
-Area7BackgroundBlocks:
-  .db $FF
-
-Area8BackgroundBlocks:
-  .db $FF
-
-Area9BackgroundBlocks:
-  .db $FF
-
-Area10BackgroundBlocks:
-  .db $FF
-
-Area11BackgroundBlocks:
-  .db $FF
-
-Area12BackgroundBlocks:
-  .db $FF
-
-Area13BackgroundBlocks:
-  .db $FF
-
-Area14BackgroundBlocks:
-  .db $FF
-
-Area15BackgroundBlocks:
-  .db $FF
-
-Area16BackgroundBlocks:
-  .db $FF
+.include "src/levels/background/Area7BackgroundBlocks"

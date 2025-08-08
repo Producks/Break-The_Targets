@@ -475,9 +475,9 @@ HorizontalLevel_CheckTransition:
 	LDA TargetsCount
 	BNE HorizontalLevel_CheckScroll
 
-;  LDA CurrentLevelArea
-;  CMP #$00
-;  BEQ CallEnding
+  LDA CurrentLevelArea
+  CMP #$07
+  BEQ CallEnding
 
   JSR DoAreaReset
 
@@ -542,16 +542,19 @@ AreaXSpawnPosition:
   .db $21, $20, $68, $21
   .db $E1, $11
   .db $45
+  .db $11
 
 AreaYSpawnPosition:
   .db $81, $20, $92, $81
   .db $21, $81
   .db $41
+  .db $78
 
 AreaPlayerDirection:
   .db $01, $01, $01, $01
   .db $00, $01
   .db $01
+  .db $00
 
 ; Areas don't always spawn you in the same place, this take care of putting you in the right position. :)
 ; POSITION SPAWN
@@ -1996,32 +1999,6 @@ CurrentSongArea:
 
   .db TogetherTrack
 
-MusicTracksAreaLo:
-  .db <music_data_coffin_dance    ; For Area 0 
-  .db <music_data_coffin_dance    ; For Area 1
-
-  .db <music_data_treasure_master ; For area 2
-
-  .db <music_data_castlevania     ; For area 3
-  .db <song_of_storm              ; For area 4
-
-  .db <music_data_super_bell_hill ; For area 5
-
-  .db <together_we_ride           ; For area 6
-
-MusicTracksAreaHi:
-  .db >music_data_coffin_dance
-  .db >music_data_coffin_dance
-
-  .db >music_data_treasure_master
-
-  .db >music_data_castlevania
-  .db >song_of_storm
-
-  .db >music_data_super_bell_hill
-
-  .db >together_we_ride
-
 MusicTrackAreaBank:
   .db PRG_BANK_Dancing
   .db PRG_BANK_Dancing
@@ -2034,6 +2011,37 @@ MusicTrackAreaBank:
   .db PRG_Bank_ThreeD
 
   .db PRG_BANK_Together
+
+.pad $DD00, $FF
+
+MusicTracksAreaLo:
+  .db <music_data_coffin_dance    ; For Area 0 
+  .db <music_data_coffin_dance    ; For Area 1
+
+  .db <music_data_treasure_master ; For area 2
+
+  .db <music_data_castlevania     ; For area 3
+  .db <song_of_storm              ; For area 4
+  .db <song_of_storm              ; For area 5
+
+  .db <music_data_super_bell_hill ; For area 6
+
+  .db <together_we_ride           ; For area 7
+
+MusicTracksAreaHi:
+  .db >music_data_coffin_dance
+  .db >music_data_coffin_dance
+
+  .db >music_data_treasure_master
+
+  .db >music_data_castlevania
+  .db >song_of_storm
+  .db >song_of_storm
+
+  .db >music_data_super_bell_hill
+
+  .db >together_we_ride
+
 
 PlayAreaSong:
   LDY CurrentLevelArea

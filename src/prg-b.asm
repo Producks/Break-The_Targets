@@ -365,7 +365,7 @@ RosalinaStats:
 	.db $AC ; Jump Speed, running - no object
 	.db $B3 ; Jump Speed, running - with object
 	.db $E0 ; Jump Speed - in quicksand
-	.db $3C ; Floating Time
+	.db $FF ; Floating Time
 	.db $07 ; Gravity without Jump button pressed
 	.db $04 ; Gravity with Jump button pressed
 	.db $08 ; Gravity in quicksand
@@ -398,6 +398,7 @@ CurrentCharacterTable:
   .db Character_Mario, Character_Mario, Character_Luigi, Character_Toad
   .db Character_Princess, Character_Princess
   .db Character_Wario
+  .db Character_Rosalina
 
 LoadCurrentAreaCharacter:
   LDY CurrentLevelArea

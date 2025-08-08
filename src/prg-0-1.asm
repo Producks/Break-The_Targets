@@ -1979,6 +1979,11 @@ loc_BANK0_8CE5:
 	LDY JumpFloatTimer
 	BEQ PlayerGravity_Falling
 
+  LDA CurrentCharacter
+  CMP #Character_Rosalina
+  BEQ RosalinaFloat
+
+StandardFloat:
 	DEC JumpFloatTimer
 	LDA byte_RAM_10
 	LSR A
@@ -1989,6 +1994,12 @@ loc_BANK0_8CE5:
 	LDA FloatingYVelocity, Y
 	STA PlayerYVelocity
 	RTS
+
+RosalinaFloat:
+ ; DEC JumpFloatTimer
+  LDA #$FC
+  STA PlayerYVelocity
+  RTS
 
 PlayerGravity_Falling:
 	LDY PlayerYVelocity
@@ -4202,6 +4213,8 @@ AreaHudRestrictionPTRLo:
 
   .db <NoneText
 
+  .db <JumpText
+
 AreaHudRestrictionPTRHi:
   .db >TimeText
   .db >ThrowsText
@@ -4211,6 +4224,8 @@ AreaHudRestrictionPTRHi:
   .db >JumpText
   .db >TimeText
   .db >NoneText
+
+  .db >JumpText
 
 LevelNameHudPTRLo:
   .db <Area0LevelName
@@ -4271,12 +4286,12 @@ Area5LevelName:
   .db $2F, $71, $68, $6D, $62, $64, $72, $72 ; Princess
 
 Area6LevelName:
-  .db $7D, $7D, $21, $6E, $6C, $61, $7D, $7D ; Bomb
-  .db $7D, $7D, $29, $74, $6C, $6F, $7D, $7D ; Jump
+  .db  $7D, $21, $6E, $6C, $61, $7D, $7D, $7D ; Bomb
+  .db  $7D, $29, $74, $6C, $6F, $7D, $7D, $7D ; Jump
 
 Area7LevelName:
-  .db $7D, $7D, $21, $6E, $6C, $61, $7D, $7D ; Bomb
-  .db $7D, $7D, $29, $74, $6C, $6F, $7D, $7D ; Jump
+  .db $28, $6D, $65, $68, $6D, $68, $73, $64 ; Infinite
+  .db $7D, $25, $6B, $6E, $60, $73, $7D, $7D ; Float
 
 
 LoadCurrentAreaHud:

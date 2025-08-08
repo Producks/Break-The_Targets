@@ -1,0 +1,3 @@
+Area7BackgroundBlocks:
+.db $30, $00
+.db $FF

@@ -8,6 +8,8 @@ LevelDataAreaLo:
 
   .db <LevelDataArea6
 
+  .db <LevelDataArea7
+
 LevelDataAreaHi:
   .db >LevelDataArea0
   .db >LevelDataArea1
@@ -17,6 +19,8 @@ LevelDataAreaHi:
   .db >LevelDataArea5
 
   .db >LevelDataArea6
+
+  .db >LevelDataArea7
 
 .include "src/levels/foreground/LevelDataArea0"
 
@@ -32,33 +36,4 @@ LevelDataAreaHi:
 
 .include "src/levels/foreground/LevelDataArea6"
 
-
-LevelDataArea7:
-  .db $FF
-
-LevelDataArea8:
-  .db $FF
-
-LevelDataArea9:
-  .db $FF
-
-LevelDataArea10:
-  .db $FF
-
-LevelDataArea11:
-  .db $FF
-
-LevelDataArea12:
-  .db $FF
-
-LevelDataArea13:
-  .db $FF
-
-LevelDataArea14:
-  .db $FF
-
-LevelDataArea15:
-  .db $FF
-
-LevelDataArea16:
-  .db $FF
+.include "src/levels/foreground/LevelDataArea7"

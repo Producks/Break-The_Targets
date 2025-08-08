@@ -18,7 +18,7 @@ RestrictionCountTable:
 
   .db $00
 
-  .db $0F
+  .db $01
 
 RestrictionTypeTable:
   .db TimeRestriction
@@ -43,7 +43,7 @@ ScreenCountArea:
 
   .db $03 ; gimmick
 
-  .db $02
+  .db $00 ; LOL
 
 ;
 ; #### Palette pointers

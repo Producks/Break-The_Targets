@@ -13,12 +13,20 @@ CarryYOffsetBigLo:
 	.db $F6 ; Princess
 	.db $FC ; Toad
 	.db $F7 ; Luigi
+	.db $FA ; Merio
+	.db $F7 ; Garfield
+	.db $FC ; Toadette
+	.db $F6 ; Rosalina
 
 CarryYOffsetBigHi:
 	.db $FF ; Mario
 	.db $FF ; Princess
 	.db $FF ; Toad
 	.db $FF ; Luigi
+	.db $FF ; Merio
+	.db $FF ; Garfield
+	.db $FF ; Toadette
+	.db $FF ; Rosalina
 
 CarryYOffsetSmallLo:
 	.db $02 ; Mario
@@ -3454,6 +3462,8 @@ EnemyBehavior_Target:
   JSR UpdateHudTarget
 	LDA #SpriteFlags46E_00
 	STA EnemyArray_46E, X
+  LDA #SoundEffect1_EnemyHit
+  STA SoundEffectQueue2
 	JMP TurnIntoPuffOfSmoke
 
 TargetAlive:
@@ -3566,8 +3576,6 @@ EnemyBehavior_Bomb_Explode:
 	LDA #$20
 	STA ObjectTimer1, X
 	STA SkyFlashTimer
-	LDA #DPCM_DoorOpenBombBom
-	STA DPCMQueue
 	LSR A
 	; A = $00
 	STA ObjectProjectileTimer, X
@@ -5184,6 +5192,7 @@ EnemyBehavior_Shell_Slide:
 	JSR ResetObjectYVelocity
 
 EnemyBehavior_Shell_Render:
+  INC ObjectAnimationTimer, X ; Animation timer
 	JSR RenderSprite
 
 	LDY EnemyMovementDirection, X
@@ -5491,7 +5500,7 @@ EnemyTilemap1:
 	.db $96, $96 ; $2E
 	; Warrio shell
 	.db $41, $43 ; $30
-	.db $45, $49 ; $32
+	.db $45, $47 ; $32
 	; Bomb
 	.db $DB, $DD ; $34
 	.db $DB, $DD ; $36
@@ -11494,8 +11503,6 @@ DoorHandling_GoThroughDoor_Bank3:
 	INC PlayerLock
 	JSR SnapPlayerToTile_Bank3
 
-	LDA #DPCM_DoorOpenBombBom
-	STA DPCMQueue
 	RTS
 
 
