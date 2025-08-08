@@ -1,17 +1,99 @@
 LevelDataArea6:
-.db $FD, $4b
+.db $0c
+.db $FD, $0f
+.db $0c
+.db $FD, $0f
+.db $0c
+.db $FD, $0f
+.db $0c
+.db $FD, $0f
+.db $0c
+.db $FD, $0a
+.db $65
+.db $FD, $04
+.db $0c
+.db $FD, $09
+.db $47
+.db $80
+.db $66
+.db $FD, $03
+.db $0c
+.db $FD, $03
+.db $08
+.db $09
+.db $FD, $07
+.db $40
+.db $FC, $02, $41
+.db $0e
+.db $FD, $0c
+.db $42
+.db $FC, $02, $43
+.db $FD, $0d
+.db $42
+.db $FC, $02, $43
+.db $FD, $07
+.db $08
+.db $09
+.db $FD, $04
+.db $42
+.db $8e
+.db $43
+.db $0a
+.db $FD, $0f
+.db $08
+.db $FD, $0f
+.db $FE
+.db $FD, $45
 .db $65
 .db $FD, $0e
 .db $47
 .db $80
 .db $66
-.db $FD, $63
+.db $FD, $09
+.db $FC, $04, $41
+.db $FD, $0c
+.db $FC, $04, $43
+.db $FD, $0c
+.db $FC, $04, $43
+.db $FD, $0c
+.db $FC, $04, $43
+.db $FD, $04
+.db $08
+.db $FC, $02, $15
+.db $09
+.db $FD, $0a
+.db $0b
+.db $FD, $0f
+.db $09
+.db $FD, $09
 .db $FE
-.db $FD, $a8
-.db $8e
-.db $FD, $03
-.db $8e
-.db $FD, $13
+.db $FD, $90
+.db $FC, $02, $8e
+.db $FD, $09
+.db $08
+.db $15
+.db $09
+.db $FD, $07
+.db $08
+.db $FC, $02, $15
+.db $09
+.db $FD, $17
 .db $FE
-.db $FD, $c0
+.db $FD, $6d
+.db $65
+.db $FD, $0e
+.db $47
+.db $80
+.db $66
+.db $FD, $01
+.db $08
+.db $15
+.db $09
+.db $FD, $0a
+.db $8e
+.db $FD, $19
+.db $0a
+.db $FD, $0f
+.db $08
+.db $FD, $08
 .db $FF

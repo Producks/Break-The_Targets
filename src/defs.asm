@@ -810,6 +810,8 @@ Enemy_Falling_Platform =  $16
 
 Enemy_JarGeneratorBobOmb = $16
 
+Enemy_Wario_Shell        = $17
+
 Enemy_Phanto = $17 ; bye free
 Enemy_CobratJar = $18
 Enemy_CobratSand = $19

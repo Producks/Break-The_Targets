@@ -541,14 +541,17 @@ RestrictionsCountUnderTen:
 AreaXSpawnPosition:
   .db $21, $20, $68, $21
   .db $E1, $11
+  .db $45
 
 AreaYSpawnPosition:
   .db $81, $20, $92, $81
   .db $21, $81
+  .db $41
 
 AreaPlayerDirection:
   .db $01, $01, $01, $01
   .db $00, $01
+  .db $01
 
 ; Areas don't always spawn you in the same place, this take care of putting you in the right position. :)
 ; POSITION SPAWN
@@ -3174,7 +3177,7 @@ ObjectAttributeTable:
 	.db ObjAttrib_Palette1 | ObjAttrib_Mirrored ; $14 Enemy_Hoopstar
 	.db ObjAttrib_Palette0 ; $15 Enemy_JarGeneratorShyguy
 	.db ObjAttrib_Palette1 ; $16 Enemy_Falling_Platform
-	.db ObjAttrib_Palette1 | ObjAttrib_FrontFacing ; $17 Enemy_Phanto
+	.db ObjAttrib_Palette1 ; $17 Enemy_Wario_Shell
 	.db ObjAttrib_Palette1 | ObjAttrib_16x32 | ObjAttrib_UpsideDown ; $18 Enemy_CobratJar
 	.db ObjAttrib_Palette1 | ObjAttrib_16x32 ; $19 Enemy_CobratSand
 	.db ObjAttrib_Palette2 | ObjAttrib_FrontFacing ; $1A Enemy_Pokey
@@ -3261,7 +3264,8 @@ EnemyArray_46E_Data:
 	.db SpriteFlags46E_00 ; $14 Enemy_Hoopstar
 	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $15 Enemy_JarGeneratorShyguy
 	.db SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $16 Enemy_Falling_Platform
-	.db SpriteFlags46E_Damage | SpriteFlags46E_Unliftable | SpriteFlags46E_NoEnemyCollision ; $17 Enemy_Phanto
+	.db SpriteFlags46E_Damage | SpriteFlags46E_DoubleSpeed | SpriteFlags46E_Unliftable ; $17 Enemy_Wario_Shell
+
 	.db SpriteFlags46E_Tilemap2 ; $18 Enemy_CobratJar
 	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_DoubleSpeed ; $19 Enemy_CobratSand
 	.db SpriteFlags46E_Tilemap2 | SpriteFlags46E_MirrorAnimation ; $1A Enemy_Pokey
@@ -3340,7 +3344,8 @@ EnemyArray_492_Data:
 	.db $0D ; $15 Enemy_JarGeneratorShyguy
 	.db $0D ; $16 Enemy_Falling_Platform
 
-	.db $05 ; $17 Enemy_Phanto
+	.db $05 ; $17 Enemy_Wario_Shell
+
 	.db $0C ; $18 Enemy_CobratJar
 	.db $0C ; $19 Enemy_CobratSand
 	.db $05 ; $1A Enemy_Pokey
@@ -3419,7 +3424,7 @@ ObjectHitbox_Data:
 	.db $08 ; $15 Enemy_JarGeneratorShyguy
 	.db $02 ; $16 Enemy_Falling_Platform
 
-	.db $02 ; $17 Enemy_Phanto
+	.db $02 ; $17 Enemy_Wario_Shell
 	.db $04 ; $18 Enemy_CobratJar
 	.db $04 ; $19 Enemy_CobratSand
 	.db $0E ; $1A Enemy_Pokey
@@ -3496,7 +3501,8 @@ EnemyPlayerCollisionTable:
 	.db $00 ; $15 Enemy_JarGeneratorShyguy
 	.db $00 ; $16 Enemy_Falling_Platform
 
-	.db $00 ; $17 Enemy_Phanto
+	.db $00 ; $17 Enemy_Wario_Shell
+
 	.db $00 ; $18 Enemy_CobratJar
 	.db $00 ; $19 Enemy_CobratSand
 	.db $00 ; $1A Enemy_Pokey
@@ -4472,7 +4478,7 @@ TileQuads1:
 	.db $44, $46, $45, $47 ; Tile_Spike_Mario3_d
 
 
-	.db $02, $04, $03, $05 ; Tile_Gimmick_Bottom_Solid
+	.db $04, $02, $05, $03 ; Tile_Gimmick_Bottom_Solid
 	.db $22, $24, $23, $25 ; Tile_Gimmick_Top_Solid
 
 	.db $58, $5A, $59, $5B ; Tile_Gimmick_Star_Top_Left

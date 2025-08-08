@@ -1810,10 +1810,12 @@ NoJumpRestriction:
 	LDA #SoundEffect2_Jump
 	STA SoundEffectQueue1
 
-loc_BANK0_8C3D:
-	LDA PlayerRidingCarpet
-	BNE loc_BANK0_8C92
+  LDA CurrentCharacter
+  CMP #Character_Wario
+  BNE loc_BANK0_8C3D
+  INC POWQuakeTimer
 
+loc_BANK0_8C3D:
 	LDA QuicksandDepth
 	BNE ResetPartialCrouchJumpTimer
 

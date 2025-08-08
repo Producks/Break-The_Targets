@@ -158,9 +158,9 @@ AreaInitialization_KeyCarryOver:
 	STX byte_RAM_12
 	LDA #EnemyState_Alive
 	STA EnemyState, X
-	LDA #Enemy_Phanto
-	STA ObjectType, X
-	JSR EnemyInit_Basic
+;	LDA #Enemy_Phanto
+;;	STA ObjectType, X
+;	JSR EnemyInit_Basic
 
 	LDA #$00
 	STA PhantoActivateTimer
@@ -817,7 +817,8 @@ EnemyInitializationTable:
 	.dw EnemyInit_JarGenerators ; JarGeneratorShyguy
 	.dw EnemyInit_Basic ; Enemy_Falling_Platform
 
-	.dw EnemyInit_Phanto ; Phanto
+	.dw EnemyInit_Basic ; Enemy_Wario_Shell
+
 	.dw EnemyInit_Cobrats ; CobratJar
 	.dw EnemyInit_Cobrats ; CobratSand
 	.dw EnemyInit_Pokey ; Pokey
@@ -1252,7 +1253,7 @@ HandleEnemyState_BombExploding:
 	JSR ExplodeNearbyBlocks
 
 HandleEnemyState_DrawExplosion:
-	LDA #$60
+	LDA #$C5
 	STA byte_RAM_0
 	LDX #$00
 	LDY #$40
@@ -2141,7 +2142,8 @@ EnemyBehaviorPointerTable:
 	.dw EnemyBehavior_JarGenerators ; $15
 	.dw EnemyBehavior_FallingPlatform ; Enemy_Falling_Platform
   
-	.dw EnemyBehavior_Phanto ; $17
+	.dw EnemyBehavior_Shell ; Enemy_Wario_Shell
+
 	.dw EnemyBehavior_CobratJar ; $18
 	.dw EnemyBehavior_CobratGround ; $19
 	.dw EnemyBehavior_Pokey ; $1A
@@ -5161,8 +5163,6 @@ ShellSpeed:
 EnemyBehavior_Shell:
 	JSR ObjectTileCollision
 
-	JSR EnemyBehavior_CheckBeingCarriedTimerInterrupt
-
 	LDA EnemyCollision, X
 	AND #CollisionFlags_Right | CollisionFlags_Left
 	BEQ EnemyBehavior_Shell_Slide
@@ -5170,8 +5170,11 @@ EnemyBehavior_Shell:
 EnemyBehavior_Shell_Destroy:
 	LDA #SoundEffect1_EnemyHit
 	STA SoundEffectQueue2
-	JMP TurnIntoPuffOfSmoke
 
+	LDA #EnemyState_BombExploding
+	STA EnemyState, X
+	LDA #$20
+	STA ObjectTimer1, X
 
 EnemyBehavior_Shell_Slide:
 	LDA EnemyCollision, X
@@ -5367,6 +5370,8 @@ ENDIF
 	LDA #$D8
 	STA ObjectYVelocity, X
 
+  RTS
+
 KillOnscreenEnemies_SetCollision:
 	LDA EnemyCollision, X
 	ORA #CollisionFlags_Damage
@@ -5484,9 +5489,9 @@ EnemyTilemap1:
 	.db $94, $94 ; $2C
 	; Shell
 	.db $96, $96 ; $2E
-	; Coin
-	.db $98, $98 ; $30
-	.db $9A, $9A ; $32
+	; Warrio shell
+	.db $41, $43 ; $30
+	.db $45, $49 ; $32
 	; Bomb
 	.db $DB, $DD ; $34
 	.db $DB, $DD ; $36
@@ -5495,8 +5500,8 @@ EnemyTilemap1:
 	; POW block
 	.db $C1, $C3 ; $3A
 	; Block fizzle
-	.db $8C, $8C ; $3C
-	.db $8E ,$8E ; $3E
+	.db $D5, $D5 ; $3C
+	.db $D5 ,$D5 ; $3E
 	; Unused?
 	.db $E0, $E2 ; $40
 	; Falling log
@@ -5633,7 +5638,8 @@ EnemyAnimationTable:
 	.db $FF ; $15 Enemy_JarGeneratorShyguy
 	.db $38 ; $16 Enemy_Falling_Platform
 
-	.db $8C ; $17 Enemy_Phanto
+	.db $30 ; $17 Enemy_Wario_Shell
+
 	.db $5C ; $18 Enemy_CobratJar
 	.db $5C ; $19 Enemy_CobratSand
 	.db $6C ; $1A Enemy_Pokey

@@ -6,7 +6,7 @@ TargetsCountTable:
 
   .db $05, $01
 
-  .db $03
+  .db $01
 
 ; Restriction table, Index by current area
 RestrictionCountTable:
@@ -36,7 +36,7 @@ ScreenCountArea:
   .db $00 ; Multiroom peach
   .db $00 ; Multiroom peach
 
-  .db $02 ; gimmick
+  .db $03 ; gimmick
 
 ;
 ; #### Palette pointers
