@@ -548,7 +548,7 @@ AreaYSpawnPosition:
   .db $81, $20, $92, $81
   .db $21, $81
   .db $41
-  .db $78
+  .db $68
 
 AreaPlayerDirection:
   .db $01, $01, $01, $01

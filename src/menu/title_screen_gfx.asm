@@ -39,7 +39,7 @@ DrawScoreAndCoingsDigits:
   .db $20, $63, $0C, $D0, $D0, $D0, $D0, $D0, $D0, $FF, $FF, $CC, $CD, $D0, $D0
 
 DrawPracticeRomText:
-  .db $21, $EF, $0E, $B1, $D2, $D0, $D2, $D5, $FB, $EB, $DE, $DD, $DA, $DC, $ED, $DE, $DD
+  .db $21, $EF, $0E, $B1, $D2, $D0, $D2, $D5, $FB, $E9, $EB, $E8, $DD, $EE, $DC, $E4, $EC
 
 Draw1_1:
   .db $20, $73, $03, $D1, $F4, $D1
