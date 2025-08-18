@@ -1,7 +1,9 @@
 # Break the targets
 My entry for SMW Central [SMB2 level design contest](https://www.smwcentral.net/?p=viewthread&t=130297&page=1&pid=1652030#p1652030).
 
-[Clear video of the level](https://www.youtube.com/watch?v=jsrPxex7x3g)
+[Clear video of the level](https://www.youtube.com/watch?v=jsrPxex7x3g)  
+
+I only had 10 days to make this, imagine what could be made with the full 20 days
 
 ## Features
 * Optimization everywhere for a lag-free experience
@@ -25,7 +27,7 @@ Planning is required before any area editing is done, since they all use a uniqu
 A tileset is made in [asesprite](https://www.aseprite.org/) for the background, foreground, and sprite layers with the correct color palette and Tile ID.
 
 ### Background layer
-Metatiles of 32 pixels per 32 pixels (4x4 of the foreground metatile). These are bonker save space and make the levels look more unique Any configuration of blocks can easily be made to fit what's needed. This also use the RLE system.
+Metatiles of 32 pixels per 32 pixels (4x4 of the foreground metatile). These are bonker for saving space and make the levels look more unique Any configuration of blocks can easily be made to fit what's needed. This also use the RLE system.
 ![](https://github.com/Producks/Break-The_Targets/blob/main/doc/background.PNG?raw=true)
 
 ### Foreground layer
