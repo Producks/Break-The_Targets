@@ -54,7 +54,7 @@ Let's take one of the songs I used as an example, `Together We Ride`. You can fi
 
 ### Famistudio software time
 Load up the file that is compatible with FamiStudio and adjust the song so it loops correctly. Then, export it as an `asm6` file.
-![]()
+![](https://github.com/Producks/Break-The_Targets/blob/main/doc/export_famistudio.PNG?raw=true)
 
 ### Time to import it!
 Once you have the music file FamiStudio generated, all I did was import it into a place that had space. For example, [bank C](https://github.com/Producks/Break-The_Targets/blob/main/src/prg-c.asm) had plenty of space for it. I added the track to my [songlist system](https://github.com/Producks/Break-The_Targets/blob/6239a144cdff4824310c3d4b1b8a470900b0ad90/src/prg-e-f.asm#L2017), gave the [info in what bank it was in](https://github.com/Producks/Break-The_Targets/blob/6239a144cdff4824310c3d4b1b8a470900b0ad90/src/prg-e-f.asm#L2002), gave it an [ID](https://github.com/Producks/Break-The_Targets/blob/6239a144cdff4824310c3d4b1b8a470900b0ad90/src/prg-e-f.asm#L1990C1-L1990C17) and that was pretty much it! Once set up, it's incredibly fast to import new songs, no more than 5 minutes of work.
